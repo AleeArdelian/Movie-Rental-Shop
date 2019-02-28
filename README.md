@@ -1,7 +1,7 @@
 #### Team Details
 
 	Members: * Alexandra Ardelian
-		      * Alexandru Balea
+		 * Alexandru Balea
 	Group: 921/1
 	Problem P3
 
