@@ -16,6 +16,15 @@
 
 #### Lab 2-4 Requirements
 
+	Design the solution for your problem using a CASE tool (use cases, class diagram, sequence diagram for each use case)
+	  * use feature driven development
+	  * layered architecture 
+	  * data validation
+	  * all functions will be documented and tested
+
+	Use Java 8 features (lambda expressions, streams etc); the program should be written without if statements and loops
+	persistence: ‘in memory’, text files, xml, db (jdbc); you may use any RDBMS, but we only offer support for PostgreSQL; MS SQL Server is forbidden
+
 	
 #### Lab 2-4 Iteration Plan
 
