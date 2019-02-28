@@ -1,6 +1,6 @@
 #### Team Details
 
-	Team members: * Alexandra Ardelian
+	Members: * Alexandra Ardelian
 		      * Alexandru Balea
 	Group: 921/1
 	Problem P3
