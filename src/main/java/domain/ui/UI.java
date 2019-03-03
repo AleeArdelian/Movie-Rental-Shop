@@ -38,6 +38,7 @@ public class UI {
             int userChoice = readUserChoice(keyboard);
             switch (userChoice) {
                 case 0:
+                    running = false;
                     break;
             }
         }
