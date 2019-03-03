@@ -53,7 +53,7 @@ public class UI {
                     printAllClients();
                     break;
                 case 2:
-                    System.out.println("Picked 2");
+                    printAllMovies();
                     break;
                 case 3:
                     System.out.println("Picked 3");

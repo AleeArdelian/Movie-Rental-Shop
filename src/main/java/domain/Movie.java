@@ -28,4 +28,9 @@ public class Movie extends BaseEntity<Integer> {
         return this.regizor;
     }
 
+    public String toString()
+    {
+        return getId() + " " + movieName +" "+ yearOFRelease + " " + regizor;
+    }
+
 }
