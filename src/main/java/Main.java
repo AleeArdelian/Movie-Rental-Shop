@@ -1,19 +1,13 @@
 import domain.Client;
-<<<<<<< HEAD
+
 import ui.UI;
-=======
 import domain.Movie;
-import domain.ui.UI;
->>>>>>> 803ffc9fafedbc380862b6b27328e627048e8d36
 import domain.validators.ClientValidator;
 import domain.validators.MovieValidator;
 import domain.validators.Validator;
 import repository.InMemoryRepository;
 import repository.Repository;
 import service.ClientRentalService;
-
-import java.lang.management.MonitorInfo;
-import java.lang.reflect.Modifier;
 
 public class Main {
 
