@@ -36,4 +36,9 @@ public class Client extends BaseEntity<Integer> {
         this.age = age;
     }
 
+    public String toString()
+    {
+        return getId() + " " +firstName +" "+ lastName +" " + age;
+    }
+
 }
