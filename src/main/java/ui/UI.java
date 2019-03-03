@@ -2,6 +2,7 @@ package ui;
 
 import domain.Client;
 import domain.Movie;
+import domain.validators.ValidatorException;
 import service.ClientRentalService;
 
 import java.util.Scanner;
@@ -39,7 +40,7 @@ public class UI {
         movies.forEach(System.out::println);
     }
 
-    private void addNewClient(Scanner keyboard)
+    private void addNewClient(Scanner keyboard) throws ValidatorException
     {
         System.out.println("Add a new client: ");
         System.out.println("ID: ");
@@ -58,33 +59,57 @@ public class UI {
         crs.addClient(client);
     }
 
+    private void addNewMovie(Scanner keyboard) throws ValidatorException
+    {
+        System.out.println("Add a new movie: ");
+        System.out.println("ID: ");
+        int id = keyboard.nextInt();
+        keyboard.nextLine();
+        System.out.println("Movie name: ");
+        String name= keyboard.nextLine();
+        System.out.println("Year: ");
+        Integer year = keyboard.nextInt();
+        keyboard.nextLine();
+        System.out.println("Regizor: ");
+        String regizor = keyboard.nextLine();
+
+        Movie movie = new Movie(name,year,regizor);
+        movie.setId(id);
+
+        crs.addMovie(movie);
+    }
+
     public void start() {
         boolean running = true;
         Scanner keyboard = new Scanner(System.in);
-
         while (running) {
-            showMainMenu();
-            int userChoice = readUserChoice(keyboard);
-            switch (userChoice) {
-                case 0:
-                    running = false;
-                    break;
-                case 1:
-                    printAllClients();
-                    break;
-                case 2:
-                    printAllMovies();
-                    break;
-                case 3:
-                    addNewClient(keyboard);
-                    break;
-                case 4:
-                    System.out.println("Picked 4");
-                    break;
-                default:
-                    System.out.println("Invalid choice!");
-                    break;
+            try {
+                showMainMenu();
+                int userChoice = readUserChoice(keyboard);
+                switch (userChoice) {
+                    case 0:
+                        running = false;
+                        break;
+                    case 1:
+                        printAllClients();
+                        break;
+                    case 2:
+                        printAllMovies();
+                        break;
+                    case 3:
+                        addNewClient(keyboard);
+                        break;
+                    case 4:
+                        addNewMovie(keyboard);
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                        break;
 
+                }
+
+            } catch (ValidatorException val) {
+                System.out.println(val.getMessage());
             }
         }
     }
