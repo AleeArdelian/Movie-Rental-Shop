@@ -1,5 +1,5 @@
 import domain.Client;
-import domain.ui.UI;
+import ui.UI;
 import domain.validators.ClientValidator;
 import domain.validators.Validator;
 import repository.InMemoryRepository;

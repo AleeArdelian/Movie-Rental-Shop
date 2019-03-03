@@ -1,4 +1,4 @@
-package domain.ui;
+package ui;
 
 import service.ClientRentalService;
 
@@ -18,7 +18,7 @@ public class UI {
                 "  2. Movies\n" +
                 "  3. Rent a Movie\n" +
                 "  4. Return a Movie\n" +
-                "  0. Exit\n\n");
+                "  0. Exit\n");
     }
 
     private int readUserChoice(Scanner keyboard) {
