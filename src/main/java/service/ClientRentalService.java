@@ -9,5 +9,8 @@ public class ClientRentalService {
     private Repository<Integer, Client> clientRepository;
     private Repository<Integer, Movie> movieRepository;
 
-    //public ClientRentalService(Repository<Integer,Client> )
+    public ClientRentalService(Repository<Integer,Client> crs) {
+        clientRepository = crs;
+    }
+
 }

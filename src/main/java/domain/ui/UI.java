@@ -13,11 +13,11 @@ public class UI {
     }
 
     private static void showMainMenu() {
-        System.out.println("\t\tMovie Rental Shop\n" +
+        System.out.println("\n\t\tMovie Rental Shop\n\n" +
                 "  1. Clients\n" +
                 "  2. Movies\n" +
-                "  3. Rent a Movie" +
-                "  4. Return a Movie" +
+                "  3. Rent a Movie\n" +
+                "  4. Return a Movie\n" +
                 "  0. Exit\n\n");
     }
 
