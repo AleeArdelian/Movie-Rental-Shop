@@ -12,6 +12,10 @@ public class Client extends BaseEntity<Integer> {
         this.age = age;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
