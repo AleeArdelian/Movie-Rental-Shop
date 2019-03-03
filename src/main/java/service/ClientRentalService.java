@@ -2,6 +2,7 @@ package service;
 
 import domain.Client;
 import domain.Movie;
+import domain.validators.ValidatorException;
 import repository.Repository;
 
 import java.util.Set;
@@ -18,12 +19,12 @@ public class ClientRentalService {
         clientRepository = crs;
         movieRepository=mov;
     }
-    public void addClient(Client client)
+    public void addClient(Client client) throws ValidatorException
     {
         clientRepository.save(client);
     }
 
-    public void addMovie(Movie movie)
+    public void addMovie(Movie movie) throws ValidatorException
     {
         movieRepository.save(movie);
     }
