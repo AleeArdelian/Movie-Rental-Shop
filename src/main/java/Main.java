@@ -25,16 +25,21 @@ public class Main {
         Validator<Movie> movieValidator = new MovieValidator();
         Repository<Integer,Movie> movieRepository = new InMemoryRepository<>(movieValidator);
 
-        Movie movie1 = new Movie("Titanic",1990, "Bla bla");
+        Movie movie1 = new Movie("Titanic",1997, "James Cameron");
         movie1.setId(1);
         movieRepository.save(movie1);
-        Movie movie2 = new Movie("Pulp fiction", 1993,"Tarantino");
+        Movie movie2 = new Movie("Pulp Fiction", 1994,"Quentin Tarantino");
         movie2.setId(2);
         movieRepository.save(movie2);
 
         ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository);
         UI consoleUI = new UI(crs);
-        consoleUI.start();
+        try {
+            consoleUI.start();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
 }

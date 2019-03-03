@@ -3,14 +3,14 @@ package domain;
 public class Movie extends BaseEntity<Integer> {
 
     private String movieName;
-    private Integer yearOFRelease;
-    private String regizor;
+    private Integer yearOfRelease;
+    private String director;
 
-    public Movie(String name, Integer year, String reg)
+    public Movie(String name, Integer year, String director)
     {
-        this.movieName=name;
-        this.yearOFRelease=year;
-        this.regizor=reg;
+        this.movieName = name;
+        this.yearOfRelease = year;
+        this.director = director;
     }
 
     public String getMovieName()
@@ -20,17 +20,17 @@ public class Movie extends BaseEntity<Integer> {
 
     public Integer getYear()
     {
-        return this.yearOFRelease;
+        return this.yearOfRelease;
     }
 
     public String getMovieRegizor()
     {
-        return this.regizor;
+        return this.director;
     }
 
     public String toString()
     {
-        return getId() + " " + movieName +" "+ yearOFRelease + " " + regizor;
+        return getId() + " " + movieName + " " + yearOfRelease + " " + director;
     }
 
 }

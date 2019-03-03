@@ -4,7 +4,7 @@ public class Client extends BaseEntity<Integer> {
 
     private String firstName;
     private String lastName;
-    private int age = 0;
+    private int age;
 
     public Client(String firstName, String lastName, int age) {
         this.firstName = firstName;
@@ -42,7 +42,7 @@ public class Client extends BaseEntity<Integer> {
 
     public String toString()
     {
-        return getId() + " " +firstName +" "+ lastName +" " + age;
+        return getId() + " " + lastName + " " + firstName + " " + age;
     }
 
 }
