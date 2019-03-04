@@ -2,9 +2,8 @@ package domain;
 
 import domain.validators.ValidatorException;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
 
 import static org.junit.Assert.*;
 
@@ -16,9 +15,6 @@ public class MovieTest {
     private static final String director = "Martin Scorsese";
 
     private Movie movie;
-
-    @Rule
-    public ExpectedException expectedEx = ExpectedException.none();
 
     @Before
     public void setUp() throws ValidatorException {
