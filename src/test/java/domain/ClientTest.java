@@ -34,7 +34,7 @@ public class ClientTest {
 
     /**
      * before functions are called before each test
-     * @throws ValidatorException
+     * @throws ValidatorException if asd
      */
     @Before
     public void setUp() throws ValidatorException {

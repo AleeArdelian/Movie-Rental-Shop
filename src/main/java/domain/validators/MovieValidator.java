@@ -4,8 +4,22 @@ import domain.Movie;
 
 import java.util.Calendar;
 
+/**
+ * MovieValidator class for validating data about a movie.
+ * Implements Validator interface.
+ *
+ * @author Alexandra Ardelian
+ */
 public class MovieValidator implements Validator<Movie> {
 
+    /**
+     * Method for validating information about a movie.
+     * A Movie is valid if: - its id is not negative
+     *                      - its year of release is greater than current year and smaller than the year of release
+     *                      of the first movie ever made (1888)
+     * @param movie a {@code Movie} instance to be validated.
+     * @throws ValidatorException if data about the movie is not valid.
+     */
     @Override
     public void validate(Movie movie) throws ValidatorException {
         String exceptions = "Invalid movie: ";

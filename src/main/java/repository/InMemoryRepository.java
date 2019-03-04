@@ -10,11 +10,21 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * InMemoryRepository class for CRUD operations on in memory repository for generic types.
+ * Implements Repository interface.
+ * @param <ID> type of the id of the entity
+ * @param <T> type of the entity; must extend BaseEntity
+ */
 public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Repository<ID, T>{
 
     private Map<ID, T> entities;
     private Validator<T> validator;
 
+    /**
+     * Constructor for the InMemoryRepository.
+     * @param validator a {@code Validator} for validating entities in the repository.
+     */
     public InMemoryRepository(Validator<T> validator) {
         this.entities = new HashMap<>();
         this.validator = validator;
