@@ -23,7 +23,7 @@ public class Movie extends BaseEntity<Integer> {
         return this.yearOfRelease;
     }
 
-    public String getMovieRegizor()
+    public String getMovieDirector()
     {
         return this.director;
     }

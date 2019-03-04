@@ -8,6 +8,7 @@ import service.ClientRentalService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.IllegalFormatException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -81,7 +82,6 @@ public class UI {
 
         Client client = new Client(firstName, lastName, age);
         client.setId(id);
-
         return client;
     }
 
@@ -116,10 +116,10 @@ public class UI {
                     crs.addClient(getClientFrom(keyboard));
                     break;
                 case 2:
-                    //
+                    System.out.println("Feature soon to be implemented :) ");
                     break;
                 case 3:
-                    //
+                    System.out.println("Feature soon to be implemented :) ");
                     break;
                 case 4:
                     printAllClients();
@@ -145,10 +145,10 @@ public class UI {
                     crs.addMovie(getMovieFrom(keyboard));
                     break;
                 case 2:
-                    //
+                    System.out.println("Feature soon to be implemented :) ");
                     break;
                 case 3:
-                    //
+                    System.out.println("Feature soon to be implemented :) ");
                     break;
                 case 4:
                     printAllMovies();
@@ -170,8 +170,10 @@ public class UI {
                     running = false;
                     break;
                 case 1:
+                    System.out.println("Feature soon to be implemented :) ");
                     break;
                 case 2:
+                    System.out.println("Feature soon to be implemented :) ");
                     break;
                 default:
                     System.out.println("Invalid choice!");
@@ -180,10 +182,9 @@ public class UI {
         }
     }
 
-    public void start() throws IOException {
+    public void start() throws IOException, ValidatorException{
         boolean running = true;
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-        //Scanner keyboard = new Scanner(System.in);
         while (running) {
             try {
                 showMainMenu();
@@ -202,11 +203,9 @@ public class UI {
                         runRentalsMenu(keyboard);
                         break;
                     default:
-                        System.out.println("Invalid choice!");
+                        System.out.println("Invalid choice! Please try again!");
                         break;
-
                 }
-
             } catch (ValidatorException val) {
                 System.out.println(val.getMessage());
             }

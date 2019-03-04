@@ -1,5 +1,6 @@
 import domain.Client;
 
+import domain.validators.ValidatorException;
 import ui.UI;
 import domain.Movie;
 import domain.validators.ClientValidator;
@@ -38,7 +39,7 @@ public class Main {
             consoleUI.start();
         }
         catch (Exception exc) {
-            exc.printStackTrace();
+            exc.getStackTrace();
         }
     }
 
