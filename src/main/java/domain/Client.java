@@ -4,8 +4,6 @@ package domain;
  * Client class for holding information about a client.
  * The information about a client is it's first name, last name and age.
  * Extends BaseEntity class.
- *
- * @author Alexandru Balea
  */
 public class Client extends BaseEntity<Integer> {
 

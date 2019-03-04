@@ -7,8 +7,6 @@ import java.util.Calendar;
 /**
  * MovieValidator class for validating data about a movie.
  * Implements Validator interface.
- *
- * @author Alexandra Ardelian
  */
 public class MovieValidator implements Validator<Movie> {
 

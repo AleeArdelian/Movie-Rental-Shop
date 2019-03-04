@@ -4,8 +4,6 @@ package domain;
  * Movie class for holding information about a movie.
  * The information about a movie is it's name, year of release and director.
  * Extends BaseEntity class.
- *
- * @author Alexandra Ardelian
  */
 public class Movie extends BaseEntity<Integer> {
 

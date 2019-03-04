@@ -5,8 +5,6 @@ import domain.Client;
 /**
  * ClientValidator class for validating data about a client.
  * Implements Validator interface.
- *
- * @author Alexandru Balea
  */
 public class ClientValidator implements Validator<Client> {
 

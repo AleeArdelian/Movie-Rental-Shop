@@ -8,7 +8,9 @@ import org.junit.rules.ExpectedException;
 import repository.InMemoryRepository;
 import repository.Repository;
 
-
+/**
+ * Tests for ClientValidator class.
+ */
 public class ClientValidatorTest {
 
     private static final int id = -5;
@@ -29,6 +31,10 @@ public class ClientValidatorTest {
         client = new Client(firstName,lastName,age);
         client.setId(id);
     }
+
+    /**
+     * Test case for validate method.
+     */
     @Test
     public void validate() {
         expectedEx.expect(RuntimeException.class);

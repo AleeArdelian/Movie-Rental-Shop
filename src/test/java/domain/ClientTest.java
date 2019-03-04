@@ -13,6 +13,9 @@ import repository.Repository;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests for Client class.
+ */
 public class ClientTest {
 
     /**

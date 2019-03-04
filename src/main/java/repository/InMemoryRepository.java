@@ -4,10 +4,7 @@ import domain.BaseEntity;
 import domain.validators.Validator;
 import domain.validators.ValidatorException;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -44,18 +41,18 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
     }
 
     /**
-     * Create a set of all the entities found in the repository
-     * @return a {@code Set} of all the entities of type T
+     * Gets all the entities found in the repository
+     * @return an {@code Iterable} instance representing a set of all the entities in the repository
      */
 
     @Override
     public Iterable<T> findAll() {
-        Set<T> allEntities = entities.entrySet().stream().map(entry -> entry.getValue()).collect(Collectors.toSet());
+        Set<T> allEntities = new HashSet<>(entities.values());
         return allEntities;
     }
 
     /**
-     *  Adds the entity object to the repository
+     * Adds the entity object to the repository
      * @param entity an object of type T
      * @throws ValidatorException if @param entity is not valid
      * @return a {@code Map} with the entity object added

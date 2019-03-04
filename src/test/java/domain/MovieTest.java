@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests for Movie class
+ */
 public class MovieTest {
 
     private static final Integer id = -5;

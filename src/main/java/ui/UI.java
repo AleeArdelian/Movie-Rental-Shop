@@ -8,28 +8,40 @@ import service.ClientRentalService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.IllegalFormatException;
-import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * User Interface class
+ * Menu-based console application
+ */
 public class UI {
 
     private ClientRentalService crs;
 
+    /**
+     * Constructor for the UI class
+     * @param crs a {@code ClientRentalService} instance used to access data from repository
+     */
     public UI(ClientRentalService crs) {
         this.crs = crs;
     }
 
+    /**
+     * Method that prints the Main Menu in the console.
+     */
     private static void showMainMenu() {
-        System.out.println("\n\t\tMovie Rental Shop\n\n" +
+        System.out.println("\t\tMovie Rental Shop\n\n" +
                 "  1. Clients\n" +
                 "  2. Movies\n" +
                 "  3. Rentals\n" +
                 "  0. Exit\n");
     }
 
+    /**
+     * Method that prints the Clients Menu in the console.
+     */
     private static void showClientsMenu() {
-        System.out.println("\n\t\tCLIENTS\n\n" +
+        System.out.println("\t\tCLIENTS\n\n" +
                 "  1. Add\n" +
                 "  2. Delete\n" +
                 "  3. Update\n" +
@@ -37,8 +49,11 @@ public class UI {
                 "  0. Back\n");
     }
 
+    /**
+     * Method that prints the Movies Menu in the console.
+     */
     private static void showMoviesMenu() {
-        System.out.println("\n\t\tMOVIES\n\n" +
+        System.out.println("\t\tMOVIES\n\n" +
                 "  1. Add\n" +
                 "  2. Delete\n" +
                 "  3. Update\n" +
@@ -46,30 +61,52 @@ public class UI {
                 "  0. Back\n");
     }
 
+    /**
+     * Method that print the Rentals Menu in the console.
+     */
     private static void showRentalsMenu() {
-        System.out.println("\n\t\tMOVIES\n\n" +
+        System.out.println("\t\tMOVIES\n\n" +
                 "  1. Rent a movie\n" +
                 "  2. Return a movie\n" +
                 "  0. Back\n");
     }
 
+    /**
+     * Method that reads the user choice from the keyboard.
+     * @param keyboard a {@code BufferedReader} instance use to read from System.in.
+     * @return an {@code int} that represent the user choice (the number of the menu line).
+     * @throws IOException if there are problems with getting the input from System.in.
+     */
     private int readUserChoice(BufferedReader keyboard) throws IOException {
         System.out.print("Your choice: ");
         String userChoice = keyboard.readLine();
+        System.out.println();
         return Integer.parseInt(userChoice);
     }
 
+    /**
+     * Method that prints all the clients in the console.
+     */
     private void printAllClients() {
         Set<Client> clients = crs.getAllClients();
         clients.forEach(System.out::println);
     }
 
+    /**
+     * Method that prints all the movies in the console.
+     */
     private void printAllMovies() {
         Set<Movie> movies = crs.getAllMovies();
         movies.forEach(System.out::println);
     }
 
-    private Client getClientFrom(BufferedReader keyboard) throws ValidatorException, IOException
+    /**
+     * Method that reads data related to a client from keyboard: Id, Name and Age.
+     * @param keyboard a {@code BufferedReader} instance use to read from System.in.
+     * @return a {@code Client} instance created with the data read from keyboard.
+     * @throws IOException if there are problems with getting the input from System.in.
+     */
+    private Client getClientFrom(BufferedReader keyboard) throws IOException
     {
         System.out.print("Id: ");
         int id = Integer.parseInt(keyboard.readLine());
@@ -85,8 +122,13 @@ public class UI {
         return client;
     }
 
-    private Movie getMovieFrom(BufferedReader keyboard) throws ValidatorException, IOException
-    {
+    /**
+     * Method that reads data related to a movie from keyboard: Id, Name, Year of release and Director.
+     * @param keyboard a {@code BufferedReader} instance use to read from System.in.
+     * @return a {@code Movie} instance created with the data read from keyboard.
+     * @throws IOException if there are problems with getting the input from System.in.
+     */
+    private Movie getMovieFrom(BufferedReader keyboard) throws IOException {
         System.out.print("Id: ");
         int id = Integer.parseInt(keyboard.readLine());
         System.out.print("Name: ");
@@ -102,6 +144,12 @@ public class UI {
         return movie;
     }
 
+    /**
+     * Method that runs the Clients Menu.
+     * Prints the Clients Menu and loops until the user chooses to go back.
+     * @param keyboard a {@code BufferedReader} instance use to read from System.in.
+     * @throws IOException if there are problems with getting the input from System.in.
+     */
     private void runClientsMenu(BufferedReader keyboard) throws IOException {
         boolean running = true;
         while (running) {
@@ -131,6 +179,12 @@ public class UI {
         }
     }
 
+    /**
+     * Method that runs the Movies Menu.
+     * Prints the Movies Menu and loops until the user chooses to go back.
+     * @param keyboard a {@code BufferedReader} instance use to read from System.in.
+     * @throws IOException if there are problems with getting the input from System.in.
+     */
     private void runMoviesMenu(BufferedReader keyboard) throws IOException {
         boolean running = true;
         while (running) {
@@ -160,6 +214,12 @@ public class UI {
         }
     }
 
+    /**
+     * Method that runs the Rentals Menu.
+     * Prints the Rentals Menu and loops until the user chooses to go back.
+     * @param keyboard a {@code BufferedReader} instance use to read from System.in.
+     * @throws IOException if there are problems with getting the input from System.in.
+     */
     private void runRentalsMenu(BufferedReader keyboard) throws IOException {
         boolean running = true;
         while (running) {
@@ -182,7 +242,12 @@ public class UI {
         }
     }
 
-    public void start() throws IOException, ValidatorException{
+    /**
+     * Method that runs the Main Menu.
+     * Prints the Main Menu and loops until the user chooses to exit the application.
+     * @throws IOException if there are problems with getting the input from System.in.
+     */
+    public void runMainMenu() throws IOException, ValidatorException{
         boolean running = true;
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
         while (running) {

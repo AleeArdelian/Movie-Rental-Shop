@@ -8,6 +8,9 @@ import org.junit.rules.ExpectedException;
 import repository.InMemoryRepository;
 import repository.Repository;
 
+/**
+ * Tests for MovieValidator class.
+ */
 public class MovieValidatorTest {
 
     private static final Integer id = -5;
@@ -28,6 +31,10 @@ public class MovieValidatorTest {
         movie = new Movie(name,year,director);
         movie.setId(id);
     }
+
+    /**
+     * Test case for validate method.
+     */
     @Test
     public void validate() {
         expectedEx.expect(RuntimeException.class);
