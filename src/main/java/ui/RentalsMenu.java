@@ -1,6 +1,12 @@
 package ui;
 
+import service.ClientRentalService;
+
 class RentalsMenu extends AbstractMenu {
+
+    RentalsMenu(ClientRentalService crs) {
+        super(crs);
+    }
 
     @Override
     void setUpMenu() {

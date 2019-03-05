@@ -60,9 +60,9 @@ public class Main {
         movieRepository.save(movie5);
 
         ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository);
-        AbstractMenu mainMenu = new MainMenu();
+        AbstractMenu ui = new MainMenu(crs);
         try{
-        mainMenu.run();}
+        ui.run();}
         catch (IOException exc)
         {
             exc.printStackTrace();

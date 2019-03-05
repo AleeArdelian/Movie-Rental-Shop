@@ -1,5 +1,7 @@
 package ui;
 
+import service.ClientRentalService;
+
 import java.io.IOException;
 
 public class MainMenu extends AbstractMenu {
@@ -8,11 +10,15 @@ public class MainMenu extends AbstractMenu {
     private AbstractMenu moviesMenu;
     private AbstractMenu rentalsMenu;
 
+    public MainMenu(ClientRentalService crs) {
+        super(crs);
+    }
+
     @Override
     void setUpMenu(){
-        clientsMenu = new ClientsMenu();
-        moviesMenu = new MoviesMenu();
-        rentalsMenu = new RentalsMenu();
+        clientsMenu = new ClientsMenu(crs);
+        moviesMenu = new MoviesMenu(crs);
+        rentalsMenu = new RentalsMenu(crs);
         setTitle("Main Menu");
         menuItems.put(1, new MenuOption("Clients", () -> {
             try {
@@ -37,4 +43,5 @@ public class MainMenu extends AbstractMenu {
         }));
         menuItems.put(0, new MenuOption("Exit", () -> running = false));
     }
+
 }
