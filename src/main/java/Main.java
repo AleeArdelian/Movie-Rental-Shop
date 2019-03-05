@@ -1,7 +1,6 @@
 import domain.Client;
 
-import domain.validators.ValidatorException;
-import ui.UI;
+import ui.MainMenu;
 import domain.Movie;
 import domain.validators.ClientValidator;
 import domain.validators.MovieValidator;
@@ -9,6 +8,9 @@ import domain.validators.Validator;
 import repository.InMemoryRepository;
 import repository.Repository;
 import service.ClientRentalService;
+import ui.AbstractMenu;
+
+import java.io.IOException;
 
 public class Main {
 
@@ -58,6 +60,14 @@ public class Main {
         movieRepository.save(movie5);
 
         ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository);
+        AbstractMenu mainMenu = new MainMenu();
+        try{
+        mainMenu.run();}
+        catch (IOException exc)
+        {
+            exc.printStackTrace();
+        }
+        /*
         UI consoleUI = new UI(crs);
         try {
             consoleUI.runMainMenu();
@@ -65,6 +75,7 @@ public class Main {
         catch (Exception exc) {
             exc.getStackTrace();
         }
+        */
     }
 
 }

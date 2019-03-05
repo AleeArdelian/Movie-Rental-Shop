@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * User Interface class
- * Menu-based console application
+ * MainMenu-based console application
  */
 public class UI {
 
@@ -27,7 +27,7 @@ public class UI {
     }
 
     /**
-     * Method that prints the Main Menu in the console.
+     * Method that prints the Main MainMenu in the console.
      */
     private static void showMainMenu() {
         System.out.println("\t\tMovie Rental Shop\n\n" +
@@ -38,7 +38,7 @@ public class UI {
     }
 
     /**
-     * Method that prints the Clients Menu in the console.
+     * Method that prints the Clients MainMenu in the console.
      */
     private static void showClientsMenu() {
         System.out.println("\t\tCLIENTS\n\n" +
@@ -50,7 +50,7 @@ public class UI {
     }
 
     /**
-     * Method that prints the Movies Menu in the console.
+     * Method that prints the Movies MainMenu in the console.
      */
     private static void showMoviesMenu() {
         System.out.println("\t\tMOVIES\n\n" +
@@ -62,7 +62,7 @@ public class UI {
     }
 
     /**
-     * Method that print the Rentals Menu in the console.
+     * Method that print the Rentals MainMenu in the console.
      */
     private static void showRentalsMenu() {
         System.out.println("\t\tMOVIES\n\n" +
@@ -145,8 +145,8 @@ public class UI {
     }
 
     /**
-     * Method that runs the Clients Menu.
-     * Prints the Clients Menu and loops until the user chooses to go back.
+     * Method that runs the Clients MainMenu.
+     * Prints the Clients MainMenu and loops until the user chooses to go back.
      * @param keyboard a {@code BufferedReader} instance use to read from System.in.
      * @throws IOException if there are problems with getting the input from System.in.
      */
@@ -180,8 +180,8 @@ public class UI {
     }
 
     /**
-     * Method that runs the Movies Menu.
-     * Prints the Movies Menu and loops until the user chooses to go back.
+     * Method that runs the Movies MainMenu.
+     * Prints the Movies MainMenu and loops until the user chooses to go back.
      * @param keyboard a {@code BufferedReader} instance use to read from System.in.
      * @throws IOException if there are problems with getting the input from System.in.
      */
@@ -215,8 +215,8 @@ public class UI {
     }
 
     /**
-     * Method that runs the Rentals Menu.
-     * Prints the Rentals Menu and loops until the user chooses to go back.
+     * Method that runs the Rentals MainMenu.
+     * Prints the Rentals MainMenu and loops until the user chooses to go back.
      * @param keyboard a {@code BufferedReader} instance use to read from System.in.
      * @throws IOException if there are problems with getting the input from System.in.
      */
@@ -243,8 +243,8 @@ public class UI {
     }
 
     /**
-     * Method that runs the Main Menu.
-     * Prints the Main Menu and loops until the user chooses to exit the application.
+     * Method that runs the Main MainMenu.
+     * Prints the Main MainMenu and loops until the user chooses to exit the application.
      * @throws IOException if there are problems with getting the input from System.in.
      */
     public void runMainMenu() throws IOException, ValidatorException{
