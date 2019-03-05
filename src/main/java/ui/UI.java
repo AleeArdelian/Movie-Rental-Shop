@@ -164,10 +164,10 @@ public class UI {
                     crs.addClient(getClientFrom(keyboard));
                     break;
                 case 2:
-                    System.out.println("Feature soon to be implemented :) ");
+                    System.out.println("Feature to be implemented soon:) ");
                     break;
                 case 3:
-                    System.out.println("Feature soon to be implemented :) ");
+                    System.out.println("Feature to be implemented soon:) ");
                     break;
                 case 4:
                     printAllClients();
@@ -199,10 +199,10 @@ public class UI {
                     crs.addMovie(getMovieFrom(keyboard));
                     break;
                 case 2:
-                    System.out.println("Feature soon to be implemented :) ");
+                    System.out.println("Feature to be implemented soon :) ");
                     break;
                 case 3:
-                    System.out.println("Feature soon to be implemented :) ");
+                    System.out.println("Feature to be implemented soon  :) ");
                     break;
                 case 4:
                     printAllMovies();
