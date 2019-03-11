@@ -48,6 +48,16 @@ public class ClientRentalService {
     }
 
     /**
+     * Updates a movie in Movies repository.
+     * @param movie the {@code Movie} to be updated.
+     * @throws ValidatorException if the movie is not valid.
+     */
+    public void updateMovie(Movie movie) throws ValidatorException
+    {
+        movieRepository.update(movie);
+    }
+
+    /**
      * Gets all the clients from Clients repository.
      * @return a {@code Set} of all clients.
      */

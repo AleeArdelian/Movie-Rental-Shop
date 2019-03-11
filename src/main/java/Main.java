@@ -1,5 +1,6 @@
 import domain.Client;
 
+import domain.validators.ValidatorException;
 import ui.MainMenu;
 import domain.Movie;
 import domain.validators.ClientValidator;
@@ -63,9 +64,10 @@ public class Main {
         AbstractMenu ui = new MainMenu(crs);
         try{
         ui.run();}
-        catch (IOException exc)
+        catch (IOException | ValidatorException exc)
         {
-            exc.printStackTrace();
+            //exc.printStackTrace();
+            System.out.print(exc.getMessage());
         }
         /*
         UI consoleUI = new UI(crs);

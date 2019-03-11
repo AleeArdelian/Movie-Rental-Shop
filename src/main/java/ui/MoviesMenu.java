@@ -42,7 +42,13 @@ class MoviesMenu extends AbstractMenu {
                 e.printStackTrace();
             }
         }));
-        menuItems.put(2, new MenuOption("Update", () -> System.out.println("Update")));
+        menuItems.put(2, new MenuOption("Update", () -> {
+            try {
+                crs.updateMovie(getMovie());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
         menuItems.put(3, new MenuOption("Delete", () -> System.out.println("Delete")));
         menuItems.put(4, new MenuOption("List all", () -> printAllMovies(crs.getAllMovies())));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
