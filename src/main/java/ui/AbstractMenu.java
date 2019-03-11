@@ -1,16 +1,11 @@
 package ui;
 
-import domain.BaseEntity;
-import domain.Client;
 import domain.validators.UserChoiceValidator;
-import domain.validators.Validator;
-import domain.validators.ValidatorException;
 import service.ClientRentalService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -45,20 +40,41 @@ public abstract class AbstractMenu {
         System.out.println();
     }
 
-    private int getUserChoice(BufferedReader keyboard) throws IOException {
+    private int getUserChoice() {
         System.out.print("Your choice: ");
-        String userChoice = keyboard.readLine();
-        validator.setOptions(menuItems.keySet().stream().map(k -> Integer.toString(k)).collect(Collectors.toSet()));
-        validator.validate(userChoice);
-        return Integer.parseInt(userChoice);
+        try {
+            String userChoice = keyboard.readLine();
+            validator.setOptions(menuItems.keySet().stream().map(k -> Integer.toString(k)).collect(Collectors.toSet()));
+            validator.validate(userChoice);
+            return Integer.parseInt(userChoice);
+        } catch (IOException exc) {
+            throw new RuntimeException("There was a problem with the input. Sorry!");
+        } catch (NumberFormatException exc) {
+            throw new RuntimeException("Invalid id!");
+        }
+    }
+
+    protected int getId() {
+        try {
+            System.out.print("Id: ");
+            return Integer.parseInt(keyboard.readLine());
+        } catch (NumberFormatException exc) {
+            throw new RuntimeException("Invalid id!");
+        } catch (IOException exc) {
+            throw new RuntimeException("There was a problem with the input. Sorry!");
+        }
     }
     
-    public void run() throws IOException , ValidatorException {
+    public void run() {
         running = true;
         while (running) {
             this.show();
-            int userChoice = getUserChoice(keyboard);
-            menuItems.get(userChoice).performAction();
+            try {
+                int userChoice = getUserChoice();
+                menuItems.get(userChoice).performAction();
+            } catch (RuntimeException exc) {
+                System.out.println(exc.getMessage());
+            }
         }
     }
 
