@@ -4,6 +4,8 @@ package domain.validators;
  * Validator interface for validating generic types.
  * @param <T> type of the entity to be validated.
  */
+
+//@FunctionalInterface
 public interface Validator<T> {
 
     /**

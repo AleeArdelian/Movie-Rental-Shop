@@ -1,5 +1,8 @@
 package domain;
 
+import domain.validators.Validator;
+import domain.validators.ValidatorException;
+
 /**
  * Movie class for holding information about a movie.
  * The information about a movie is it's name, year of release and director.
@@ -58,6 +61,30 @@ public class Movie extends BaseEntity<Integer> {
     public String toString()
     {
         return getId() + " " + movieName + " " + yearOfRelease + " " + director;
+    }
+    /**
+     * Replaces the movie`s name with the new name received as parameter
+     */
+
+    public void setMovieName( String name)
+    {
+        this.movieName=name;
+    }
+
+    /**
+     * Replaces the movie`s year of release with the new year received as parameter
+     */
+    public void setYearOfRelease(Integer year)
+    {
+        this.yearOfRelease=year;
+    }
+
+    /**
+     * Replaces the movie`s director with the new director received as parameter
+     */
+    public void setDirector(String director)
+    {
+        this.director=director;
     }
 
 }

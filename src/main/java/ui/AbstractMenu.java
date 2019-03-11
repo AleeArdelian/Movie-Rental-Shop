@@ -3,6 +3,8 @@ package ui;
 import domain.BaseEntity;
 import domain.Client;
 import domain.validators.UserChoiceValidator;
+import domain.validators.Validator;
+import domain.validators.ValidatorException;
 import service.ClientRentalService;
 
 import java.io.BufferedReader;
@@ -51,17 +53,12 @@ public abstract class AbstractMenu {
         return Integer.parseInt(userChoice);
     }
     
-    public void run() throws IOException{
+    public void run() throws IOException , ValidatorException {
         running = true;
         while (running) {
             this.show();
-            try {
-                int userChoice = getUserChoice(keyboard);
-                menuItems.get(userChoice).performAction();
-            }
-            catch (IOException exc) {
-                exc.printStackTrace();
-            }
+            int userChoice = getUserChoice(keyboard);
+            menuItems.get(userChoice).performAction();
         }
     }
 

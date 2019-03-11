@@ -2,6 +2,8 @@ package domain.validators;
 
 import domain.Client;
 
+
+
 /**
  * ClientValidator class for validating data about a client.
  * Implements Validator interface.
@@ -15,6 +17,7 @@ public class ClientValidator implements Validator<Client> {
      * @param client a {@code Client} instance to be validated.
      * @throws ValidatorException if data about the client is not valid.
      */
+
     @Override
     public void validate(Client client) throws ValidatorException {
         String exceptions = "Invalid client: ";

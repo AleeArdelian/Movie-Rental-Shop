@@ -18,6 +18,7 @@ public class MovieValidator implements Validator<Movie> {
      * @param movie a {@code Movie} instance to be validated.
      * @throws ValidatorException if data about the movie is not valid.
      */
+
     @Override
     public void validate(Movie movie) throws ValidatorException {
         String exceptions = "Invalid movie: ";
@@ -27,6 +28,7 @@ public class MovieValidator implements Validator<Movie> {
             exceptions += "Invalid year of production; ";
         if (!exceptions.equals("Invalid movie: "))
             throw new ValidatorException(exceptions);
+
     }
 
 }

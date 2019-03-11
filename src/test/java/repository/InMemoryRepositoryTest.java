@@ -7,6 +7,7 @@ import domain.validators.MovieValidator;
 import domain.validators.Validator;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,7 @@ public class InMemoryRepositoryTest {
 
     private Client client;
     private Movie movie;
+    private ExpectedException expectedEx;
 
     @Before
     public void setUp(){
@@ -32,6 +34,7 @@ public class InMemoryRepositoryTest {
         client.setId(4);
         movie = new Movie("Shutter Island",2010,"Martin Scorsese");
         movie.setId(4);
+
     }
 
     /**
@@ -90,5 +93,26 @@ public class InMemoryRepositoryTest {
      */
     @Test
     public void update() {
+        movieRepository.save(movie);
+        Movie movie3 = new Movie("Shutter",2011,"Martin");
+        movie3.setId(4);
+        movieRepository.update(movie3);
+        Movie foundMovie = movieRepository.findOne(4).get();
+        assertEquals(movie3.getYear(), foundMovie.getYear());
+        assertEquals(movie3.getMovieName(), foundMovie.getMovieName());
+        assertEquals(movie3.getMovieDirector(), foundMovie.getMovieDirector());
     }
+
+    /**
+     * Test case for update method, throw exception case.
+     */
+//    @Test
+//    public void update1() {
+//        movieRepository.save(movie);
+//        Movie movie3 = new Movie("Shutter",2011,"Martin");
+//        movie3.setId(8);
+//        expectedEx.expect(RuntimeException.class);
+//        expectedEx.expectMessage("Invalid key!");
+//        movieRepository.update(movie3);
+//    }
 }
