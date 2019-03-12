@@ -34,6 +34,17 @@ class MoviesMenu extends AbstractMenu {
         }
     }
 
+    private int getYear() {
+        try {
+            System.out.print("Year: ");
+            return Integer.parseInt(keyboard.readLine());
+        } catch (IOException exc) {
+            throw new RuntimeException("There was a problem with the input. Sorry!");
+        } catch (NumberFormatException exc) {
+            throw new RuntimeException("Year not valid");
+        }
+    }
+
     private void printAllMovies(Set<Movie> movies) {
         movies.forEach(System.out::println);
     }
@@ -45,6 +56,8 @@ class MoviesMenu extends AbstractMenu {
         menuItems.put(2, new MenuOption("Update", () -> crs.updateMovie(getMovie())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteMovie(getId())));
         menuItems.put(4, new MenuOption("List all", () -> printAllMovies(crs.getAllMovies())));
+        menuItems.put(6, new MenuOption("List all movies after a given year", () -> System.out.println("The number" +
+                        " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
 

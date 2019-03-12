@@ -97,6 +97,16 @@ public class ClientRentalService {
     }
 
     /**
+     * Get the number of movies after a given year.
+     * @param year the year
+     * @return the number of movies after the given year
+     */
+    public long getNoMoviesAfterYear(int year) {
+        Iterable<Movie> movies = movieRepository.findAll();
+        return StreamSupport.stream(movies.spliterator(), false).filter(m -> m.getYear() > year).count();
+    }
+
+    /**
      * Gets all the movies from Movies repository.
      * @return a {@code Set} of all movies.
      */
