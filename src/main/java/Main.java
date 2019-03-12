@@ -62,22 +62,7 @@ public class Main {
 
         ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository);
         AbstractMenu ui = new MainMenu(crs);
-        try{
-        ui.run();}
-        catch (IOException | ValidatorException exc)
-        {
-            //exc.printStackTrace();
-            System.out.print(exc.getMessage());
-        }
-        /*
-        UI consoleUI = new UI(crs);
-        try {
-            consoleUI.runMainMenu();
-        }
-        catch (Exception exc) {
-            exc.getStackTrace();
-        }
-        */
+        ui.run();
     }
 
 }
