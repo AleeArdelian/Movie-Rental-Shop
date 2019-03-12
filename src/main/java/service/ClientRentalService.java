@@ -5,10 +5,7 @@ import domain.Movie;
 import domain.validators.ValidatorException;
 import repository.Repository;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -104,7 +101,9 @@ public class ClientRentalService {
     public List<Client> getAllSortedClients()
     {
         Iterable<Client> clients = clientRepository.findAll();
-        return StreamSupport.stream(clients.spliterator(), false).sorted().collect(Collectors.toList());
+        return StreamSupport.stream(clients.spliterator(), false)
+                .sorted(Comparator.comparing(Client::getLastName))
+                .collect(Collectors.toList());
     }
     /**
      * Get the number of movies after a given year.
@@ -133,6 +132,7 @@ public class ClientRentalService {
     public List<Movie> getAllSortedMovies()
     {
         Iterable<Movie> movies = movieRepository.findAll();
-        return StreamSupport.stream(movies.spliterator(), false).sorted().collect(Collectors.toList());
+        return StreamSupport.stream(movies.spliterator(), false)
+                .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
     }
 }
