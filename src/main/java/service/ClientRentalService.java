@@ -5,6 +5,8 @@ import domain.Movie;
 import domain.validators.ValidatorException;
 import repository.Repository;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -95,7 +97,15 @@ public class ClientRentalService {
         Iterable<Client> clients = clientRepository.findAll();
         return StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
     }
-
+    /**
+     * Gets all the clients from Clients repository sorted by First Name.
+     * @return a {@code List} of all movies.
+     */
+    public List<Client> getAllSortedClients()
+    {
+        Iterable<Client> clients = clientRepository.findAll();
+        return StreamSupport.stream(clients.spliterator(), false).sorted().collect(Collectors.toList());
+    }
     /**
      * Gets all the movies from Movies repository.
      * @return a {@code Set} of all movies.
@@ -104,5 +114,15 @@ public class ClientRentalService {
     {
         Iterable<Movie> movies = movieRepository.findAll();
         return StreamSupport.stream(movies.spliterator(), false).collect(Collectors.toSet());
+    }
+
+    /**
+     * Gets all the movies from Movies repository sorted by Name.
+     * @return a {@code List} of all movies.
+     */
+    public List<Movie> getAllSortedMovies()
+    {
+        Iterable<Movie> movies = movieRepository.findAll();
+        return StreamSupport.stream(movies.spliterator(), false).sorted().collect(Collectors.toList());
     }
 }

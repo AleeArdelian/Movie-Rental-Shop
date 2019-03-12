@@ -4,6 +4,7 @@ import domain.Client;
 import service.ClientRentalService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 class ClientsMenu extends AbstractMenu {
@@ -38,6 +39,10 @@ class ClientsMenu extends AbstractMenu {
         clients.forEach(System.out::println);
     }
 
+    private void printSortedClients(List<Client> clients) {
+        clients.forEach(System.out::println);
+    }
+
     @Override
     void setUpMenu() {
         setTitle("CLIENTS");
@@ -45,6 +50,7 @@ class ClientsMenu extends AbstractMenu {
         menuItems.put(2, new MenuOption("Update", () -> crs.updateClient(getClient())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteClient(getId())));
         menuItems.put(4, new MenuOption("List all", () -> printAllClients(crs.getAllClients())));
+        menuItems.put(5, new MenuOption("List sorted", () -> printSortedClients(crs.getAllSortedClients())));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
 

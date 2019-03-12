@@ -8,7 +8,7 @@ import domain.validators.ValidatorException;
  * The information about a movie is it's name, year of release and director.
  * Extends BaseEntity class.
  */
-public class Movie extends BaseEntity<Integer> {
+public class Movie extends BaseEntity<Integer> implements Comparable<Movie>{
 
     private String movieName;
     private Integer yearOfRelease;
@@ -87,4 +87,9 @@ public class Movie extends BaseEntity<Integer> {
         this.director=director;
     }
 
+
+    @Override
+    public int compareTo(Movie o) {
+        return this.getMovieName().compareTo(o.getMovieName());
+    }
 }

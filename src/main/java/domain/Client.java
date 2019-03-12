@@ -5,7 +5,7 @@ package domain;
  * The information about a client is it's first name, last name and age.
  * Extends BaseEntity class.
  */
-public class Client extends BaseEntity<Integer> {
+public class Client extends BaseEntity<Integer> implements Comparable<Client> {
 
     private String firstName;
     private String lastName;
@@ -80,4 +80,11 @@ public class Client extends BaseEntity<Integer> {
         return getId() + " " + lastName + " " + firstName + " " + age;
     }
 
+    @Override
+    public int compareTo(Client o) {
+        String fullName = getLastName() + getFirstName();
+        String oFullName = o.getLastName() + getFirstName();
+        return fullName.compareTo(oFullName);
+        //return this.getLastName().compareTo(o.getLastName()) ;//* this.getFirstName().compareTo(o.getFirstName());
+    }
 }
