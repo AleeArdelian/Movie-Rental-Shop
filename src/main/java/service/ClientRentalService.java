@@ -5,7 +5,7 @@ import domain.Movie;
 import domain.validators.ValidatorException;
 import repository.Repository;
 
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -48,6 +48,16 @@ public class ClientRentalService {
     }
 
     /**
+     * Updates a client in Clients repository.
+     * @param client the {@code Client} to be updated.
+     * @throws ValidatorException if the client is not valid.
+     */
+    public void updateClient(Client client) throws ValidatorException
+    {
+        clientRepository.update(client);
+    }
+
+    /**
      * Updates a movie in Movies repository.
      * @param movie the {@code Movie} to be updated.
      * @throws ValidatorException if the movie is not valid.
@@ -55,6 +65,24 @@ public class ClientRentalService {
     public void updateMovie(Movie movie) throws ValidatorException
     {
         movieRepository.update(movie);
+    }
+
+    /**
+     * Deletes a Client from clients repository.
+     * @param id an {@code Integer} representing the id of the Client to be deleted.
+     * @return an {@code Optional} - null if there is no Client with the given id; the Movie otherwise.
+     */
+    public Optional<Client> deleteClient(Integer id) {
+        return clientRepository.delete(id);
+    }
+
+    /**
+     * Deletes a Movie from movies repository.
+     * @param id an {@code Integer} representing the id of the movie to be deleted.
+     * @return an {@code Optional} - null if there is no Movie with the given id; the Movie otherwise.
+     */
+    public Optional<Movie> deleteMovie(Integer id) {
+        return movieRepository.delete(id);
     }
 
     /**
@@ -66,6 +94,26 @@ public class ClientRentalService {
         Iterable<Client> clients = clientRepository.findAll();
         return StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
     }
+    /**
+     * Gets all the clients from Clients repository sorted by First Name.
+     * @return a {@code List} of all movies.
+     */
+    public List<Client> getAllSortedClients()
+    {
+        Iterable<Client> clients = clientRepository.findAll();
+        return StreamSupport.stream(clients.spliterator(), false)
+                .sorted(Comparator.comparing(Client::getLastName))
+                .collect(Collectors.toList());
+    }
+    /**
+     * Get the number of movies after a given year.
+     * @param year the year
+     * @return the number of movies after the given year
+     */
+    public long getNoMoviesAfterYear(int year) {
+        Iterable<Movie> movies = movieRepository.findAll();
+        return StreamSupport.stream(movies.spliterator(), false).filter(m -> m.getYear() > year).count();
+    }
 
     /**
      * Gets all the movies from Movies repository.
@@ -75,5 +123,16 @@ public class ClientRentalService {
     {
         Iterable<Movie> movies = movieRepository.findAll();
         return StreamSupport.stream(movies.spliterator(), false).collect(Collectors.toSet());
+    }
+
+    /**
+     * Gets all the movies from Movies repository sorted by Name.
+     * @return a {@code List} of all movies.
+     */
+    public List<Movie> getAllSortedMovies()
+    {
+        Iterable<Movie> movies = movieRepository.findAll();
+        return StreamSupport.stream(movies.spliterator(), false)
+                .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
     }
 }

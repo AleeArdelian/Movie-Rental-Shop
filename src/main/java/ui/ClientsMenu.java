@@ -4,6 +4,7 @@ import domain.Client;
 import service.ClientRentalService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 class ClientsMenu extends AbstractMenu {
@@ -12,39 +13,44 @@ class ClientsMenu extends AbstractMenu {
         super(crs);
     }
 
-    private Client getClient() throws IOException
+    private Client getClient()
     {
-        System.out.print("Id: ");
-        int id = Integer.parseInt(keyboard.readLine());
-        System.out.print("First name: ");
-        String firstName = keyboard.readLine();
-        System.out.print("Last name: ");
-        String lastName = keyboard.readLine();
-        System.out.print("Age: ");
-        int age = Integer.parseInt(keyboard.readLine());
+        try {
+            System.out.print("Id: ");
+            int id = Integer.parseInt(keyboard.readLine());
+            System.out.print("First name: ");
+            String firstName = keyboard.readLine();
+            System.out.print("Last name: ");
+            String lastName = keyboard.readLine();
+            System.out.print("Age: ");
+            int age = Integer.parseInt(keyboard.readLine());
 
-        Client client = new Client(firstName, lastName, age);
-        client.setId(id);
-        return client;
+            Client client = new Client(firstName, lastName, age);
+            client.setId(id);
+            return client;
+        } catch (IOException exc) {
+            throw new RuntimeException("There was a problem with the input. Sorry!");
+        } catch (NumberFormatException exc) {
+            throw new RuntimeException("Id or Age not valid!");
+        }
     }
 
     private void printAllClients(Set<Client> clients) {
         clients.forEach(System.out::println);
     }
 
+    private void printSortedClients(List<Client> clients) {
+        clients.forEach(System.out::println);
+    }
+
     @Override
     void setUpMenu() {
         setTitle("CLIENTS");
-        menuItems.put(1, new MenuOption("Add", () -> {
-            try {
-                crs.addClient(getClient());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }));
-        menuItems.put(2, new MenuOption("Update", () -> System.out.println("Feature to be implemented soon. :)")));
-        menuItems.put(3, new MenuOption("Delete", () -> System.out.println("Feature to be implemented soon. :)")));
+        menuItems.put(1, new MenuOption("Add", () -> crs.addClient(getClient())));
+        menuItems.put(2, new MenuOption("Update", () -> crs.updateClient(getClient())));
+        menuItems.put(3, new MenuOption("Delete", () -> crs.deleteClient(getId())));
         menuItems.put(4, new MenuOption("List all", () -> printAllClients(crs.getAllClients())));
+        menuItems.put(5, new MenuOption("List sorted", () -> printSortedClients(crs.getAllSortedClients())));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
 
