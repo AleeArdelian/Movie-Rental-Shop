@@ -13,6 +13,7 @@ public class Movie extends BaseEntity<Integer> {
     private String movieName;
     private Integer yearOfRelease;
     private String director;
+    private boolean isRented = false;
 
     /**
      * Constructor for a movie.
@@ -85,6 +86,15 @@ public class Movie extends BaseEntity<Integer> {
     public void setDirector(String director)
     {
         this.director=director;
+    }
+
+    public void setRented(){
+        this.isRented=true;
+    }
+
+    public boolean getIsRented()
+    {
+        return isRented;
     }
 
 }

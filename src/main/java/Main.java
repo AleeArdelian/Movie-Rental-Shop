@@ -1,11 +1,9 @@
 import domain.Client;
 
-import domain.validators.ValidatorException;
+import domain.Rentals;
+import domain.validators.*;
 import ui.MainMenu;
 import domain.Movie;
-import domain.validators.ClientValidator;
-import domain.validators.MovieValidator;
-import domain.validators.Validator;
 import repository.InMemoryRepository;
 import repository.Repository;
 import service.ClientRentalService;
@@ -60,7 +58,25 @@ public class Main {
         movie5.setId(5);
         movieRepository.save(movie5);
 
-        ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository);
+        /*
+         * Add some rentals in the movie repository.
+         */
+
+        Validator<Rentals> rentalValidator = new RentalsValidator();
+        Repository<Integer,Rentals> rentalRepository = new InMemoryRepository<>(rentalValidator);
+
+        Rentals rental1 = new Rentals(1, 1);
+        rental1.setId(1);
+        rentalRepository.save(rental1);
+        Rentals rental2 = new Rentals(2, 2);
+        rental2.setId(2);
+        rentalRepository.save(rental2);
+        Rentals rental3 = new Rentals(3, 3);
+        rental3.setId(3);
+        rentalRepository.save(rental3);
+
+
+        ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
         AbstractMenu ui = new MainMenu(crs);
         ui.run();
     }

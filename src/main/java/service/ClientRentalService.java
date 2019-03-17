@@ -2,6 +2,7 @@ package service;
 
 import domain.Client;
 import domain.Movie;
+import domain.Rentals;
 import domain.validators.ValidatorException;
 import repository.Repository;
 
@@ -16,16 +17,19 @@ public class ClientRentalService {
 
     private Repository<Integer, Client> clientRepository;
     private Repository<Integer, Movie> movieRepository;
+    private Repository<Integer, Rentals> rentalRepository;
 
     /**
      * Constructor for ClientRentalService.
      * @param crs a {@code Repository} instance for Clients repository.
      * @param mov a {@code Repository} instance for Movies repository.
      */
-    public ClientRentalService(Repository<Integer,Client> crs, Repository<Integer,Movie> mov)
+    public ClientRentalService(Repository<Integer,Client> crs, Repository<Integer,Movie> mov, Repository<Integer,Rentals> rent)
     {
         clientRepository = crs;
         movieRepository = mov;
+        rentalRepository = rent;
+
     }
 
     /**
@@ -45,6 +49,11 @@ public class ClientRentalService {
     public void addMovie(Movie movie) throws ValidatorException
     {
         movieRepository.save(movie);
+    }
+
+    public void addRental(Rentals rental) throws ValidatorException{
+
+        rentalRepository.save(rental);
     }
 
     /**
@@ -94,6 +103,7 @@ public class ClientRentalService {
         Iterable<Client> clients = clientRepository.findAll();
         return StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
     }
+
     /**
      * Gets all the clients from Clients repository sorted by First Name.
      * @return a {@code List} of all movies.
@@ -135,4 +145,12 @@ public class ClientRentalService {
         return StreamSupport.stream(movies.spliterator(), false)
                 .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
     }
+
+    public Set<Rentals> getAllRentals()
+    {
+        Iterable<Rentals> rentals = rentalRepository.findAll();
+        return StreamSupport.stream(rentals.spliterator(), false).collect(Collectors.toSet());
+    }
 }
+
+
