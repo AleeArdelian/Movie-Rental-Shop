@@ -1,11 +1,11 @@
 package domain.validators;
 
-import domain.Rentals;
+import domain.Rental;
 
-public class RentalsValidator implements Validator<Rentals>
+public class RentalValidator implements Validator<Rental>
 {
     @Override
-    public void validate(Rentals rental) throws ValidatorException {
+    public void validate(Rental rental) throws ValidatorException {
         String exceptions = "Invalid rental: ";
         if (rental.getId() < 0)
             exceptions += "Id must not be a negative number; ";

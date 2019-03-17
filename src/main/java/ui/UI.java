@@ -33,7 +33,7 @@ public class UI {
         System.out.println("\t\tMovie Rental Shop\n\n" +
                 "  1. Clients\n" +
                 "  2. Movies\n" +
-                "  3. Rentals\n" +
+                "  3. Rental\n" +
                 "  0. Exit\n");
     }
 
@@ -62,7 +62,7 @@ public class UI {
     }
 
     /**
-     * Method that print the Rentals MainMenu in the console.
+     * Method that print the Rental MainMenu in the console.
      */
     private static void showRentalsMenu() {
         System.out.println("\t\tMOVIES\n\n" +
@@ -215,8 +215,8 @@ public class UI {
     }
 
     /**
-     * Method that runs the Rentals MainMenu.
-     * Prints the Rentals MainMenu and loops until the user chooses to go back.
+     * Method that runs the Rental MainMenu.
+     * Prints the Rental MainMenu and loops until the user chooses to go back.
      * @param keyboard a {@code BufferedReader} instance use to read from System.in.
      * @throws IOException if there are problems with getting the input from System.in.
      */

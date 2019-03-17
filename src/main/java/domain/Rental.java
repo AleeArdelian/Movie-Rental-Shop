@@ -3,14 +3,14 @@ package domain;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Rentals extends BaseEntity<Integer>{
+public class Rental extends BaseEntity<Integer>{
 
     private int clientId;
     private int movieId;
     private String rentalDate;
     private String returnDate;
 
-    public Rentals(int cId, int mId){
+    public Rental(int cId, int mId){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.now();
         LocalDate newLocalDate = localDate.plusWeeks(1);

@@ -61,7 +61,8 @@ public class Movie extends BaseEntity<Integer> {
      */
     public String toString()
     {
-        return getId() + " " + movieName + " " + yearOfRelease + " " + director;
+        return getId() + " " + movieName + " " + yearOfRelease + " " + director +
+                " " + (isRented?"RENTED":"AVAILABLE");
     }
     /**
      * Replaces the movie`s name with the new name received as parameter
@@ -88,11 +89,11 @@ public class Movie extends BaseEntity<Integer> {
         this.director=director;
     }
 
-    public void setRented(){
-        this.isRented=true;
+    public void setRented(boolean status){
+        this.isRented = status;
     }
 
-    public boolean getIsRented()
+    public boolean isRented()
     {
         return isRented;
     }

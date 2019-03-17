@@ -1,6 +1,6 @@
 package ui;
 
-import domain.Rentals;
+import domain.Rental;
 import service.ClientRentalService;
 
 import java.io.IOException;
@@ -12,11 +12,11 @@ class RentalsMenu extends AbstractMenu {
         super(crs);
     }
 
-    private void printAllRentals(Set<Rentals> rentals) {
+    private void printAllRentals(Set<Rental> rentals) {
         rentals.forEach(System.out::println);
     }
 
-    private Rentals getRental()
+    private Rental getRental()
     {
         try {
             System.out.print("Rental Id: ");
@@ -26,9 +26,9 @@ class RentalsMenu extends AbstractMenu {
             System.out.print("Movie Id: ");
             int mId = Integer.parseInt(keyboard.readLine());
 
-            Rentals rentals = new Rentals(cId,mId);
-            rentals.setId(id);
-            return rentals;
+            Rental rental = new Rental(cId,mId);
+            rental.setId(id);
+            return rental;
         } catch (IOException exc) {
             throw new RuntimeException("There was a problem with the input. Sorry!");
         } catch (NumberFormatException exc) {

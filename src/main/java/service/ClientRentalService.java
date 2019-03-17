@@ -2,7 +2,10 @@ package service;
 
 import domain.Client;
 import domain.Movie;
-import domain.Rentals;
+import domain.Rental;
+import domain.Triple;
+import domain.validators.ControllerRentalValidator;
+import domain.validators.Validator;
 import domain.validators.ValidatorException;
 import repository.Repository;
 
@@ -17,14 +20,15 @@ public class ClientRentalService {
 
     private Repository<Integer, Client> clientRepository;
     private Repository<Integer, Movie> movieRepository;
-    private Repository<Integer, Rentals> rentalRepository;
+    private Repository<Integer, Rental> rentalRepository;
+    private Validator<Triple<Rental, Repository<Integer, Client>, Repository<Integer, Movie>>> ctrlRentalValidator = new ControllerRentalValidator();
 
     /**
      * Constructor for ClientRentalService.
      * @param crs a {@code Repository} instance for Clients repository.
      * @param mov a {@code Repository} instance for Movies repository.
      */
-    public ClientRentalService(Repository<Integer,Client> crs, Repository<Integer,Movie> mov, Repository<Integer,Rentals> rent)
+    public ClientRentalService(Repository<Integer,Client> crs, Repository<Integer,Movie> mov, Repository<Integer, Rental> rent)
     {
         clientRepository = crs;
         movieRepository = mov;
@@ -51,8 +55,10 @@ public class ClientRentalService {
         movieRepository.save(movie);
     }
 
-    public void addRental(Rentals rental) throws ValidatorException{
+    public void addRental(Rental rental) throws ValidatorException{
 
+        ctrlRentalValidator.validate(new Triple<>(rental, clientRepository, movieRepository));
+        movieRepository.findOne(rental.getMovieId()).ifPresent((m) -> m.setRented(true));
         rentalRepository.save(rental);
     }
 
@@ -146,9 +152,9 @@ public class ClientRentalService {
                 .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
     }
 
-    public Set<Rentals> getAllRentals()
+    public Set<Rental> getAllRentals()
     {
-        Iterable<Rentals> rentals = rentalRepository.findAll();
+        Iterable<Rental> rentals = rentalRepository.findAll();
         return StreamSupport.stream(rentals.spliterator(), false).collect(Collectors.toSet());
     }
 }
