@@ -23,6 +23,7 @@ public class MainMenu extends AbstractMenu {
         menuItems.put(1, new MenuOption("Clients", () -> clientsMenu.run()));
         menuItems.put(2, new MenuOption("Movies", () -> moviesMenu.run()));
         menuItems.put(3, new MenuOption("Rental", () -> rentalsMenu.run()));
+        menuItems.put(4, new MenuOption("File Repository", () -> rentalsMenu.run()));
         menuItems.put(0, new MenuOption("Exit", () -> running = false));
     }
 

@@ -2,22 +2,18 @@ import domain.Client;
 
 import domain.Rental;
 import domain.validators.*;
+import repository.*;
 import ui.MainMenu;
 import domain.Movie;
-import repository.InMemoryRepository;
-import repository.Repository;
 import service.ClientRentalService;
 import ui.AbstractMenu;
 
 public class Main {
 
     public static void main(String[] args) {
-        Validator<Client> clientValidator = new ClientValidator();
+  /*
         Repository<Integer, Client> clientRepository = new InMemoryRepository<>(clientValidator);
 
-        /*
-         * Add some clients in clients repository.
-         */
         Client client1= new Client("Alexandru","Balea", 20);
         client1.setId(1);
         clientRepository.save(client1);
@@ -37,9 +33,7 @@ public class Main {
         Validator<Movie> movieValidator = new MovieValidator();
         Repository<Integer,Movie> movieRepository = new InMemoryRepository<>(movieValidator);
 
-        /*
-         * Add some movies in the movie repository.
-         */
+
         Movie movie1 = new Movie("Titanic",1997, "James Cameron");
         movie1.setId(1);
         movieRepository.save(movie1);
@@ -56,19 +50,9 @@ public class Main {
         movie5.setId(5);
         movieRepository.save(movie5);
 
-        /*
-         * Add some rentals in the movie repository.
-         */
 
         Validator<Rental> rentalValidator = new RentalValidator();
         Repository<Integer, Rental> rentalRepository = new InMemoryRepository<>(rentalValidator);
-
-
-
-
-
-
-        ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
 
         Rental rental1 = new Rental(1, 1);
         rental1.setId(1);
@@ -79,10 +63,23 @@ public class Main {
         Rental rental3 = new Rental(3, 3);
         rental3.setId(3);
         crs.addRental(rental3);
+*/
 
+        Validator<Client> clientValidator = new ClientValidator();
+        Validator<Movie> movieValidator = new MovieValidator();
+        Validator<Rental> rentalValidator = new RentalValidator();
+
+        Repository<Integer, Client> clientRepository = new ClientFileRepository(clientValidator, "./data/clients");
+        Repository<Integer, Movie> movieRepository = new MovieFileRepository(movieValidator, "./data/movies");
+        Repository<Integer, Rental> rentalRepository = new RentalFileRepository(rentalValidator, "./data/rentals");
+
+        ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
 
         AbstractMenu ui = new MainMenu(crs);
         ui.run();
+
+
+
     }
 
 }
