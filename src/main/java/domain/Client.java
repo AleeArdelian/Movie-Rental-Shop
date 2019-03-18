@@ -77,7 +77,7 @@ public class Client extends BaseEntity<Integer> {
      */
     public String toString()
     {
-        return getId() + " " + lastName + " " + firstName + " " + age;
+        return "Client id:" + getId() + " Last name: " + lastName + " First name: " + firstName + " Age: " + age;
     }
 
 }

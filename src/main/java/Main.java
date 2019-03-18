@@ -7,6 +7,7 @@ import repository.xml.XMLRentalsRepository;
 import ui.MainMenu;
 import domain.Movie;
 import repository.Repository;
+import repository.*;
 import service.ClientRentalService;
 import ui.AbstractMenu;
 
@@ -14,24 +15,21 @@ public class Main {
 
     public static void main(String[] args) {
         Validator<Client> clientValidator = new ClientValidator();
+        //Repository<Integer, Client> clientRepository = new InMemoryRepository<>(clientValidator);
+        //Repository<Integer, Client> clientRepository = new ClientFileRepository(clientValidator, "./data/clients");
         Repository<Integer, Client> clientRepository = new XMLClientsRepository("data/clients.xml", clientValidator);
 
 
         Validator<Movie> movieValidator = new MovieValidator();
         //Repository<Integer,Movie> movieRepository = new InMemoryRepository<>(movieValidator);
+        //Repository<Integer, Movie> movieRepository = new MovieFileRepository(movieValidator, "./data/movies");
         Repository<Integer,Movie> movieRepository = new XMLMoviesRepository("data/movies.xml", movieValidator);
 
-        /*
-         * Add some rentals in the movie repository.
-         */
 
         Validator<Rental> rentalValidator = new RentalValidator();
         //Repository<Integer, Rental> rentalRepository = new InMemoryRepository<>(rentalValidator);
+        //Repository<Integer, Rental> rentalRepository = new RentalFileRepository(rentalValidator, "./data/rentals");
         Repository<Integer, Rental> rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);
-
-
-
-
 
 
         ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
@@ -46,6 +44,7 @@ public class Main {
         /*
          * Add some clients in clients repository.
          */
+
         Client client1= new Client("Alexandru","Balea", 20);
         client1.setId(1);
         clientRepository.save(client1);
@@ -67,6 +66,7 @@ public class Main {
         /*
          * Add some movies in the movie repository.
          */
+
         Movie movie1 = new Movie("Titanic",1997, "James Cameron");
         movie1.setId(1);
         movieRepository.save(movie1);
@@ -85,6 +85,9 @@ public class Main {
     }
 
     private static void addRentals(ClientRentalService crs) {
+        /*
+         * Add some rentals in the repo
+         */
         Rental rental1 = new Rental(1, 1);
         rental1.setId(1);
         crs.addRental(rental1);

@@ -86,8 +86,6 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
      * @throws ValidatorException if @entity is not valid
      * @return a {@code Map} with the entity object modified
      */
-
-
     @Override
     public Optional<T> update(T entity) throws ValidatorException {
         Optional<T> entityOpt = Optional.ofNullable(entity);
