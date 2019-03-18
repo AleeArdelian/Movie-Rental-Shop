@@ -38,15 +38,15 @@ public class XMLRentalsRepository extends XMLRepository implements Repository<In
     @Override
     public Iterable<Rental> findAll() {
         loadXMLDocument();
-        Set<Rental> clientsSet = new HashSet<>();
+        Set<Rental> rentalsSet = new HashSet<>();
         Node root = XMLDocument.getDocumentElement();
-        NodeList clients = root.getChildNodes();
-        for (int i = 0; i < clients.getLength(); i++) {
-            Node tempNode = clients.item(i);
+        NodeList rentals = root.getChildNodes();
+        for (int i = 0; i < rentals.getLength(); i++) {
+            Node tempNode = rentals.item(i);
             if (tempNode instanceof Element)
-                clientsSet.add(createRental((Element) tempNode));
+                rentalsSet.add(createRental((Element) tempNode));
         }
-        return clientsSet;
+        return rentalsSet;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class XMLRentalsRepository extends XMLRepository implements Repository<In
 
     private static Rental createRental(Element entityNode) {
         String id = entityNode.getAttribute("id");
-        String clientId = getTextFromTagName(entityNode, "clientIt");
+        String clientId = getTextFromTagName(entityNode, "clientId");
         String movieId = getTextFromTagName(entityNode, "movieId");
         String rentalDate = getTextFromTagName(entityNode, "rentalDate");
         String returnDate = getTextFromTagName(entityNode, "returnDate");

@@ -1,39 +1,56 @@
 import domain.Client;
 import domain.Rental;
 import domain.validators.*;
+import repository.file.ClientFileRepository;
+import repository.file.MovieFileRepository;
+import repository.file.RentalFileRepository;
+import repository.mem.InMemoryRepository;
 import repository.xml.XMLClientsRepository;
 import repository.xml.XMLMoviesRepository;
 import repository.xml.XMLRentalsRepository;
 import ui.MainMenu;
 import domain.Movie;
 import repository.Repository;
-import repository.*;
 import service.ClientRentalService;
 import ui.AbstractMenu;
 
 public class Main {
 
     public static void main(String[] args) {
+
         Validator<Client> clientValidator = new ClientValidator();
-        //Repository<Integer, Client> clientRepository = new InMemoryRepository<>(clientValidator);
-        //Repository<Integer, Client> clientRepository = new ClientFileRepository(clientValidator, "./data/clients");
-        Repository<Integer, Client> clientRepository = new XMLClientsRepository("data/clients.xml", clientValidator);
-
-
         Validator<Movie> movieValidator = new MovieValidator();
-        //Repository<Integer,Movie> movieRepository = new InMemoryRepository<>(movieValidator);
-        //Repository<Integer, Movie> movieRepository = new MovieFileRepository(movieValidator, "./data/movies");
-        Repository<Integer,Movie> movieRepository = new XMLMoviesRepository("data/movies.xml", movieValidator);
-
-
         Validator<Rental> rentalValidator = new RentalValidator();
-        //Repository<Integer, Rental> rentalRepository = new InMemoryRepository<>(rentalValidator);
-        //Repository<Integer, Rental> rentalRepository = new RentalFileRepository(rentalValidator, "./data/rentals");
-        Repository<Integer, Rental> rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);
+
+        Repository<Integer, Client> clientRepository = null;
+        Repository<Integer,Movie> movieRepository = null;
+        Repository<Integer, Rental> rentalRepository = null;
+
+        String repoType = "xml";
+
+        switch (repoType) {
+            case "mem":
+                clientRepository = new InMemoryRepository<>(clientValidator);
+                populateClientRepo(clientRepository);
+                movieRepository = new InMemoryRepository<>(movieValidator);
+                populateMovieRepo(movieRepository);
+                rentalRepository = new InMemoryRepository<>(rentalValidator);
+                break;
+            case "file":
+                clientRepository = new ClientFileRepository(clientValidator, "./data/clients");
+                movieRepository = new MovieFileRepository(movieValidator, "./data/movies");
+                rentalRepository = new RentalFileRepository(rentalValidator, "./data/rentals");
+                break;
+            case "xml":
+                clientRepository = new XMLClientsRepository("data/clients.xml", clientValidator);
+                movieRepository = new XMLMoviesRepository("data/movies.xml", movieValidator);
+                rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);
+        }
 
 
         ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
-        //addRentals(crs);
+
+        if (repoType.equals("mem")) addRentals(crs);
 
 
         AbstractMenu ui = new MainMenu(crs);

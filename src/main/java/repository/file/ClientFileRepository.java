@@ -1,14 +1,13 @@
-package repository;
-
-import domain.Movie;
-import domain.validators.Validator;
+package repository.file;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import domain.Client;
 import domain.validators.Validator;
 import domain.validators.ValidatorException;
+import repository.mem.InMemoryRepository;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,15 +15,16 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class MovieFileRepository extends InMemoryRepository<Integer, Movie> {
+public class ClientFileRepository extends InMemoryRepository<Integer, Client> {
 
     private String sourceFile;
 
-    public MovieFileRepository(Validator<Movie> validator, String file) {
+    public ClientFileRepository(Validator<Client> validator, String file) {
         super(validator);
         this.sourceFile = file;
         loadData();
     }
+
     private void loadData() {
         Path path = Paths.get(sourceFile);
 
@@ -33,15 +33,15 @@ public class MovieFileRepository extends InMemoryRepository<Integer, Movie> {
                 List<String> items = Arrays.asList(line.split(","));
 
                 Integer id = Integer.valueOf(items.get(0));
-                String name = items.get(1);
-                Integer year = Integer.valueOf(items.get((2)));
-                String director = items.get(3);
+                String fisrtName = items.get(1);
+                String lastName = items.get((2));
+                int age = Integer.parseInt(items.get(3));
 
-                Movie movie = new Movie(name, year, director);
-                movie.setId(id);
+                Client student = new Client(fisrtName, lastName, age);
+                student.setId(id);
 
                 try {
-                    super.save(movie);
+                    super.save(student);
                 } catch (ValidatorException e) {
                     e.printStackTrace();
                 }
@@ -52,8 +52,8 @@ public class MovieFileRepository extends InMemoryRepository<Integer, Movie> {
     }
 
     @Override
-    public Optional<Movie> save(Movie entity) throws ValidatorException {
-        Optional<Movie> optional = super.save(entity);
+    public Optional<Client> save(Client entity) throws ValidatorException {
+        Optional<Client> optional = super.save(entity);
         if (optional.isPresent()) {
             return optional;
         }
@@ -61,16 +61,16 @@ public class MovieFileRepository extends InMemoryRepository<Integer, Movie> {
         return Optional.empty();
     }
 
-
-    private void saveToFile(Movie entity) {
+    private void saveToFile(Client entity) {
         Path path = Paths.get(sourceFile);
 
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
             bufferedWriter.write("\n"+
-                    entity.getId() + "," + entity.getMovieName() + "," + entity.getYear() + "," + entity.getMovieDirector());
+                    entity.getId() + "," + entity.getFirstName() + "," + entity.getLastName() + "," + entity.getAge());
             bufferedWriter.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

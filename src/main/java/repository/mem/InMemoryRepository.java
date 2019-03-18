@@ -1,9 +1,10 @@
-package repository;
+package repository.mem;
 
 import domain.BaseEntity;
 import domain.Client;
 import domain.validators.Validator;
 import domain.validators.ValidatorException;
+import repository.Repository;
 
 import javax.swing.text.html.Option;
 import java.util.*;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * @param <ID> type of the id of the entity
  * @param <T> type of the entity; must extend BaseEntity
  */
-public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Repository<ID, T>{
+public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Repository<ID, T> {
 
     private Map<ID, T> entities;
     private Validator<T> validator;

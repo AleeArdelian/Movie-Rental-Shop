@@ -8,6 +8,7 @@ import domain.validators.Validator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import repository.mem.InMemoryRepository;
 
 import java.util.HashSet;
 import java.util.Set;
