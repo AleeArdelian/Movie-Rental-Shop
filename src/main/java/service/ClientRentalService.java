@@ -3,9 +3,9 @@ package service;
 import domain.Client;
 import domain.Movie;
 import domain.Rental;
-import domain.Triple;
-import domain.validators.ControllerRentalValidator;
-import domain.validators.Validator;
+import domain.exceptions.ClientNotFoundException;
+import domain.exceptions.MovieAlreadyRentedException;
+import domain.exceptions.MovieNotFoundException;
 import domain.validators.ValidatorException;
 import repository.Repository;
 
@@ -21,7 +21,6 @@ public class ClientRentalService {
     private Repository<Integer, Client> clientRepository;
     private Repository<Integer, Movie> movieRepository;
     private Repository<Integer, Rental> rentalRepository;
-    private Validator<Triple<Rental, Repository<Integer, Client>, Repository<Integer, Movie>>> ctrlRentalValidator = new ControllerRentalValidator();
 
     /**
      * Constructor for ClientRentalService.
@@ -33,7 +32,6 @@ public class ClientRentalService {
         clientRepository = crs;
         movieRepository = mov;
         rentalRepository = rent;
-
     }
 
     /**
@@ -57,10 +55,18 @@ public class ClientRentalService {
 
     public void addRental(Rental rental) throws ValidatorException{
 
-        ctrlRentalValidator.validate(new Triple<>(rental, clientRepository, movieRepository));
-        movieRepository.findOne(rental.getMovieId()).ifPresent((m) -> m.setRented(true));
+        clientRepository.findOne(rental.getClientId()).orElseThrow(() -> new ClientNotFoundException("Client ID was not found."));
+        Movie movie = movieRepository.findOne(rental.getMovieId()).orElseThrow(() -> new MovieNotFoundException("Movie ID was not found."));
+        if (movie.isRented()) throw new MovieAlreadyRentedException(movie.getMovieName() + "is already rented.");
+        movie.setRented(true);
         rentalRepository.save(rental);
     }
+
+    /*
+    public Optional<Rental> deleteRental(Integer id) {
+        rentalRepository.delete(id);
+    }
+    */
 
     /**
      * Updates a client in Clients repository.
