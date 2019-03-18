@@ -92,9 +92,7 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
     public Optional<T> update(T entity) throws ValidatorException {
         Optional<T> entityOpt = Optional.ofNullable(entity);
         entityOpt.orElseThrow(() -> new IllegalArgumentException("Entity must not be null!"));
-
-        Optional.ofNullable(entities.get(entity.getId())).orElseThrow( ()-> new ValidatorException("Invalid key!"));
-
+        //Optional.ofNullable(entities.get(entity.getId())).orElseThrow( ()-> new ValidatorException("Invalid key!"));
         validator.validate(entity);
         return Optional.ofNullable(entities.computeIfPresent(entity.getId(), (k, v) -> entity));
     }

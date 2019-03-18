@@ -35,12 +35,15 @@ class RentalsMenu extends AbstractMenu {
             throw new RuntimeException("Id or Age not valid!");
         }
     }
+
+
     @Override
     void setUpMenu() {
         setTitle("RENTALS");
         menuItems.put(1, new MenuOption("Rent a movie", () -> crs.addRental(getRental())));
         menuItems.put(2, new MenuOption("Return a movie", () -> System.out.println("Update")));
-        menuItems.put(3, new MenuOption("See all rentals", () -> printAllRentals(crs.getAllRentals())));
+        menuItems.put(3, new MenuOption("Delete a movie", () -> crs.deleteRental(getId())));
+        menuItems.put(4, new MenuOption("See all rentals", () -> printAllRentals(crs.getAllRentals())));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
 

@@ -6,6 +6,7 @@ import domain.Rental;
 import domain.exceptions.ClientNotFoundException;
 import domain.exceptions.MovieAlreadyRentedException;
 import domain.exceptions.MovieNotFoundException;
+import domain.exceptions.RentalNotFoundException;
 import domain.validators.ValidatorException;
 import repository.Repository;
 
@@ -48,8 +49,7 @@ public class ClientRentalService {
      * @param movie the {@code Movie} to be added.
      * @throws ValidatorException if the movie is not valid.
      */
-    public void addMovie(Movie movie) throws ValidatorException
-    {
+    public void addMovie(Movie movie) throws ValidatorException {
         movieRepository.save(movie);
     }
 
@@ -62,19 +62,21 @@ public class ClientRentalService {
         rentalRepository.save(rental);
     }
 
-    /*
-    public Optional<Rental> deleteRental(Integer id) {
-        rentalRepository.delete(id);
+    public Optional<Rental> deleteRental(Integer id) throws ValidatorException{
+        Rental rental = rentalRepository.findOne(id).orElseThrow(() -> new RentalNotFoundException("Rental ID was not found."));
+        int mId = rental.getMovieId();
+        Movie movie = movieRepository.findOne(mId).get();
+        movie.setRented(false);
+        return rentalRepository.delete(id);
     }
-    */
 
     /**
      * Updates a client in Clients repository.
      * @param client the {@code Client} to be updated.
      * @throws ValidatorException if the client is not valid.
      */
-    public void updateClient(Client client) throws ValidatorException
-    {
+    public void updateClient(Client client) throws ValidatorException {
+        clientRepository.findOne(client.getId()).orElseThrow(() -> new ClientNotFoundException("Client ID was not found."));
         clientRepository.update(client);
     }
 
@@ -83,8 +85,8 @@ public class ClientRentalService {
      * @param movie the {@code Movie} to be updated.
      * @throws ValidatorException if the movie is not valid.
      */
-    public void updateMovie(Movie movie) throws ValidatorException
-    {
+    public void updateMovie(Movie movie) throws ValidatorException {
+        movieRepository.findOne(movie.getId()).orElseThrow(() -> new MovieNotFoundException("Movie ID was not found."));
         movieRepository.update(movie);
     }
 
@@ -94,6 +96,8 @@ public class ClientRentalService {
      * @return an {@code Optional} - null if there is no Client with the given id; the Movie otherwise.
      */
     public Optional<Client> deleteClient(Integer id) {
+        clientRepository.findOne(id).orElseThrow(() -> new ClientNotFoundException("Client ID was not found."));
+
         return clientRepository.delete(id);
     }
 
@@ -103,6 +107,7 @@ public class ClientRentalService {
      * @return an {@code Optional} - null if there is no Movie with the given id; the Movie otherwise.
      */
     public Optional<Movie> deleteMovie(Integer id) {
+        movieRepository.findOne(id).orElseThrow(() -> new MovieNotFoundException("Movie ID was not found."));
         return movieRepository.delete(id);
     }
 
@@ -110,8 +115,7 @@ public class ClientRentalService {
      * Gets all the clients from Clients repository.
      * @return a {@code Set} of all clients.
      */
-    public Set<Client> getAllClients()
-    {
+    public Set<Client> getAllClients() {
         Iterable<Client> clients = clientRepository.findAll();
         return StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
     }
