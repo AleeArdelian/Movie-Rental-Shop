@@ -21,6 +21,13 @@ public class Rental extends BaseEntity<Integer>{
         returnDate=dtf.format(newLocalDate);
     }
 
+    public Rental(int cId, int mId, String rentalDate, String returnDate) {
+        this.clientId = cId;
+        this.movieId = mId;
+        this.rentalDate = rentalDate;
+        this.returnDate = returnDate;
+    }
+
     public int getMovieId()
     {
         return movieId;

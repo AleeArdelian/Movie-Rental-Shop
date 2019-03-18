@@ -1,10 +1,11 @@
 import domain.Client;
-
 import domain.Rental;
 import domain.validators.*;
+import repository.xml.XMLClientsRepository;
+import repository.xml.XMLMoviesRepository;
+import repository.xml.XMLRentalsRepository;
 import ui.MainMenu;
 import domain.Movie;
-import repository.InMemoryRepository;
 import repository.Repository;
 import service.ClientRentalService;
 import ui.AbstractMenu;
@@ -13,8 +14,35 @@ public class Main {
 
     public static void main(String[] args) {
         Validator<Client> clientValidator = new ClientValidator();
-        Repository<Integer, Client> clientRepository = new InMemoryRepository<>(clientValidator);
+        Repository<Integer, Client> clientRepository = new XMLClientsRepository("data/clients.xml", clientValidator);
 
+
+        Validator<Movie> movieValidator = new MovieValidator();
+        //Repository<Integer,Movie> movieRepository = new InMemoryRepository<>(movieValidator);
+        Repository<Integer,Movie> movieRepository = new XMLMoviesRepository("data/movies.xml", movieValidator);
+
+        /*
+         * Add some rentals in the movie repository.
+         */
+
+        Validator<Rental> rentalValidator = new RentalValidator();
+        //Repository<Integer, Rental> rentalRepository = new InMemoryRepository<>(rentalValidator);
+        Repository<Integer, Rental> rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);
+
+
+
+
+
+
+        ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
+        //addRentals(crs);
+
+
+        AbstractMenu ui = new MainMenu(crs);
+        ui.run();
+    }
+
+    private static void populateClientRepo(Repository<Integer, Client> clientRepository) {
         /*
          * Add some clients in clients repository.
          */
@@ -33,10 +61,9 @@ public class Main {
         Client client5= new Client("Diana","Achim", 20);
         client5.setId(5);
         clientRepository.save(client5);
+    }
 
-        Validator<Movie> movieValidator = new MovieValidator();
-        Repository<Integer,Movie> movieRepository = new InMemoryRepository<>(movieValidator);
-
+    private static void populateMovieRepo(Repository<Integer, Movie> movieRepository) {
         /*
          * Add some movies in the movie repository.
          */
@@ -55,21 +82,9 @@ public class Main {
         Movie movie5 = new Movie("Casino", 1995,"Martin Scorsese");
         movie5.setId(5);
         movieRepository.save(movie5);
+    }
 
-        /*
-         * Add some rentals in the movie repository.
-         */
-
-        Validator<Rental> rentalValidator = new RentalValidator();
-        Repository<Integer, Rental> rentalRepository = new InMemoryRepository<>(rentalValidator);
-
-
-
-
-
-
-        ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
-
+    private static void addRentals(ClientRentalService crs) {
         Rental rental1 = new Rental(1, 1);
         rental1.setId(1);
         crs.addRental(rental1);
@@ -79,10 +94,5 @@ public class Main {
         Rental rental3 = new Rental(3, 3);
         rental3.setId(3);
         crs.addRental(rental3);
-
-
-        AbstractMenu ui = new MainMenu(crs);
-        ui.run();
     }
-
 }
