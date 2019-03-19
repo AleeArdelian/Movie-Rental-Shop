@@ -167,6 +167,17 @@ public class ClientRentalService {
         Iterable<Rental> rentals = rentalRepository.findAll();
         return StreamSupport.stream(rentals.spliterator(), false).collect(Collectors.toSet());
     }
+
+    public Map moviesEachClient() {
+        /* for each movie in the movieRepo, check how many record are with that id in rentals
+         * count and map
+         */
+        return StreamSupport.stream(clientRepository.findAll().spliterator(), false)
+                .collect(Collectors.toMap(client -> client.getFirstName() + " " + client.getLastName(), client -> StreamSupport
+                        .stream(rentalRepository.findAll().spliterator(), false)
+                        .filter(r -> r.getClientId() == client.getId()).count())
+                        );
+    }
 }
 
 

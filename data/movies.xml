@@ -1,1 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?><movies><movie id="1"><name>Titanic</name><director>James Cameron</director><year>1997</year><rented>false</rented></movie><movie id="2"><name>Pulp Fiction</name><director>Quentin Tarantino</director><year>1994</year><rented>false</rented></movie><movie id="3"><name>Django</name><director>Quentin Tarantino</director><year>2012</year><rented>false</rented></movie><movie id="4"><name>A Bronx Tale</name><director>Robert De Niro</director><year>1993</year><rented>false</rented></movie><movie id="5"><name>Casino</name><director>Martin Scorsese</director><year>1995</year><rented>false</rented></movie></movies>
+<?xml version="1.0" encoding="UTF-8"?>
+<movies>
+    <movie id="1">
+        <name>Titanic</name>
+        <director>James Cameron</director>
+        <year>1997</year>
+        <rented>false</rented>
+    </movie>
+    <movie id="2">
+        <name>Pulp Fiction</name>
+        <director>Quentin Tarantino</director>
+        <year>1994</year>
+        <rented>false</rented>
+    </movie>
+    <movie id="3">
+        <name>Django</name>
+        <director>Quentin Tarantino</director>
+        <year>2012</year>
+        <rented>false</rented>
+    </movie>
+    <movie id="4">
+        <name>A Bronx Tale</name>
+        <director>Robert De Niro</director>
+        <year>1993</year>
+        <rented>false</rented>
+    </movie>
+    <movie id="5">
+        <name>Casino</name>
+        <director>Martin Scorsese</director>
+        <year>1995</year>
+        <rented>false</rented>
+    </movie>
+</movies>

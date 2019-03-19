@@ -65,6 +65,8 @@ class MoviesMenu extends AbstractMenu {
         menuItems.put(5, new MenuOption("List sorted", () -> printSortedMovies(crs.getAllSortedMovies())));
         menuItems.put(6, new MenuOption("List all movies after a given year", () -> System.out.println("The number" +
                         " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
+        menuItems.put(7, new MenuOption("How many times movies were rented", () -> System.out.println("The number" +
+                " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
 
