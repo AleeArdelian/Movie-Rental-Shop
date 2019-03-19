@@ -21,7 +21,7 @@ public class XMLMoviesRepository extends XMLRepository implements Repository<Int
 
     @Override
     public Optional<Movie> findOne(Integer id) {
-        loadXMLDocument();
+        //loadXMLDocument();
         Node root = XMLDocument.getDocumentElement();
         NodeList movies = root.getChildNodes();
         Movie movie = null;
@@ -37,7 +37,7 @@ public class XMLMoviesRepository extends XMLRepository implements Repository<Int
 
     @Override
     public Iterable<Movie> findAll() {
-        loadXMLDocument();
+        //loadXMLDocument();
         Set<Movie> moviesSet = new HashSet<>();
         Node root = XMLDocument.getDocumentElement();
         NodeList movies = root.getChildNodes();
@@ -52,7 +52,7 @@ public class XMLMoviesRepository extends XMLRepository implements Repository<Int
     @Override
     public Optional<Movie> save(Movie entity) throws ValidatorException {
         validator.validate(entity);
-        loadXMLDocument();
+        //loadXMLDocument();
         Element root = XMLDocument.getDocumentElement();
 
         Element entityElement = XMLDocument.createElement("movie");
@@ -70,7 +70,7 @@ public class XMLMoviesRepository extends XMLRepository implements Repository<Int
 
     @Override
     public Optional<Movie> delete(Integer id) {
-        loadXMLDocument();
+        //loadXMLDocument();
         Node root = XMLDocument.getDocumentElement();
         NodeList movies = root.getChildNodes();
         Movie movie = null;
@@ -88,7 +88,7 @@ public class XMLMoviesRepository extends XMLRepository implements Repository<Int
     @Override
     public Optional<Movie> update(Movie entity) throws ValidatorException {
         validator.validate(entity);
-        loadXMLDocument();
+        //loadXMLDocument();
         Node root = XMLDocument.getDocumentElement();
         NodeList movies = root.getChildNodes();
         Movie movie = null;

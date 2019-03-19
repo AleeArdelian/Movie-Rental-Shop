@@ -22,7 +22,7 @@ public class XMLClientsRepository extends XMLRepository implements Repository<In
 
     @Override
     public Optional<Client> findOne(Integer id) {
-        loadXMLDocument();
+        //loadXMLDocument();
         Node root = XMLDocument.getDocumentElement();
         NodeList clients = root.getChildNodes();
         Client client = null;
@@ -38,7 +38,7 @@ public class XMLClientsRepository extends XMLRepository implements Repository<In
 
     @Override
     public Iterable<Client> findAll() {
-        loadXMLDocument();
+        //loadXMLDocument();
         Set<Client> clientsSet = new HashSet<>();
         Node root = XMLDocument.getDocumentElement();
         NodeList clients = root.getChildNodes();
@@ -53,7 +53,7 @@ public class XMLClientsRepository extends XMLRepository implements Repository<In
     @Override
     public Optional<Client> save(Client entity) throws ValidatorException {
         validator.validate(entity);
-        loadXMLDocument();
+        //loadXMLDocument();
         Element root = XMLDocument.getDocumentElement();
 
         Element entityElement = XMLDocument.createElement("client");
@@ -70,7 +70,7 @@ public class XMLClientsRepository extends XMLRepository implements Repository<In
 
     @Override
     public Optional<Client> delete(Integer id) {
-        loadXMLDocument();
+        //loadXMLDocument();
         Node root = XMLDocument.getDocumentElement();
         NodeList clients = root.getChildNodes();
         Client client = null;
@@ -88,7 +88,7 @@ public class XMLClientsRepository extends XMLRepository implements Repository<In
     @Override
     public Optional<Client> update(Client entity) throws ValidatorException {
         validator.validate(entity);
-        loadXMLDocument();
+        //loadXMLDocument();
         Node root = XMLDocument.getDocumentElement();
         NodeList clients = root.getChildNodes();
         Client client = null;

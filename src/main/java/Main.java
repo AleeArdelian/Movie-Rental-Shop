@@ -26,7 +26,7 @@ public class Main {
         Repository<Integer,Movie> movieRepository = null;
         Repository<Integer, Rental> rentalRepository = null;
 
-        String repoType = "xml";
+        String repoType = "file";
 
         switch (repoType) {
             case "mem":
