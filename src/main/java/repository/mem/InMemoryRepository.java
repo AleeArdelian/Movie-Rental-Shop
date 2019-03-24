@@ -5,8 +5,12 @@ import domain.Client;
 import domain.validators.Validator;
 import domain.validators.ValidatorException;
 import repository.Repository;
+import repository.paging.Page;
+import repository.paging.Pageable;
+import repository.paging.PagingRepository;
 
 import javax.swing.text.html.Option;
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,7 +20,7 @@ import java.util.stream.Collectors;
  * @param <ID> type of the id of the entity
  * @param <T> type of the entity; must extend BaseEntity
  */
-public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Repository<ID, T> {
+public class InMemoryRepository<ID extends Serializable, T extends BaseEntity<ID>> implements PagingRepository<ID, T> {
 
     private Map<ID, T> entities;
     private Validator<T> validator;
@@ -96,4 +100,8 @@ public class InMemoryRepository<ID, T extends BaseEntity<ID>> implements Reposit
         return Optional.ofNullable(entities.computeIfPresent(entity.getId(), (k, v) -> entity));
     }
 
+    @Override
+    public Page<T> findAll(Pageable pageable) {
+        return null;
+    }
 }
