@@ -5,6 +5,7 @@ import repository.file.ClientFileRepository;
 import repository.file.MovieFileRepository;
 import repository.file.RentalFileRepository;
 import repository.mem.InMemoryRepository;
+import repository.paging.PagingRepository;
 import repository.xml.XMLClientsRepository;
 import repository.xml.XMLMoviesRepository;
 import repository.xml.XMLRentalsRepository;
@@ -22,7 +23,7 @@ public class Main {
         Validator<Movie> movieValidator = new MovieValidator();
         Validator<Rental> rentalValidator = new RentalValidator();
 
-        Repository<Integer, Client> clientRepository = null;
+        PagingRepository<Integer, Client> clientRepository = null;
         Repository<Integer,Movie> movieRepository = null;
         Repository<Integer, Rental> rentalRepository = null;
 
@@ -41,10 +42,11 @@ public class Main {
                 movieRepository = new MovieFileRepository(movieValidator, "./data/movies");
                 rentalRepository = new RentalFileRepository(rentalValidator, "./data/rentals");
                 break;
+                /*
             case "xml":
                 clientRepository = new XMLClientsRepository("data/clients.xml", clientValidator);
                 movieRepository = new XMLMoviesRepository("data/movies.xml", movieValidator);
-                rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);
+                rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);*/
         }
 
 

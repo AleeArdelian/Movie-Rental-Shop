@@ -8,11 +8,13 @@ import repository.Repository;
 import repository.paging.Page;
 import repository.paging.Pageable;
 import repository.paging.PagingRepository;
+import repository.paging.impl.PageImpl;
 
 import javax.swing.text.html.Option;
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * InMemoryRepository class for CRUD operations on in memory repository for generic types.
@@ -102,6 +104,7 @@ public class InMemoryRepository<ID extends Serializable, T extends BaseEntity<ID
 
     @Override
     public Page<T> findAll(Pageable pageable) {
-        return null;
+        Stream<T> ent = entities.values().stream().limit(pageable.getPageSize());
+        return new PageImpl<>(ent, pageable);
     }
 }

@@ -9,6 +9,10 @@ import domain.exceptions.MovieNotFoundException;
 import domain.exceptions.RentalNotFoundException;
 import domain.validators.ValidatorException;
 import repository.Repository;
+import repository.paging.Page;
+import repository.paging.Pageable;
+import repository.paging.PagingRepository;
+import repository.paging.impl.PageableImpl;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,16 +23,19 @@ import java.util.stream.StreamSupport;
  */
 public class ClientRentalService {
 
-    private Repository<Integer, Client> clientRepository;
+    private PagingRepository<Integer, Client> clientRepository;
     private Repository<Integer, Movie> movieRepository;
     private Repository<Integer, Rental> rentalRepository;
+
+    private int page = 0;
+    private int size = 1;
 
     /**
      * Constructor for ClientRentalService.
      * @param crs a {@code Repository} instance for Clients repository.
      * @param mov a {@code Repository} instance for Movies repository.
      */
-    public ClientRentalService(Repository<Integer,Client> crs, Repository<Integer,Movie> mov, Repository<Integer, Rental> rent)
+    public ClientRentalService(PagingRepository<Integer,Client> crs, Repository<Integer,Movie> mov, Repository<Integer, Rental> rent)
     {
         clientRepository = crs;
         movieRepository = mov;
@@ -120,6 +127,12 @@ public class ClientRentalService {
         return StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
     }
 
+    public Set<Client> getNextClients() {
+        Page<Client> clientsPage = clientRepository.findAll(new PageableImpl(page, size));
+        Set<Client> clients = clientsPage.getContent().collect(Collectors.toSet());
+        return clients;
+    }
+
     /**
      * Gets all the clients from Clients repository sorted by First Name.
      * @return a {@code List} of all movies.
@@ -177,6 +190,10 @@ public class ClientRentalService {
                         .stream(rentalRepository.findAll().spliterator(), false)
                         .filter(r -> r.getClientId() == client.getId()).count())
                         );
+    }
+
+    public void setPageSize(int size) {
+        this.size = size;
     }
 }
 
