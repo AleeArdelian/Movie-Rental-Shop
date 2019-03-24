@@ -9,6 +9,7 @@ import repository.paging.Page;
 import repository.paging.Pageable;
 import repository.paging.PagingRepository;
 import repository.paging.impl.PageImpl;
+import repository.paging.impl.Paginator;
 
 import javax.swing.text.html.Option;
 import java.io.Serializable;
@@ -104,7 +105,6 @@ public class InMemoryRepository<ID extends Serializable, T extends BaseEntity<ID
 
     @Override
     public Page<T> findAll(Pageable pageable) {
-        Stream<T> ent = entities.values().stream().limit(pageable.getPageSize());
-        return new PageImpl<>(ent, pageable);
+        return Paginator.paginate(this.findAll(), pageable);
     }
 }

@@ -27,8 +27,8 @@ public class ClientRentalService {
     private Repository<Integer, Movie> movieRepository;
     private Repository<Integer, Rental> rentalRepository;
 
-    private int page = 0;
-    private int size = 1;
+    private Pageable pageableObj = new PageableImpl(0, 1);
+
 
     /**
      * Constructor for ClientRentalService.
@@ -128,8 +128,9 @@ public class ClientRentalService {
     }
 
     public Set<Client> getNextClients() {
-        Page<Client> clientsPage = clientRepository.findAll(new PageableImpl(page, size));
+        Page<Client> clientsPage = clientRepository.findAll(pageableObj);
         Set<Client> clients = clientsPage.getContent().collect(Collectors.toSet());
+        pageableObj = clientsPage.nextPageable();
         return clients;
     }
 
@@ -193,7 +194,7 @@ public class ClientRentalService {
     }
 
     public void setPageSize(int size) {
-        this.size = size;
+        pageableObj = new PageableImpl(0, size);
     }
 }
 

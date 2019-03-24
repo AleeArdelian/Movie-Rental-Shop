@@ -44,21 +44,18 @@ class ClientsMenu extends AbstractMenu {
             boolean printing = true;
             String choice = "n";
             while (printing) {
-                switch (choice) {
-                    case "n":
+                if (choice.equals("n")) {
                         Set<Client> clients = crs.getNextClients();
                         if (clients.size() == 0) {
                             System.out.println("No more clients");
                             break;
                         }
-                        crs.getNextClients().forEach(System.out::println);
-                        break;
-                    case "x":
-                        printing = false;
-                        break;
+                        clients.forEach(System.out::println);
                 }
                 System.out.println("\nPress 'n' to see the next page, 'x' to exit");
                 choice = keyboard.readLine();
+                if (choice.equals("x"))
+                    printing = false;
             }
         } catch (IOException exc) {
             throw new RuntimeException("There was a problem with the input. Sorry!");
