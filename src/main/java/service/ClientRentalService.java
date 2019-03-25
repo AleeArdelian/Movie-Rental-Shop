@@ -48,7 +48,7 @@ public class ClientRentalService {
      * @throws ValidatorException if the client is not valid.
      */
     public void addClient(Client client) throws ValidatorException {
-        clientRepository.save(client);
+        clientRepository.save(client).orElseThrow(() -> new RuntimeException("Client ID already exists."));
     }
 
     /**
@@ -57,7 +57,7 @@ public class ClientRentalService {
      * @throws ValidatorException if the movie is not valid.
      */
     public void addMovie(Movie movie) throws ValidatorException {
-        movieRepository.save(movie);
+        movieRepository.save(movie).orElseThrow(() -> new RuntimeException("Movie ID already exists."));
     }
 
     public void addRental(Rental rental) throws ValidatorException{

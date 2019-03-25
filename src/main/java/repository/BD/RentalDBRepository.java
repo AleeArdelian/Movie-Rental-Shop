@@ -26,7 +26,6 @@ public class RentalDBRepository implements PagingRepository<Integer, Rental> {
         this.validator=validator;
     }
 
-
     @Override
     public Page<Rental> findAll(Pageable pageable) {
         return Paginator.paginate(this.findAll(), pageable);
@@ -88,56 +87,74 @@ public class RentalDBRepository implements PagingRepository<Integer, Rental> {
     public Optional<Rental> save(Rental entity) throws ValidatorException {
         String sql = "insert into \"Rental\"(\"Rental_Id\",\"Client_Id\",\"Movie_Id\",\"Rental_date\", \"Return_date\") values (?,?,?,?)";
         validator.validate(entity);
-        try (var connection = DriverManager.getConnection(URL, USERNAME,
-                PASSWORD);
-             var statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, entity.getId());
-            statement.setInt(2, entity.getClientId());
-            statement.setInt(3, entity.getMovieId());
-            statement.setString(4, entity.getRentalDate());
-            statement.setString(5, entity.getReturnDate());
-
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Optional<Rental> r = findOne(entity.getId());
+        if (r.isPresent()) {
+            return r;
         }
-        return Optional.empty();
+        else {
+            try (var connection = DriverManager.getConnection(URL, USERNAME,
+                    PASSWORD);
+                 var statement = connection.prepareStatement(sql)) {
+
+                statement.setInt(1, entity.getId());
+                statement.setInt(2, entity.getClientId());
+                statement.setInt(3, entity.getMovieId());
+                statement.setString(4, entity.getRentalDate());
+                statement.setString(5, entity.getReturnDate());
+
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
+        }
     }
 
     @Override
     public Optional<Rental> delete(Integer integer) {
         String sql = "delete from \"Rental\" where \"Rental_Id\"=?";
-        try (var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-             var statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, integer);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Optional<Rental> r = findOne(integer);
+        if (r.isEmpty()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        else {
+            try (var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                 var statement = connection.prepareStatement(sql)) {
+
+                statement.setInt(1, integer);
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return r;
+        }
     }
 
     @Override
     public Optional<Rental> update(Rental entity) throws ValidatorException {
         String sql = "update \"Rental\" set \"Client_Id\"=?, \"Movie_Id\"=?, \"Rental_Date\"=? where \"Return_Date\"=?";
         validator.validate(entity);
-        try (var connection = DriverManager.getConnection(URL, USERNAME,
-                PASSWORD);
-             var statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, entity.getClientId());
-            statement.setInt(2, entity.getMovieId());
-            statement.setString(3, entity.getRentalDate());
-            statement.setString(4, entity.getReturnDate());
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Optional<Rental> r = findOne(entity.getId());
+        if (r.isEmpty()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        else {
+            try (var connection = DriverManager.getConnection(URL, USERNAME,
+                    PASSWORD);
+                 var statement = connection.prepareStatement(sql)) {
+
+                statement.setInt(1, entity.getClientId());
+                statement.setInt(2, entity.getMovieId());
+                statement.setString(3, entity.getRentalDate());
+                statement.setString(4, entity.getReturnDate());
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return r;
+        }
     }
 }

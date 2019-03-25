@@ -86,58 +86,74 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
     public Optional<Movie> save(Movie entity) throws ValidatorException {
         String sql = "insert into \"Movie\"(\"Movie_Id\",\"Movie_Name\",\"Movie_Year\",\"Movie_Director\") values (?,?,?,?)";
         validator.validate(entity);
-        try (var connection = DriverManager.getConnection(URL, USERNAME,
-                PASSWORD);
-             var statement = connection.prepareStatement(sql)) {
-
-
-            statement.setInt(1, entity.getId());
-            statement.setString(2, entity.getMovieName());
-            statement.setInt(3, entity.getYear());
-            statement.setString(4, entity.getMovieDirector());
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Optional<Movie> m = findOne(entity.getId());
+        if (m.isPresent()) {
+            return m;
         }
-        return Optional.empty();
+        else {
+            try (var connection = DriverManager.getConnection(URL, USERNAME,
+                    PASSWORD);
+                 var statement = connection.prepareStatement(sql)) {
+
+
+                statement.setInt(1, entity.getId());
+                statement.setString(2, entity.getMovieName());
+                statement.setInt(3, entity.getYear());
+                statement.setString(4, entity.getMovieDirector());
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
+        }
     }
 
     @Override
     public Optional<Movie> delete(Integer integer) {
         String sql = "delete from \"Movie\" where \"Movie_Id\"=?";
-        try (var connection = DriverManager.getConnection(URL, USERNAME,
-                PASSWORD);
-             var statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, integer);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Optional<Movie> m = findOne(integer);
+        if (m.isEmpty()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        else {
+            try (var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                 var statement = connection.prepareStatement(sql)) {
+
+                statement.setInt(1, integer);
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return m;
+        }
     }
 
     @Override
     public Optional<Movie> update(Movie entity) throws ValidatorException {
         String sql = "update \"Movie\" set \"Movie_Name\"=?, \"Movie_Year\"=?, \"Movie_Director\"=? where \"Movie_Id\"=?";
         validator.validate(entity);
-        try (var connection = DriverManager.getConnection(URL, USERNAME,
-                PASSWORD);
-             var statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, entity.getMovieName());
-            statement.setInt(2, entity.getYear());
-            statement.setString(3, entity.getMovieDirector());
-            statement.setInt(4, entity.getId());
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Optional<Movie> m = findOne(entity.getId());
+        if (m.isEmpty()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        else {
+            try (var connection = DriverManager.getConnection(URL, USERNAME,
+                    PASSWORD);
+                 var statement = connection.prepareStatement(sql)) {
 
+                statement.setString(1, entity.getMovieName());
+                statement.setInt(2, entity.getYear());
+                statement.setString(3, entity.getMovieDirector());
+                statement.setInt(4, entity.getId());
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return m;
+        }
     }
 }
 
