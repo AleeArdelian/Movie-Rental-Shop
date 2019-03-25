@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/MOVIE_SHOP";
+    private static final String URL = "jdbc:postgresql://localhost:5432/MovieRental";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "bere1234";
 
