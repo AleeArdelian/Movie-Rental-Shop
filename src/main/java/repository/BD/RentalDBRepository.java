@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class RentalDBRepository implements PagingRepository<Integer, Rental> {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/MovieRental";
+    private static final String URL = "jdbc:postgresql://localhost:2253/MovieRental";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "parola";
 
@@ -43,7 +43,7 @@ public class RentalDBRepository implements PagingRepository<Integer, Rental> {
             statement.setInt(1, integer);
             var resultSet = statement.executeQuery();
 
-            if (!resultSet.wasNull()) {
+            if (!resultSet.next()) {
                 Integer id = resultSet.getInt("Rental_Id");
                 Integer client_id = resultSet.getInt("Client_Id");
                 Integer movie_id = resultSet.getInt("Movie_Id");

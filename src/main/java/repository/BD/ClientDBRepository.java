@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/MovieRental";
+    private static final String URL = "jdbc:postgresql://localhost:2253/MovieRental";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "parola";
 
@@ -34,14 +34,14 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
     @Override
     public Optional<Client> findOne(Integer integer) {
         Client c = null;
-        String sql = "select * from \"Clients\" where \"Client_Id\"=?";
+        String sql = "select * from \"Client\" where \"Client_Id\"=?";
         try (
                 var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                var statement = connection.prepareStatement(sql);
+                var statement = connection.prepareStatement(sql)
         ) {
             statement.setInt(1, integer);
             var resultSet = statement.executeQuery();
-            if (!resultSet.wasNull()) {
+            if(resultSet.next()) {
                 int id = resultSet.getInt("Client_Id");
                 String firstName = resultSet.getString("Client_FirstName");
                 String lastName = resultSet.getString("Client_LastName");
@@ -49,6 +49,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
                 c = new Client(firstName, lastName, age);
                 c.setId(id);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +59,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
     @Override
     public Iterable<Client> findAll() {
         List<Client> clients = new ArrayList<>();
-        String sql = "select * from \"Clients\"";
+        String sql = "select * from \"Client\"";
         try (
             var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             var statement = connection.prepareStatement(sql);
@@ -81,7 +82,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Optional<Client> save(Client entity) throws ValidatorException {
-        String sql = "insert into \"Clients\"(\"Client_Id\", \"Client_FirstName\", \"Client_LastName\". \"Client_Age\")" +
+        String sql = "insert into \"Client\"(\"Client_Id\", \"Client_FirstName\", \"Client_LastName\", \"Client_Age\")" +
                 " values (?, ?, ?, ?)";
         try (
                 var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -100,7 +101,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Optional<Client> delete(Integer integer) {
-        String sql = "delete from \"Clients\" where \"Client_Id\"=?";
+        String sql = "delete from \"Client\" where \"Client_Id\"=?";
         try (
                 var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                 var statement = connection.prepareStatement(sql)
@@ -115,7 +116,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Optional<Client> update(Client entity) throws ValidatorException {
-        String sql = "update \"Clients\" set \"Client_FirstName\"=?, \"Client_LastName\"=?, \"Client_Age\"=? where \"Client_Id\"=?";
+        String sql = "update \"Client\" set \"Client_FirstName\"=?, \"Client_LastName\"=?, \"Client_Age\"=? where \"Client_Id\"=?";
         try (
                 var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                 var statement = connection.prepareStatement(sql)

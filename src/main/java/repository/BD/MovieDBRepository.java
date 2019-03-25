@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class MovieDBRepository implements PagingRepository<Integer, Movie> {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/MovieRental";
+    private static final String URL = "jdbc:postgresql://localhost:2253/MovieRental";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "parola";
 
@@ -45,14 +45,15 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
             statement.setInt(1, integer);
             var resultSet = statement.executeQuery();
 
-            if (!resultSet.wasNull()) {
+            if(resultSet.next()) {
                 Integer id = resultSet.getInt("Movie_Id");
                 String name = resultSet.getString("Movie_Name");
                 int year = resultSet.getInt("Movie_Year");
                 String director = resultSet.getString("Movie_Name");
-                mov = new Movie(name,year,director);
+                mov = new Movie(name, year, director);
                 mov.setId(id);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -91,6 +92,7 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
+
 
             statement.setInt(1, entity.getId());
             statement.setString(2, entity.getMovieName());
