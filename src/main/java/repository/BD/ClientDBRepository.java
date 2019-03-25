@@ -6,6 +6,7 @@ import domain.validators.ValidatorException;
 import repository.paging.Page;
 import repository.paging.Pageable;
 import repository.paging.PagingRepository;
+import repository.paging.impl.Paginator;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Page<Client> findAll(Pageable pageable) {
-        return null;
+        return Paginator.paginate(this.findAll(), pageable);
     }
 
     @Override
@@ -79,6 +80,18 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Optional<Client> save(Client entity) throws ValidatorException {
+        String sql = "insert into student(name,grade) values (?,?)";
+        try (
+                var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                var statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, s.getName());
+            statement.setInt(2, s.getGrade());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return Optional.empty();
     }
 
