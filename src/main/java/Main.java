@@ -1,6 +1,7 @@
 import domain.Client;
 import domain.Rental;
 import domain.validators.*;
+import repository.BD.MovieDBRepository;
 import repository.file.ClientFileRepository;
 import repository.file.MovieFileRepository;
 import repository.file.RentalFileRepository;
@@ -42,6 +43,8 @@ public class Main {
                 movieRepository = new MovieFileRepository(movieValidator, "./data/movies");
                 rentalRepository = new RentalFileRepository(rentalValidator, "./data/rentals");
                 break;
+            case "db":
+                movieRepository = new MovieDBRepository();
                 /*
             case "xml":
                 clientRepository = new XMLClientsRepository("data/clients.xml", clientValidator);

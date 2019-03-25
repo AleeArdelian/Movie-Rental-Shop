@@ -1,11 +1,14 @@
 package repository.BD;
 
 import domain.BaseEntity;
+import domain.Client;
 import domain.Movie;
+import domain.validators.Validator;
 import domain.validators.ValidatorException;
 import repository.paging.Page;
 import repository.paging.Pageable;
 import repository.paging.PagingRepository;
+import repository.paging.impl.Paginator;
 
 import java.sql.*;
 import java.io.Serializable;
@@ -15,29 +18,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MovieDBRepository<ID extends Serializable, T extends BaseEntity<ID>> implements PagingRepository<ID, T> {
+public class MovieDBRepository implements PagingRepository<Integer, Movie> {
 
     private static final String URL = "jdbc:postgresql://localhost:5432/MovieRental";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = System.getProperty("password");
+    private static final String PASSWORD = "parola";
+
+    private Validator<Client> validator;
 
     public MovieDBRepository(){
-
+        this.validator = validator;
     }
 
     @Override
-    public Page<T> findAll(Pageable pageable) {
+    public Page<Movie> findAll(Pageable pageable) {
+        return Paginator.paginate(this.findAll(), pageable);
     }
 
     @Override
-    public Optional<T> findOne(ID id) {
-        return Optional.empty();
+    public Optional<Movie> findOne(Integer integer) {
+        String sql = "select from \"Movie\" where \"Movie_Id\"=?";
+        Movie mov= null;
+        try (var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             var statement = connection.prepareStatement(sql))
+        {
+            statement.setInt(1, integer);
+            var resultSet = statement.executeQuery();
+
+            if (!resultSet.wasNull()) {
+                Integer id = resultSet.getInt("Movie_Id");
+                String name = resultSet.getString("Movie_Name");
+                int year = resultSet.getInt("Movie_Year");
+                String director = resultSet.getString("Movie_Name");
+                mov = new Movie(name,year,director);
+                mov.setId(id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(mov);
     }
 
     @Override
-    public Iterable<T> findAll() {
+    public Iterable<Movie> findAll() {
         List<Movie> movies = new ArrayList<>();
-        String sql = "select * from Movie";
+        String sql = "select * from \"Movie\"";
 
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
@@ -48,27 +73,29 @@ public class MovieDBRepository<ID extends Serializable, T extends BaseEntity<ID>
                 Integer id = resultSet.getInt("Movie_Id");
                 String name = resultSet.getString("Movie_Name");
                 int year = resultSet.getInt("Movie_Year");
-                String director = resultSet.getString("Movie_Director");
+                String director = resultSet.getString("Movie_Name");
 
-                Movie mov =new Movie(name,year,director);
+                Movie mov = new Movie(name,year,director);
                 mov.setId(id);
                 movies.add(mov);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return (Iterable<T>)movies;
+        return movies;
     }
 
     @Override
-    public Optional<T> save(T entity) throws ValidatorException {
-        String sql = "insert into Movie(name,grade) values (?,?)";
+    public Optional<Movie> save(Movie entity) throws ValidatorException {
+        String sql = "insert into \"Movie\"(\"Movie_Id\",\"Movie_Name\",\"Movie_Year\",\"Movie_Director\") values (?,?,?,?)";
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, entity.getName());
-            statement.setInt(2, s.getGrade());
+            statement.setInt(1, entity.getId());
+            statement.setString(2, entity.getMovieName());
+            statement.setInt(3, entity.getYear());
+            statement.setString(4, entity.getMovieDirector());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -78,38 +105,39 @@ public class MovieDBRepository<ID extends Serializable, T extends BaseEntity<ID>
     }
 
     @Override
-    public Optional<T> delete(ID id) {
-        String sql = "delete from student where id=?";
+    public Optional<Movie> delete(Integer integer) {
+        String sql = "delete from \"Movie\" where \"Movie_Id\"=?";
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
 
-            statement.setLong(1, id);
+            statement.setLong(1, integer);
 
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return Optional.empty();
     }
 
     @Override
-    public Optional<T> update(T entity) throws ValidatorException {
-        String sql = "update student set name=?, grade=? where id=?";
+    public Optional<Movie> update(Movie entity) throws ValidatorException {
+        String sql = "update \"Movie\" set \"Movie_Name\"=?, \"Movie_Year\"=?, \"Movie_Director\"=? where \"Movie_Id\"=?";
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, student.getName());
-            statement.setInt(2, student.getGrade());
-            statement.setLong(3, student.getId());
+            statement.setString(1, entity.getMovieName());
+            statement.setInt(2, entity.getYear());
+            statement.setString(3, entity.getMovieDirector());
+            statement.setLong(4, entity.getId());
 
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.empty();
+
     }
 }
 
