@@ -1,6 +1,5 @@
 package repository.BD;
 
-import domain.Client;
 import domain.Rental;
 import domain.validators.Validator;
 import domain.validators.ValidatorException;
@@ -88,6 +87,7 @@ public class RentalDBRepository implements PagingRepository<Integer, Rental> {
     @Override
     public Optional<Rental> save(Rental entity) throws ValidatorException {
         String sql = "insert into \"Rental\"(\"Rental_Id\",\"Client_Id\",\"Movie_Id\",\"Rental_date\", \"Return_date\") values (?,?,?,?)";
+        validator.validate(entity);
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
@@ -124,6 +124,7 @@ public class RentalDBRepository implements PagingRepository<Integer, Rental> {
     @Override
     public Optional<Rental> update(Rental entity) throws ValidatorException {
         String sql = "update \"Rental\" set \"Client_Id\"=?, \"Movie_Id\"=?, \"Rental_Date\"=? where \"Return_Date\"=?";
+        validator.validate(entity);
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
