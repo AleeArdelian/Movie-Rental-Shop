@@ -16,9 +16,9 @@ import java.util.Optional;
 
 public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/jdbc";
+    private static final String URL = "jdbc:postgresql://localhost:5432/MOVIE_SHOP";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "parola";
+    private static final String PASSWORD = "bere1234";
 
     private Validator<Client> validator;
 
@@ -37,7 +37,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
         String sql = "select * from \"Clients\" where \"Client_Id\"=?";
         try (
                 var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                var statement = connection.prepareStatement(sql);
+                var statement = connection.prepareStatement(sql)
         ) {
             statement.setInt(1, integer);
             var resultSet = statement.executeQuery();
@@ -83,51 +83,71 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
     public Optional<Client> save(Client entity) throws ValidatorException {
         String sql = "insert into \"Clients\"(\"Client_Id\", \"Client_FirstName\", \"Client_LastName\". \"Client_Age\")" +
                 " values (?, ?, ?, ?)";
-        try (
-                var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                var statement = connection.prepareStatement(sql);
-        ) {
-            statement.setInt(1, entity.getId());
-            statement.setString(2, entity.getFirstName());
-            statement.setString(3, entity.getLastName());
-            statement.setInt(4, entity.getAge());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        validator.validate(entity);
+        Optional<Client> c = findOne(entity.getId());
+        if (c.isPresent()) {
+            return c;
         }
-        return Optional.empty();
+        else {
+            try (
+                    var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                    var statement = connection.prepareStatement(sql);
+            ) {
+                statement.setInt(1, entity.getId());
+                statement.setString(2, entity.getFirstName());
+                statement.setString(3, entity.getLastName());
+                statement.setInt(4, entity.getAge());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
+        }
     }
 
     @Override
     public Optional<Client> delete(Integer integer) {
         String sql = "delete from \"Clients\" where \"Client_Id\"=?";
-        try (
-                var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                var statement = connection.prepareStatement(sql)
-        ) {
-            statement.setInt(1, integer);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Optional<Client> c = findOne(integer);
+        if (c.isEmpty()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        else {
+            try (
+                    var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                    var statement = connection.prepareStatement(sql)
+            ) {
+                statement.setInt(1, integer);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return c;
+        }
     }
 
     @Override
     public Optional<Client> update(Client entity) throws ValidatorException {
         String sql = "update \"Clients\" set \"Client_FirstName\"=?, \"Client_LastName\"=?, \"Client_Age\"=? where \"Client_Id\"=?";
-        try (
-                var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                var statement = connection.prepareStatement(sql)
-        ) {
-            statement.setString(1, entity.getFirstName());
-            statement.setString(2, entity.getLastName());
-            statement.setInt(3, entity.getAge());
-            statement.setInt(4, entity.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        validator.validate(entity);
+        Optional<Client> c = findOne(entity.getId());
+        if (c.isEmpty()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        else {
+            try (
+                    var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                    var statement = connection.prepareStatement(sql)
+            ) {
+                statement.setString(1, entity.getFirstName());
+                statement.setString(2, entity.getLastName());
+                statement.setInt(3, entity.getAge());
+                statement.setInt(4, entity.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return c;
+        }
     }
 }

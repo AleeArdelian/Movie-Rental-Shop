@@ -30,7 +30,7 @@ public class Main {
         PagingRepository<Integer,Movie> movieRepository = null;
         PagingRepository<Integer, Rental> rentalRepository = null;
 
-        String repoType = "mem";
+        String repoType = "db";
 
         switch (repoType) {
             case "mem":

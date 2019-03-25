@@ -1,7 +1,5 @@
 package repository.BD;
 
-import domain.BaseEntity;
-import domain.Client;
 import domain.Movie;
 import domain.validators.Validator;
 import domain.validators.ValidatorException;
@@ -10,8 +8,6 @@ import repository.paging.Pageable;
 import repository.paging.PagingRepository;
 import repository.paging.impl.Paginator;
 
-import java.sql.*;
-import java.io.Serializable;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -88,6 +84,7 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
     @Override
     public Optional<Movie> save(Movie entity) throws ValidatorException {
         String sql = "insert into \"Movie\"(\"Movie_Id\",\"Movie_Name\",\"Movie_Year\",\"Movie_Director\") values (?,?,?,?)";
+        validator.validate(entity);
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
@@ -123,6 +120,7 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
     @Override
     public Optional<Movie> update(Movie entity) throws ValidatorException {
         String sql = "update \"Movie\" set \"Movie_Name\"=?, \"Movie_Year\"=?, \"Movie_Director\"=? where \"Movie_Id\"=?";
+        validator.validate(entity);
         try (var connection = DriverManager.getConnection(URL, USERNAME,
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
