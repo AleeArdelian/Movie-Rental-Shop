@@ -18,7 +18,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     private static final String URL = "jdbc:postgresql://localhost:2253/MovieRental";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "bere1234";
+    private static final String PASSWORD = "parola";
 
     private Validator<Client> validator;
 
@@ -108,7 +108,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Optional<Client> delete(Integer integer) {
-        String sql = "delete from \"Clients\" where \"Client_Id\"=?";
+        String sql = "delete from \"Client\" where \"Client_Id\"=?";
         Optional<Client> c = findOne(integer);
         if (c.isEmpty()) {
             return Optional.empty();
@@ -129,7 +129,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Optional<Client> update(Client entity) throws ValidatorException {
-        String sql = "update \"Clients\" set \"Client_FirstName\"=?, \"Client_LastName\"=?, \"Client_Age\"=? where \"Client_Id\"=?";
+        String sql = "update \"Client\" set \"Client_FirstName\"=?, \"Client_LastName\"=?, \"Client_Age\"=? where \"Client_Id\"=?";
         validator.validate(entity);
         Optional<Client> c = findOne(entity.getId());
         if (c.isEmpty()) {
