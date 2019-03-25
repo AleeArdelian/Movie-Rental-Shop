@@ -17,8 +17,8 @@ import java.util.Optional;
 public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     private static final String URL = "jdbc:postgresql://localhost:5432/jdbc";
-    private static final String USERNAME = System.getProperty("username");
-    private static final String PASSWORD = System.getProperty("password");
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "parola";
 
     private Validator<Client> validator;
 

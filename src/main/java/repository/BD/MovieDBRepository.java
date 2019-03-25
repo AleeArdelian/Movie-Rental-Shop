@@ -24,9 +24,9 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "parola";
 
-    private Validator<Client> validator;
+    private Validator<Movie> validator;
 
-    public MovieDBRepository(){
+    public MovieDBRepository(Validator<Movie> validator){
         this.validator = validator;
     }
 
@@ -111,7 +111,7 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
                 PASSWORD);
              var statement = connection.prepareStatement(sql)) {
 
-            statement.setLong(1, integer);
+            statement.setInt(1, integer);
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -130,7 +130,7 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
             statement.setString(1, entity.getMovieName());
             statement.setInt(2, entity.getYear());
             statement.setString(3, entity.getMovieDirector());
-            statement.setLong(4, entity.getId());
+            statement.setInt(4, entity.getId());
 
             statement.executeUpdate();
         } catch (SQLException e) {
