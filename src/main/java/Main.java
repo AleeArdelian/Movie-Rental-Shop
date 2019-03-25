@@ -24,8 +24,8 @@ public class Main {
         Validator<Rental> rentalValidator = new RentalValidator();
 
         PagingRepository<Integer, Client> clientRepository = null;
-        Repository<Integer,Movie> movieRepository = null;
-        Repository<Integer, Rental> rentalRepository = null;
+        PagingRepository<Integer,Movie> movieRepository = null;
+        PagingRepository<Integer, Rental> rentalRepository = null;
 
         String repoType = "mem";
 

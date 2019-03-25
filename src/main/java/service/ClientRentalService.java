@@ -24,8 +24,8 @@ import java.util.stream.StreamSupport;
 public class ClientRentalService {
 
     private PagingRepository<Integer, Client> clientRepository;
-    private Repository<Integer, Movie> movieRepository;
-    private Repository<Integer, Rental> rentalRepository;
+    private PagingRepository<Integer, Movie> movieRepository;
+    private PagingRepository<Integer, Rental> rentalRepository;
 
     private Pageable pageableObj = new PageableImpl(0, 1);
 
@@ -35,7 +35,7 @@ public class ClientRentalService {
      * @param crs a {@code Repository} instance for Clients repository.
      * @param mov a {@code Repository} instance for Movies repository.
      */
-    public ClientRentalService(PagingRepository<Integer,Client> crs, Repository<Integer,Movie> mov, Repository<Integer, Rental> rent)
+    public ClientRentalService(PagingRepository<Integer,Client> crs, PagingRepository<Integer,Movie> mov, PagingRepository<Integer, Rental> rent)
     {
         clientRepository = crs;
         movieRepository = mov;
@@ -176,10 +176,23 @@ public class ClientRentalService {
                 .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
     }
 
+    public Set<Movie> getNextMovies() {
+        Page<Movie> moviesPage = movieRepository.findAll(pageableObj);
+        Set<Movie> movies = moviesPage.getContent().collect(Collectors.toSet());
+        pageableObj = moviesPage.nextPageable();
+        return movies;
+    }
     public Set<Rental> getAllRentals()
     {
         Iterable<Rental> rentals = rentalRepository.findAll();
         return StreamSupport.stream(rentals.spliterator(), false).collect(Collectors.toSet());
+    }
+
+    public Set<Rental> getNextRentals() {
+        Page<Rental> rentalsPage = rentalRepository.findAll(pageableObj);
+        Set<Rental> rentals = rentalsPage.getContent().collect(Collectors.toSet());
+        pageableObj = rentalsPage.nextPageable();
+        return rentals;
     }
 
     public Map moviesEachClient() {

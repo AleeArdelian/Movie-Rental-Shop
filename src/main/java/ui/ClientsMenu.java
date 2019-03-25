@@ -77,7 +77,7 @@ class ClientsMenu extends AbstractMenu {
         menuItems.put(2, new MenuOption("Update", () -> crs.updateClient(getClient())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteClient(getId())));
         menuItems.put(4, new MenuOption("List all", () -> printAllClients(crs.getAllClients())));
-        menuItems.put(5, new MenuOption("List paged", this::printPagedClients));
+        menuItems.put(5, new MenuOption("List paged ", this::printPagedClients));
         menuItems.put(6, new MenuOption("List sorted", () -> printSortedClients(crs.getAllSortedClients())));
         menuItems.put(7, new MenuOption("How many movies each client rented", () -> {
             System.out.println("Name\tNo. of rented movies");
