@@ -6,6 +6,7 @@ import domain.validators.ValidatorException;
 import repository.paging.Page;
 import repository.paging.Pageable;
 import repository.paging.PagingRepository;
+import repository.paging.impl.Paginator;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
 
     @Override
     public Page<Client> findAll(Pageable pageable) {
-        return null;
+        return Paginator.paginate(this.findAll(), pageable);
     }
 
     @Override
