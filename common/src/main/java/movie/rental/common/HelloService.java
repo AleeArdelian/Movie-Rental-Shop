@@ -15,5 +15,16 @@ public interface HelloService {
     String SAY_BYE = "sayBye";
     Future<String> sayBye(String name);
 
+    String GET_CLIENTS = "getNextClients";
+    Future<String> getNextClients();
+
+    String GET_MOVIES = "getNextMovies";
+    Future<String> getNextMovies();
+
+    String GET_RENTALS = "getNextRentals";
+    Future<String> getNextRentals();
+
+
+
 
 }
