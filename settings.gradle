@@ -1,4 +1,8 @@
 rootProject.name = 'Movie-Rental-Shop'
+
 include 'Server'
+
+include 'client'
+
 include 'common'
 
