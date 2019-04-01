@@ -35,6 +35,33 @@ class ClientsMenu extends AbstractMenu {
         }
     }
 
+    private void printPagedClients() {
+        try {
+            System.out.print("Page size: ");
+            int size = Integer.valueOf(keyboard.readLine());
+            crs.setPageSize(size);
+            System.out.println();
+            boolean printing = true;
+            String choice = "n";
+            while (printing) {
+                if (choice.equals("n")) {
+                        Set<Client> clients = crs.getNextClients();
+                        if (clients.size() == 0) {
+                            System.out.println("No more clients");
+                            break;
+                        }
+                        clients.forEach(System.out::println);
+                }
+                System.out.println("\nPress 'n' to see the next page, 'x' to exit");
+                choice = keyboard.readLine();
+                if (choice.equals("x"))
+                    printing = false;
+            }
+        } catch (IOException exc) {
+            throw new RuntimeException("There was a problem with the input. Sorry!");
+        }
+    }
+
     private void printAllClients(Set<Client> clients) {
         clients.forEach(System.out::println);
     }
@@ -50,8 +77,9 @@ class ClientsMenu extends AbstractMenu {
         menuItems.put(2, new MenuOption("Update", () -> crs.updateClient(getClient())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteClient(getId())));
         menuItems.put(4, new MenuOption("List all", () -> printAllClients(crs.getAllClients())));
-        menuItems.put(5, new MenuOption("List sorted", () -> printSortedClients(crs.getAllSortedClients())));
-        menuItems.put(6, new MenuOption("How many movies each client rented", () -> {
+        menuItems.put(5, new MenuOption("List paged ", this::printPagedClients));
+        menuItems.put(6, new MenuOption("List sorted", () -> printSortedClients(crs.getAllSortedClients())));
+        menuItems.put(7, new MenuOption("How many movies each client rented", () -> {
             System.out.println("Name\tNo. of rented movies");
             crs.moviesEachClient().forEach((k, v) -> System.out.println(k + " " + v));
         }

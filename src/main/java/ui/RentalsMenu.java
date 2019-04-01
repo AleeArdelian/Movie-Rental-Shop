@@ -16,6 +16,32 @@ class RentalsMenu extends AbstractMenu {
         rentals.forEach(System.out::println);
     }
 
+    private void printPagedRentals() {
+        try {
+            System.out.print("Page size: ");
+            int size = Integer.valueOf(keyboard.readLine());
+            crs.setPageSize(size);
+            System.out.println();
+            boolean printing = true;
+            String choice = "n";
+            while (printing) {
+                if (choice.equals("n")) {
+                    Set<Rental> rentals = crs.getNextRentals();
+                    if (rentals.size() == 0) {
+                        System.out.println("No more rentals");
+                        break;
+                    }
+                    rentals.forEach(System.out::println);
+                }
+                System.out.println("\nPress 'n' to see the next page, 'x' to exit");
+                choice = keyboard.readLine();
+                if (choice.equals("x"))
+                    printing = false;
+            }
+        } catch (IOException exc) {
+            throw new RuntimeException("There was a problem with the input. Sorry!");
+        }
+    }
     private Rental getRental()
     {
         try {
@@ -42,7 +68,8 @@ class RentalsMenu extends AbstractMenu {
         setTitle("RENTALS");
         menuItems.put(1, new MenuOption("Rent a movie", () -> crs.addRental(getRental())));
         menuItems.put(2, new MenuOption("Return a movie", () -> crs.deleteRental(getId())));
-        menuItems.put(3, new MenuOption("See all rentals", () -> printAllRentals(crs.getAllRentals())));
+        menuItems.put(3, new MenuOption("List all", () -> printAllRentals(crs.getAllRentals())));
+        menuItems.put(4, new MenuOption("List paged", this::printPagedRentals));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
 

@@ -61,8 +61,9 @@ public class Movie extends BaseEntity<Integer> {
      */
     public String toString()
     {
-        return "Movie id: " + getId() + " Name: " + movieName + " Year: " + yearOfRelease + " Director: " + director +
-                " Status: " + (isRented?"RENTED":"AVAILABLE");
+        //return "Movie id: " + getId() + " Name: " + movieName + " Year: " + yearOfRelease + " Director: " + director +
+        //        " Status: " + (isRented?"RENTED":"AVAILABLE");
+        return getId() + " " + getMovieName() + " " + getYear() + " " + getMovieDirector() + " " + (isRented?"RENTED":"AVAILABLE");
     }
     /**
      * Replaces the movie`s name with the new name received as parameter

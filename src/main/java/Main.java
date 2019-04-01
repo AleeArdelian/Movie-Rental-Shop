@@ -1,10 +1,14 @@
 import domain.Client;
 import domain.Rental;
 import domain.validators.*;
+import repository.BD.ClientDBRepository;
+import repository.BD.MovieDBRepository;
+import repository.BD.RentalDBRepository;
 import repository.file.ClientFileRepository;
 import repository.file.MovieFileRepository;
 import repository.file.RentalFileRepository;
 import repository.mem.InMemoryRepository;
+import repository.paging.PagingRepository;
 import repository.xml.XMLClientsRepository;
 import repository.xml.XMLMoviesRepository;
 import repository.xml.XMLRentalsRepository;
@@ -22,11 +26,11 @@ public class Main {
         Validator<Movie> movieValidator = new MovieValidator();
         Validator<Rental> rentalValidator = new RentalValidator();
 
-        Repository<Integer, Client> clientRepository = null;
-        Repository<Integer,Movie> movieRepository = null;
-        Repository<Integer, Rental> rentalRepository = null;
+        PagingRepository<Integer, Client> clientRepository = null;
+        PagingRepository<Integer,Movie> movieRepository = null;
+        PagingRepository<Integer, Rental> rentalRepository = null;
 
-        String repoType = "file";
+        String repoType = "db";
 
         switch (repoType) {
             case "mem":
@@ -41,10 +45,15 @@ public class Main {
                 movieRepository = new MovieFileRepository(movieValidator, "./data/movies");
                 rentalRepository = new RentalFileRepository(rentalValidator, "./data/rentals");
                 break;
+            case "db":
+                clientRepository = new ClientDBRepository(clientValidator);
+                movieRepository = new MovieDBRepository(movieValidator);
+                rentalRepository = new RentalDBRepository(rentalValidator);
+                /*
             case "xml":
                 clientRepository = new XMLClientsRepository("data/clients.xml", clientValidator);
                 movieRepository = new XMLMoviesRepository("data/movies.xml", movieValidator);
-                rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);
+                rentalRepository = new XMLRentalsRepository("data/rentals.xml", rentalValidator);*/
         }
 
 

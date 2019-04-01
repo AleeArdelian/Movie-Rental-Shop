@@ -9,6 +9,10 @@ import domain.exceptions.MovieNotFoundException;
 import domain.exceptions.RentalNotFoundException;
 import domain.validators.ValidatorException;
 import repository.Repository;
+import repository.paging.Page;
+import repository.paging.Pageable;
+import repository.paging.PagingRepository;
+import repository.paging.impl.PageableImpl;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,16 +23,19 @@ import java.util.stream.StreamSupport;
  */
 public class ClientRentalService {
 
-    private Repository<Integer, Client> clientRepository;
-    private Repository<Integer, Movie> movieRepository;
-    private Repository<Integer, Rental> rentalRepository;
+    private PagingRepository<Integer, Client> clientRepository;
+    private PagingRepository<Integer, Movie> movieRepository;
+    private PagingRepository<Integer, Rental> rentalRepository;
+
+    private Pageable pageableObj = new PageableImpl(0, 1);
+
 
     /**
      * Constructor for ClientRentalService.
      * @param crs a {@code Repository} instance for Clients repository.
      * @param mov a {@code Repository} instance for Movies repository.
      */
-    public ClientRentalService(Repository<Integer,Client> crs, Repository<Integer,Movie> mov, Repository<Integer, Rental> rent)
+    public ClientRentalService(PagingRepository<Integer,Client> crs, PagingRepository<Integer,Movie> mov, PagingRepository<Integer, Rental> rent)
     {
         clientRepository = crs;
         movieRepository = mov;
@@ -41,7 +48,7 @@ public class ClientRentalService {
      * @throws ValidatorException if the client is not valid.
      */
     public void addClient(Client client) throws ValidatorException {
-        clientRepository.save(client);
+        clientRepository.save(client).orElseThrow(() -> new RuntimeException("Client ID already exists."));
     }
 
     /**
@@ -50,7 +57,7 @@ public class ClientRentalService {
      * @throws ValidatorException if the movie is not valid.
      */
     public void addMovie(Movie movie) throws ValidatorException {
-        movieRepository.save(movie);
+        movieRepository.save(movie).orElseThrow(() -> new RuntimeException("Movie ID already exists."));
     }
 
     public void addRental(Rental rental) throws ValidatorException{
@@ -120,6 +127,13 @@ public class ClientRentalService {
         return StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
     }
 
+    public Set<Client> getNextClients() {
+        Page<Client> clientsPage = clientRepository.findAll(pageableObj);
+        Set<Client> clients = clientsPage.getContent().collect(Collectors.toSet());
+        pageableObj = clientsPage.nextPageable();
+        return clients;
+    }
+
     /**
      * Gets all the clients from Clients repository sorted by First Name.
      * @return a {@code List} of all movies.
@@ -162,10 +176,23 @@ public class ClientRentalService {
                 .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
     }
 
+    public Set<Movie> getNextMovies() {
+        Page<Movie> moviesPage = movieRepository.findAll(pageableObj);
+        Set<Movie> movies = moviesPage.getContent().collect(Collectors.toSet());
+        pageableObj = moviesPage.nextPageable();
+        return movies;
+    }
     public Set<Rental> getAllRentals()
     {
         Iterable<Rental> rentals = rentalRepository.findAll();
         return StreamSupport.stream(rentals.spliterator(), false).collect(Collectors.toSet());
+    }
+
+    public Set<Rental> getNextRentals() {
+        Page<Rental> rentalsPage = rentalRepository.findAll(pageableObj);
+        Set<Rental> rentals = rentalsPage.getContent().collect(Collectors.toSet());
+        pageableObj = rentalsPage.nextPageable();
+        return rentals;
     }
 
     public Map moviesEachClient() {
@@ -177,6 +204,10 @@ public class ClientRentalService {
                         .stream(rentalRepository.findAll().spliterator(), false)
                         .filter(r -> r.getClientId() == client.getId()).count())
                         );
+    }
+
+    public void setPageSize(int size) {
+        pageableObj = new PageableImpl(0, size);
     }
 }
 

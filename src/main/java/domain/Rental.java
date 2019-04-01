@@ -46,8 +46,9 @@ public class Rental extends BaseEntity<Integer>{
     }
 
     public String toString(){
-        return "Rental id: "+ getId() + " client: " +clientId + " movie: "+movieId+
-        " Rental date: "+ rentalDate + " Return date: "+returnDate;
+        //return "Rental id: "+ getId() + " client: " +clientId + " movie: "+movieId+
+        //" Rental date: "+ rentalDate + " Return date: "+returnDate;
+        return getId() + " " + clientId + " " + movieId + " " + rentalDate + " " + returnDate;
     }
 
 }

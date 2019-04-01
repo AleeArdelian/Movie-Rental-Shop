@@ -55,6 +55,33 @@ class MoviesMenu extends AbstractMenu {
         movies.forEach(System.out::println);
     }
 
+    private void printPagedMovies() {
+        try {
+            System.out.print("Page size: ");
+            int size = Integer.valueOf(keyboard.readLine());
+            crs.setPageSize(size);
+            System.out.println();
+            boolean printing = true;
+            String choice = "n";
+            while (printing) {
+                if (choice.equals("n")) {
+                    Set<Movie> movies = crs.getNextMovies();
+                    if (movies.size() == 0) {
+                        System.out.println("No more movies");
+                        break;
+                    }
+                    movies.forEach(System.out::println);
+                }
+                System.out.println("\nPress 'n' to see the next page, 'x' to exit");
+                choice = keyboard.readLine();
+                if (choice.equals("x"))
+                    printing = false;
+            }
+        } catch (IOException exc) {
+            throw new RuntimeException("There was a problem with the input. Sorry!");
+        }
+    }
+
     @Override
     void setUpMenu() {
         setTitle("MOVIES");
@@ -62,10 +89,11 @@ class MoviesMenu extends AbstractMenu {
         menuItems.put(2, new MenuOption("Update", () -> crs.updateMovie(getMovie())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteMovie(getId())));
         menuItems.put(4, new MenuOption("List all", () -> printAllMovies(crs.getAllMovies())));
-        menuItems.put(5, new MenuOption("List sorted", () -> printSortedMovies(crs.getAllSortedMovies())));
-        menuItems.put(6, new MenuOption("List all movies after a given year", () -> System.out.println("The number" +
+        menuItems.put(5, new MenuOption("List paged", this::printPagedMovies));
+        menuItems.put(6, new MenuOption("List sorted", () -> printSortedMovies(crs.getAllSortedMovies())));
+        menuItems.put(7, new MenuOption("List all movies after a given year", () -> System.out.println("The number" +
                         " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
-        menuItems.put(7, new MenuOption("How many times movies were rented", () -> System.out.println("The number" +
+        menuItems.put(8, new MenuOption("How many times movies were rented", () -> System.out.println("The number" +
                 " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
