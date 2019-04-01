@@ -1,9 +1,11 @@
 package movie.rental.common.domain;
 
+import java.io.Serializable;
+
 /**
  * @author radu.
  */
-public class BaseEntity<ID> {
+public class BaseEntity<ID> implements Serializable {
 
     private ID id;
 

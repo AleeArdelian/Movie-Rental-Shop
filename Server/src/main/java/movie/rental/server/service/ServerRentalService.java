@@ -1,58 +1,57 @@
 package movie.rental.server.service;
 
-import movie.rental.common.HelloService;
+import movie.rental.common.RentalService;
 import movie.rental.common.domain.Client;
-import movie.rental.common.domain.Movie;
-import movie.rental.common.domain.Rental;
-import movie.rental.server.repository.paging.Pageable;
-import movie.rental.server.repository.paging.impl.PageableImpl;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class ServerRentalService implements HelloService {
+public class ServerRentalService implements RentalService {
 
     private ExecutorService executorService;
-    private ClientRentalService rentalService;
+    private Service crs;
 
-    private Pageable pageableObj = new PageableImpl(0, 1);
-
-    public ServerRentalService(ExecutorService executorService, ClientRentalService rentalService) {
+    public ServerRentalService(ExecutorService executorService, Service crs) {
         this.executorService = executorService;
-        this.rentalService = rentalService;
+        this.crs = crs;
     }
 
     @Override
-    public Future<String> sayHello(String name) {
-        return executorService.submit(() -> "Hello " + name);
+    public Future<Set<Client>> getAllClients() {
+        return executorService.submit(() -> crs.getAllClients());
     }
 
     @Override
-    public Future<String> sayBye(String name) {
-        return executorService.submit(() -> "Bye " + name);
+    public Future<List<Client>> getAllSortedClients() {
+        return executorService.submit(() -> crs.getAllSortedClients());
     }
 
     @Override
-    public Future<String> getNextClients() {
-        Set<Client> all = rentalService.getNextClients();
-        return executorService.submit(all::toString);
+    public void setPageSize(Integer size) {
+        executorService.execute(() -> crs.setPageSize(size));
     }
 
     @Override
-    public Future<String> getNextMovies() {
-        Set<Movie> all = rentalService.getNextMovies();
-        return executorService.submit(all::toString);
+    public void addClient(Client client) {
+        executorService.execute(() -> crs.addClient(client));
     }
 
     @Override
-    public Future<String> getNextRentals() {
-        Set<Rental> all = rentalService.getNextRentals();
-        return executorService.submit(all::toString);
+    public void updateClient(Client client) {
+        executorService.execute(() -> crs.updateClient(client));
     }
 
     @Override
-    public void setPageSize(int size) {
-        pageableObj = new PageableImpl(0, size);
+    public void deleteClient(Integer id) {
+        executorService.execute(() -> crs.deleteClient(id));
     }
+
+    @Override
+    public Future<Set<Client>> getNextClients() {
+        return executorService.submit(() -> crs.getNextClients());
+    }
+
+
 }

@@ -1,6 +1,6 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.HelloService;
+import movie.rental.common.RentalService;
 import movie.rental.common.domain.Movie;
 
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 class MoviesMenu extends AbstractMenu {
 
-    MoviesMenu(HelloService crs) {
+    MoviesMenu(RentalService crs) {
         super(crs);
     }
 
@@ -64,7 +64,7 @@ class MoviesMenu extends AbstractMenu {
             String choice = "n";
             while (printing) {
                 if (choice.equals("n")) {
-                    Set<Movie> movies = crs.getNextMovies();
+                    Set<Movie> movies = null; //crs.getNextMovies();
                     if (movies.size() == 0) {
                         System.out.println("No more movies");
                         break;
@@ -84,6 +84,7 @@ class MoviesMenu extends AbstractMenu {
     @Override
     void setUpMenu() {
         setTitle("MOVIES");
+        /*
         menuItems.put(1, new MenuOption("Add", () -> crs.addMovie(getMovie())));
         menuItems.put(2, new MenuOption("Update", () -> crs.updateMovie(getMovie())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteMovie(getId())));
@@ -95,6 +96,7 @@ class MoviesMenu extends AbstractMenu {
         menuItems.put(8, new MenuOption("How many times movies were rented", () -> System.out.println("The number" +
                 " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
+        */
     }
 
 }

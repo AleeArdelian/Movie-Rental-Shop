@@ -1,15 +1,16 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.HelloService;
+import movie.rental.common.RentalService;
 import movie.rental.common.domain.Client;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 class ClientsMenu extends AbstractMenu {
 
-    ClientsMenu(HelloService crs) {
+    ClientsMenu(RentalService crs) {
         super(crs);
     }
 
@@ -45,7 +46,7 @@ class ClientsMenu extends AbstractMenu {
             String choice = "n";
             while (printing) {
                 if (choice.equals("n")) {
-                        Set<Client> clients = crs.getNextClients();
+                        Set<Client> clients = crs.getNextClients().get();
                         if (clients.size() == 0) {
                             System.out.println("No more clients");
                             break;
@@ -57,7 +58,7 @@ class ClientsMenu extends AbstractMenu {
                 if (choice.equals("x"))
                     printing = false;
             }
-        } catch (IOException exc) {
+        } catch (IOException | InterruptedException | ExecutionException exc) {
             throw new RuntimeException("There was a problem with the input. Sorry!");
         }
     }
@@ -76,14 +77,31 @@ class ClientsMenu extends AbstractMenu {
         menuItems.put(1, new MenuOption("Add", () -> crs.addClient(getClient())));
         menuItems.put(2, new MenuOption("Update", () -> crs.updateClient(getClient())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteClient(getId())));
-        menuItems.put(4, new MenuOption("List all", () -> printAllClients(crs.getAllClients())));
+        menuItems.put(4, new MenuOption("List all", () -> {
+            try {
+                printAllClients(crs.getAllClients().get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }));
         menuItems.put(5, new MenuOption("List paged ", this::printPagedClients));
-        menuItems.put(6, new MenuOption("List sorted", () -> printSortedClients(crs.getAllSortedClients())));
+        menuItems.put(6, new MenuOption("List sorted", () -> {
+            try {
+                printSortedClients(crs.getAllSortedClients().get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }));
+        /*
         menuItems.put(7, new MenuOption("How many movies each client rented", () -> {
             System.out.println("Name\tNo. of rented movies");
             crs.moviesEachClient().forEach((k, v) -> System.out.println(k + " " + v));
         }
-        ));
+        ));*/
         menuItems.put(0, new MenuOption("Back", () -> running = false));
     }
 

@@ -1,6 +1,6 @@
 package movie.rental.server;
 
-import movie.rental.common.HelloService;
+import movie.rental.common.RentalService;
 import movie.rental.common.Message;
 import movie.rental.common.domain.Client;
 import movie.rental.common.domain.Movie;
@@ -12,11 +12,15 @@ import movie.rental.server.domain.validators.RentalValidator;
 import movie.rental.server.repository.BD.ClientDBRepository;
 import movie.rental.server.repository.BD.MovieDBRepository;
 import movie.rental.server.repository.BD.RentalDBRepository;
-import movie.rental.server.service.ClientRentalService;
+import movie.rental.server.repository.Repository;
+import movie.rental.server.repository.file.ClientFileRepository;
+import movie.rental.server.repository.mem.InMemoryRepository;
+import movie.rental.server.service.Service;
 import movie.rental.server.service.ServerRentalService;
 import movie.rental.server.tcp.TcpServer;
 
-import java.util.concurrent.ExecutionException;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -30,8 +34,7 @@ public class ServerApp {
                 Executors.newFixedThreadPool(
                         Runtime.getRuntime().availableProcessors());
 
-        TcpServer tcpServer = new TcpServer(executorService,
-                                            HelloService.SERVER_PORT);
+        TcpServer tcpServer = new TcpServer(executorService, RentalService.SERVER_PORT);
 
         Validator<Client> clientValidator = new ClientValidator();
         Validator<Movie> movieValidator = new MovieValidator();
@@ -41,64 +44,82 @@ public class ServerApp {
         MovieDBRepository movieRepository = new MovieDBRepository(movieValidator);
         RentalDBRepository rentalRepository = new RentalDBRepository(rentalValidator);
 
-        ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
+        //Repository<Integer, Client> clientRepository = new ClientFileRepository(clientValidator, "data/clients");
 
-        HelloService helloService = new ServerRentalService(executorService, crs);
+        Service crs = new Service(clientRepository, movieRepository, rentalRepository);
 
+        RentalService rentalService = new ServerRentalService(executorService, crs);
 
-        tcpServer.addHandler(
-                HelloService.SAY_HELLO, (request) -> {
-                    String name = request.getBody();
-                    Future<String> result =
-                            helloService.sayHello(name);
-                    try {
-                        //compute response
-//                        return new Message(Message.OK, result.get());
-                        return getMessage(Message.OK, result.get());
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-//                        return new Message(Message.ERROR, e.getMessage());
-                        return getMessage(Message.ERROR, e.getMessage());
-                    }
-                });
+        tcpServer.addHandler(RentalService.SET_PAGE_SIZE, (request) -> {
+            Integer size = (Integer)request.getBody();
+            rentalService.setPageSize(size);
+            return new Message(Message.OK);
+        });
 
-        tcpServer.addHandler(
-                HelloService.SAY_BYE, (request) -> {
-                    String name = request.getBody();
-                    Future<String> result =
-                            helloService.sayBye(name);
-                    try {
-                        //compute response
-                        return getMessage(Message.OK, result.get());
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                        return getMessage(Message.ERROR, e.getMessage());
-                    }
-                });
-        tcpServer.addHandler(
-                HelloService.GET_CLIENTS, (request) -> {
-                    String name = request.getBody();
-                    Future<String> result =
-                            helloService.getNextClients();
-                    try{
-                        return getMessage(Message.OK , result.get());
-                    }catch (InterruptedException | ExecutionException e){
-                        return getMessage(Message.ERROR, e.getMessage());
-                    }
-                }
-        );
+        tcpServer.addHandler(RentalService.ADD_CLIENT, (request) -> {
+            Client client = (Client)request.getBody();
+            try {
+                rentalService.addClient(client);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
 
-        tcpServer.startServer();
+        tcpServer.addHandler(RentalService.UPDATE_CLIENT, (request) -> {
+            Client client = (Client)request.getBody();
+            try {
+                rentalService.updateClient(client);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
 
-        System.out.println("server - bye");
+        tcpServer.addHandler(RentalService.DELETE_CLIENT, (request) -> {
+            Integer id = (Integer)request.getBody();
+            try {
+                rentalService.deleteClient(id);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_CLIENTS, (request) -> {
+            try {
+                Future<Set<Client>> clients = rentalService.getNextClients();
+                return new Message(Message.OK, clients.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_ALL_CLIENTS, (request) -> {
+            try {
+                Future<Set<Client>> clients = rentalService.getAllClients();
+                return new Message(Message.OK, clients.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_SORTED_CLIENTS, (request) -> {
+            try {
+                Future<List<Client>> clients = rentalService.getAllSortedClients();
+                return new Message(Message.OK, clients.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.start();
     }
-
-    private static Message getMessage(String header, String body) {
-        return Message.builder()
-                      .header(header)
-                      .body(body)
-                      .build();
-    }
-
 
 }

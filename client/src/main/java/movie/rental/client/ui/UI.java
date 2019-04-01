@@ -1,6 +1,6 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.HelloService;
+import movie.rental.common.RentalService;
 import movie.rental.common.domain.Client;
 import movie.rental.common.domain.Movie;
 import movie.rental.common.domain.validators.ValidatorException;
@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * User Interface class
@@ -16,13 +17,13 @@ import java.util.Set;
  */
 public class UI {
 
-    private HelloService crs;
+    private RentalService crs;
 
     /**
      * Constructor for the UI class
      * @param crs a {@code ClientRentalService} instance used to access data from movie.rental.server.repository
      */
-    public UI(HelloService crs) {
+    public UI(RentalService crs) {
         this.crs = crs;
     }
 
@@ -87,8 +88,8 @@ public class UI {
     /**
      * Method that prints all the clients in the console.
      */
-    private void printAllClients() {
-        Set<Client> clients = crs.getAllClients();
+    private void printAllClients() throws ExecutionException, InterruptedException {
+        Set<Client> clients = crs.getAllClients().get();
         clients.forEach(System.out::println);
     }
 
@@ -96,7 +97,7 @@ public class UI {
      * Method that prints all the movies in the console.
      */
     private void printAllMovies() {
-        Set<Movie> movies = crs.getAllMovies();
+        Set<Movie> movies = null;//crs.getAllMovies();
         movies.forEach(System.out::println);
     }
 
@@ -170,7 +171,7 @@ public class UI {
                     System.out.println("Feature to be implemented soon:) ");
                     break;
                 case 4:
-                    printAllClients();
+                    //printAllClients();
                     break;
                 default:
                     System.out.println("Invalid choice!");
@@ -196,7 +197,7 @@ public class UI {
                     break;
                 case 1:
                     System.out.println("Add a new movie: ");
-                    crs.addMovie(getMovieFrom(keyboard));
+                    //crs.addMovie(getMovieFrom(keyboard));
                     break;
                 case 2:
                     System.out.println("Feature to be implemented soon :) ");

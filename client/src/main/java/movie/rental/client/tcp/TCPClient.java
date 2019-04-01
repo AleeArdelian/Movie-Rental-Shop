@@ -1,6 +1,6 @@
 package movie.rental.client.tcp;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 import movie.rental.common.HelloServiceException;
@@ -16,25 +16,31 @@ public class TCPClient {
         this.port = port;
     }
 
+    private void send(ObjectOutputStream oos, Object obj) throws IOException {
+        oos.writeObject(obj);
+    }
+
+    private Message receive(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        return (Message)ois.readObject();
+    }
+
     public Message sendAndReceive(Message request) {
         try (
-                var socket = new Socket(host, port);
-                var is = socket.getInputStream();
-                var os = socket.getOutputStream()
+                Socket socket = new Socket(host, port);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())
         ) {
-            request.writeTo(os);
-            System.out.println("client - sent request: " + request);
+            System.out.println("[CLIENT] Sending request " + request.getBody());
+            send(oos, request);
 
-            Message response = Message.builder().build();
-            response.readFrom(is);
-            System.out.println("client - received response: " + response);
+            Message response = receive(ois);
+            System.out.println("[CLIENT] Receiving response: " + response.getBody());
 
             return response;
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            throw new HelloServiceException("client - exception connecting to" +
-                    " server", e);
+            throw new HelloServiceException("[CLIENT] There was a problem while connecting to the server.");
         }
     }
 }

@@ -1,8 +1,6 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.HelloService;
-
-import java.io.IOException;
+import movie.rental.common.RentalService;
 
 public class MainMenu extends AbstractMenu {
 
@@ -10,7 +8,7 @@ public class MainMenu extends AbstractMenu {
     private AbstractMenu moviesMenu;
     private AbstractMenu rentalsMenu;
 
-    public MainMenu(HelloService crs) {
+    public MainMenu(RentalService crs) {
         super(crs);
     }
 

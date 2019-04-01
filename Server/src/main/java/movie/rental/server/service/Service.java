@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
- * ClientRentalService class for controlling operations on the repositories.
+ * Service class for controlling operations on the repositories.
  */
-public class ClientRentalService {
+public class Service {
 
     private PagingRepository<Integer, Client> clientRepository;
     private PagingRepository<Integer, Movie> movieRepository;
@@ -30,11 +30,11 @@ public class ClientRentalService {
 
 
     /**
-     * Constructor for ClientRentalService.
+     * Constructor for Service.
      * @param crs a {@code Repository} instance for Clients repository.
      * @param mov a {@code Repository} instance for Movies repository.
      */
-    public ClientRentalService(PagingRepository<Integer,Client> crs, PagingRepository<Integer,Movie> mov, PagingRepository<Integer, Rental> rent)
+    public Service(PagingRepository<Integer,Client> crs, PagingRepository<Integer,Movie> mov, PagingRepository<Integer, Rental> rent)
     {
         clientRepository = crs;
         movieRepository = mov;
@@ -47,7 +47,8 @@ public class ClientRentalService {
      * @throws ValidatorException if the client is not valid.
      */
     public void addClient(Client client) throws ValidatorException {
-        clientRepository.save(client).orElseThrow(() -> new RuntimeException("Client ID already exists."));
+        if (clientRepository.save(client).isPresent())
+            throw new RuntimeException("Client ID already exists.");
     }
 
     /**
