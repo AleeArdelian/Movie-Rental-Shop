@@ -92,7 +92,7 @@ public class ClientDBRepository implements PagingRepository<Integer, Client> {
         else {
             try (
                     var connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                    var statement = connection.prepareStatement(sql);
+                    var statement = connection.prepareStatement(sql)
             ) {
                 statement.setInt(1, entity.getId());
                 statement.setString(2, entity.getFirstName());
