@@ -1,8 +1,8 @@
 package ui;
 
-import domain.Client;
-import domain.Movie;
-import domain.validators.ValidatorException;
+import movie.rental.server.domain.Client;
+import movie.rental.server.domain.Movie;
+import movie.rental.server.domain.validators.ValidatorException;
 import service.ClientRentalService;
 
 import java.io.BufferedReader;
@@ -20,7 +20,7 @@ public class UI {
 
     /**
      * Constructor for the UI class
-     * @param crs a {@code ClientRentalService} instance used to access data from repository
+     * @param crs a {@code ClientRentalService} instance used to access data from movie.rental.server.repository
      */
     public UI(ClientRentalService crs) {
         this.crs = crs;

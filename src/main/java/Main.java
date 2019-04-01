@@ -1,20 +1,17 @@
-import domain.Client;
-import domain.Rental;
-import domain.validators.*;
-import repository.BD.ClientDBRepository;
-import repository.BD.MovieDBRepository;
-import repository.BD.RentalDBRepository;
-import repository.file.ClientFileRepository;
-import repository.file.MovieFileRepository;
-import repository.file.RentalFileRepository;
-import repository.mem.InMemoryRepository;
-import repository.paging.PagingRepository;
-import repository.xml.XMLClientsRepository;
-import repository.xml.XMLMoviesRepository;
-import repository.xml.XMLRentalsRepository;
+import movie.rental.server.domain.Client;
+import movie.rental.server.domain.Rental;
+import movie.rental.server.domain.validators.*;
+import movie.rental.server.repository.BD.ClientDBRepository;
+import movie.rental.server.repository.BD.MovieDBRepository;
+import movie.rental.server.repository.BD.RentalDBRepository;
+import movie.rental.server.repository.file.ClientFileRepository;
+import movie.rental.server.repository.file.MovieFileRepository;
+import movie.rental.server.repository.file.RentalFileRepository;
+import movie.rental.server.repository.mem.InMemoryRepository;
+import movie.rental.server.repository.paging.PagingRepository;
 import ui.MainMenu;
-import domain.Movie;
-import repository.Repository;
+import movie.rental.server.domain.Movie;
+import movie.rental.server.repository.Repository;
 import service.ClientRentalService;
 import ui.AbstractMenu;
 
@@ -68,7 +65,7 @@ public class Main {
 
     private static void populateClientRepo(Repository<Integer, Client> clientRepository) {
         /*
-         * Add some clients in clients repository.
+         * Add some clients in clients movie.rental.server.repository.
          */
 
         Client client1= new Client("Alexandru","Balea", 20);
@@ -90,7 +87,7 @@ public class Main {
 
     private static void populateMovieRepo(Repository<Integer, Movie> movieRepository) {
         /*
-         * Add some movies in the movie repository.
+         * Add some movies in the movie movie.rental.server.repository.
          */
 
         Movie movie1 = new Movie("Titanic",1997, "James Cameron");

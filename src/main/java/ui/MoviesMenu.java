@@ -1,7 +1,7 @@
 package ui;
 
-import domain.Client;
-import domain.Movie;
+import movie.rental.server.domain.Client;
+import movie.rental.server.domain.Movie;
 import service.ClientRentalService;
 
 import java.io.IOException;

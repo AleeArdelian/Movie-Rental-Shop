@@ -155,8 +155,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(repository.Repository,repository.Repository)">ClientRentalService</a></span>&#8203;(<a href="../repository/Repository.html" title="interface in repository">Repository</a>&lt;java.lang.Integer,&#8203;<a href="../domain/Client.html" title="class in domain">Client</a>&gt;&nbsp;crs,
-                   <a href="../repository/Repository.html" title="interface in repository">Repository</a>&lt;java.lang.Integer,&#8203;<a href="../domain/Movie.html" title="class in domain">Movie</a>&gt;&nbsp;mov)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(movie.rental.server.repository.Repository,movie.rental.server.repository.Repository)">ClientRentalService</a></span>&#8203;(<a href="../movie.rental.server.repository/Repository.html" title="interface in movie.rental.server.repository">movie.rental.server.repository</a>&lt;java.lang.Integer,&#8203;<a href="../movie.rental.server.domain/Client.html" title="class in movie.rental.server.domain">Client</a>&gt;&nbsp;crs,
+                   <a href="../movie.rental.server.repository/Repository.html" title="interface in movie.rental.server.repository">movie.rental.server.repository</a>&lt;java.lang.Integer,&#8203;<a href="../movie.rental.server.domain/Movie.html" title="class in movie.rental.server.domain">Movie</a>&gt;&nbsp;mov)</code></th>
 <td class="colLast">
 <div class="block">Constructor for ClientRentalService.</div>
 </td>
@@ -181,30 +181,30 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addClient(domain.Client)">addClient</a></span>&#8203;(<a href="../domain/Client.html" title="class in domain">Client</a>&nbsp;client)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addClient(movie.rental.server.domain.Client)">addClient</a></span>&#8203;(<a href="../movie.rental.server.domain/Client.html" title="class in movie.rental.server.domain">Client</a>&nbsp;client)</code></th>
 <td class="colLast">
-<div class="block">Adds a client to Clients repository.</div>
+<div class="block">Adds a client to Clients movie.rental.server.repository.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addMovie(domain.Movie)">addMovie</a></span>&#8203;(<a href="../domain/Movie.html" title="class in domain">Movie</a>&nbsp;movie)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addMovie(movie.rental.server.domain.Movie)">addMovie</a></span>&#8203;(<a href="../movie.rental.server.domain/Movie.html" title="class in movie.rental.server.domain">Movie</a>&nbsp;movie)</code></th>
 <td class="colLast">
-<div class="block">Adds a movie to Movies repository.</div>
+<div class="block">Adds a movie to Movies movie.rental.server.repository.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.Set&lt;<a href="../domain/Client.html" title="class in domain">Client</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Set&lt;<a href="../movie.rental.server.domain/Client.html" title="class in movie.rental.server.domain">Client</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllClients()">getAllClients</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets all the clients from Clients repository.</div>
+<div class="block">Gets all the clients from Clients movie.rental.server.repository.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.Set&lt;<a href="../domain/Movie.html" title="class in domain">Movie</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Set&lt;<a href="../movie.rental.server.domain/Movie.html" title="class in movie.rental.server.domain">Movie</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllMovies()">getAllMovies</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets all the movies from Movies repository.</div>
+<div class="block">Gets all the movies from Movies movie.rental.server.repository.</div>
 </td>
 </tr>
 </table>
@@ -231,19 +231,19 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(repository.Repository,repository.Repository)">
+<a id="&lt;init&gt;(movie.rental.server.repository.Repository,movie.rental.server.repository.Repository)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ClientRentalService</h4>
-<pre>public&nbsp;ClientRentalService&#8203;(<a href="../repository/Repository.html" title="interface in repository">Repository</a>&lt;java.lang.Integer,&#8203;<a href="../domain/Client.html" title="class in domain">Client</a>&gt;&nbsp;crs,
-                           <a href="../repository/Repository.html" title="interface in repository">Repository</a>&lt;java.lang.Integer,&#8203;<a href="../domain/Movie.html" title="class in domain">Movie</a>&gt;&nbsp;mov)</pre>
+<pre>public&nbsp;ClientRentalService&#8203;(<a href="../movie.rental.server.repository/Repository.html" title="interface in movie.rental.server.repository">movie.rental.server.repository</a>&lt;java.lang.Integer,&#8203;<a href="../movie.rental.server.domain/Client.html" title="class in movie.rental.server.domain">Client</a>&gt;&nbsp;crs,
+                           <a href="../movie.rental.server.repository/Repository.html" title="interface in movie.rental.server.repository">movie.rental.server.repository</a>&lt;java.lang.Integer,&#8203;<a href="../movie.rental.server.domain/Movie.html" title="class in movie.rental.server.domain">Movie</a>&gt;&nbsp;mov)</pre>
 <div class="block">Constructor for ClientRentalService.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>crs</code> - a <code>Repository</code> instance for Clients repository.</dd>
-<dd><code>mov</code> - a <code>Repository</code> instance for Movies repository.</dd>
+<dd><code>crs</code> - a <code>movie.rental.server.repository</code> instance for Clients movie.rental.server.repository.</dd>
+<dd><code>mov</code> - a <code>movie.rental.server.repository</code> instance for Movies movie.rental.server.repository.</dd>
 </dl>
 </li>
 </ul>
@@ -257,37 +257,37 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="addClient(domain.Client)">
+<a id="addClient(movie.rental.server.domain.Client)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addClient</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addClient&#8203;(<a href="../domain/Client.html" title="class in domain">Client</a>&nbsp;client)
-               throws <a href="../domain/validators/ValidatorException.html" title="class in domain.validators">ValidatorException</a></pre>
-<div class="block">Adds a client to Clients repository.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;addClient&#8203;(<a href="../movie.rental.server.domain/Client.html" title="class in movie.rental.server.domain">Client</a>&nbsp;client)
+               throws <a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></pre>
+<div class="block">Adds a client to Clients movie.rental.server.repository.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>client</code> - the <code>Client</code> to be added.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../domain/validators/ValidatorException.html" title="class in domain.validators">ValidatorException</a></code> - if the client is not valid.</dd>
+<dd><code><a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></code> - if the client is not valid.</dd>
 </dl>
 </li>
 </ul>
-<a id="addMovie(domain.Movie)">
+<a id="addMovie(movie.rental.server.domain.Movie)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addMovie</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addMovie&#8203;(<a href="../domain/Movie.html" title="class in domain">Movie</a>&nbsp;movie)
-              throws <a href="../domain/validators/ValidatorException.html" title="class in domain.validators">ValidatorException</a></pre>
-<div class="block">Adds a movie to Movies repository.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;addMovie&#8203;(<a href="../movie.rental.server.domain/Movie.html" title="class in movie.rental.server.domain">Movie</a>&nbsp;movie)
+              throws <a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></pre>
+<div class="block">Adds a movie to Movies movie.rental.server.repository.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>movie</code> - the <code>Movie</code> to be added.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../domain/validators/ValidatorException.html" title="class in domain.validators">ValidatorException</a></code> - if the movie is not valid.</dd>
+<dd><code><a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></code> - if the movie is not valid.</dd>
 </dl>
 </li>
 </ul>
@@ -297,8 +297,8 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getAllClients</h4>
-<pre class="methodSignature">public&nbsp;java.util.Set&lt;<a href="../domain/Client.html" title="class in domain">Client</a>&gt;&nbsp;getAllClients()</pre>
-<div class="block">Gets all the clients from Clients repository.</div>
+<pre class="methodSignature">public&nbsp;java.util.Set&lt;<a href="../movie.rental.server.domain/Client.html" title="class in movie.rental.server.domain">Client</a>&gt;&nbsp;getAllClients()</pre>
+<div class="block">Gets all the clients from Clients movie.rental.server.repository.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a <code>Set</code> of all clients.</dd>
@@ -311,8 +311,8 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getAllMovies</h4>
-<pre class="methodSignature">public&nbsp;java.util.Set&lt;<a href="../domain/Movie.html" title="class in domain">Movie</a>&gt;&nbsp;getAllMovies()</pre>
-<div class="block">Gets all the movies from Movies repository.</div>
+<pre class="methodSignature">public&nbsp;java.util.Set&lt;<a href="../movie.rental.server.domain/Movie.html" title="class in movie.rental.server.domain">Movie</a>&gt;&nbsp;getAllMovies()</pre>
+<div class="block">Gets all the movies from Movies movie.rental.server.repository.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a <code>Set</code> of all movies.</dd>

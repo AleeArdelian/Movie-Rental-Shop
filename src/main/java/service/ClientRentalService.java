@@ -1,18 +1,18 @@
 package service;
 
-import domain.Client;
-import domain.Movie;
-import domain.Rental;
-import domain.exceptions.ClientNotFoundException;
-import domain.exceptions.MovieAlreadyRentedException;
-import domain.exceptions.MovieNotFoundException;
-import domain.exceptions.RentalNotFoundException;
-import domain.validators.ValidatorException;
-import repository.Repository;
-import repository.paging.Page;
-import repository.paging.Pageable;
-import repository.paging.PagingRepository;
-import repository.paging.impl.PageableImpl;
+import movie.rental.server.domain.Client;
+import movie.rental.server.domain.Movie;
+import movie.rental.server.domain.Rental;
+import movie.rental.server.domain.exceptions.ClientNotFoundException;
+import movie.rental.server.domain.exceptions.MovieAlreadyRentedException;
+import movie.rental.server.domain.exceptions.MovieNotFoundException;
+import movie.rental.server.domain.exceptions.RentalNotFoundException;
+import movie.rental.server.domain.validators.ValidatorException;
+import movie.rental.server.repository.Repository;
+import movie.rental.server.repository.paging.Page;
+import movie.rental.server.repository.paging.Pageable;
+import movie.rental.server.repository.paging.PagingRepository;
+import movie.rental.server.repository.paging.impl.PageableImpl;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,8 +32,8 @@ public class ClientRentalService {
 
     /**
      * Constructor for ClientRentalService.
-     * @param crs a {@code Repository} instance for Clients repository.
-     * @param mov a {@code Repository} instance for Movies repository.
+     * @param crs a {@code movie.rental.server.repository} instance for Clients movie.rental.server.repository.
+     * @param mov a {@code movie.rental.server.repository} instance for Movies movie.rental.server.repository.
      */
     public ClientRentalService(PagingRepository<Integer,Client> crs, PagingRepository<Integer,Movie> mov, PagingRepository<Integer, Rental> rent)
     {
@@ -43,7 +43,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Adds a client to Clients repository.
+     * Adds a client to Clients movie.rental.server.repository.
      * @param client the {@code Client} to be added.
      * @throws ValidatorException if the client is not valid.
      */
@@ -52,7 +52,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Adds a movie to Movies repository.
+     * Adds a movie to Movies movie.rental.server.repository.
      * @param movie the {@code Movie} to be added.
      * @throws ValidatorException if the movie is not valid.
      */
@@ -78,7 +78,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Updates a client in Clients repository.
+     * Updates a client in Clients movie.rental.server.repository.
      * @param client the {@code Client} to be updated.
      * @throws ValidatorException if the client is not valid.
      */
@@ -88,7 +88,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Updates a movie in Movies repository.
+     * Updates a movie in Movies movie.rental.server.repository.
      * @param movie the {@code Movie} to be updated.
      * @throws ValidatorException if the movie is not valid.
      */
@@ -98,7 +98,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Deletes a Client from clients repository.
+     * Deletes a Client from clients movie.rental.server.repository.
      * @param id an {@code Integer} representing the id of the Client to be deleted.
      * @return an {@code Optional} - null if there is no Client with the given id; the Movie otherwise.
      */
@@ -109,7 +109,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Deletes a Movie from movies repository.
+     * Deletes a Movie from movies movie.rental.server.repository.
      * @param id an {@code Integer} representing the id of the movie to be deleted.
      * @return an {@code Optional} - null if there is no Movie with the given id; the Movie otherwise.
      */
@@ -119,7 +119,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Gets all the clients from Clients repository.
+     * Gets all the clients from Clients movie.rental.server.repository.
      * @return a {@code Set} of all clients.
      */
     public Set<Client> getAllClients() {
@@ -135,7 +135,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Gets all the clients from Clients repository sorted by First Name.
+     * Gets all the clients from Clients movie.rental.server.repository sorted by First Name.
      * @return a {@code List} of all movies.
      */
     public List<Client> getAllSortedClients()
@@ -156,7 +156,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Gets all the movies from Movies repository.
+     * Gets all the movies from Movies movie.rental.server.repository.
      * @return a {@code Set} of all movies.
      */
     public Set<Movie> getAllMovies()
@@ -166,7 +166,7 @@ public class ClientRentalService {
     }
 
     /**
-     * Gets all the movies from Movies repository sorted by Name.
+     * Gets all the movies from Movies movie.rental.server.repository sorted by Name.
      * @return a {@code List} of all movies.
      */
     public List<Movie> getAllSortedMovies()

@@ -32,8 +32,8 @@
 	
 	Iteration 1 (deadline week 2):
 	  * two features (e.g: addStudent and printAllStudents)
-	  * java doc in html format (see the example from the group - project_root/doc/index.html - repository interface)
-	  * only inmemory repository is enough
+	  * java doc in html format (see the example from the group - project_root/doc/index.html - movie.rental.server.repository interface)
+	  * only inmemory movie.rental.server.repository is enough
 	  !!! Focus on working with git - working on only one branch (master/develop) is enough
 	  → the project should be of type gradle
 

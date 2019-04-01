@@ -1,6 +1,6 @@
 package ui;
 
-import domain.Client;
+import movie.rental.server.domain.Client;
 import service.ClientRentalService;
 
 import java.io.IOException;

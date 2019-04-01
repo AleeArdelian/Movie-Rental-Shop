@@ -1,6 +1,6 @@
 package ui;
 
-import domain.validators.UserChoiceValidator;
+import movie.rental.server.domain.validators.UserChoiceValidator;
 import service.ClientRentalService;
 
 import java.io.BufferedReader;
