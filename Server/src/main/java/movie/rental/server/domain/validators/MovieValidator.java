@@ -1,6 +1,8 @@
 package movie.rental.server.domain.validators;
 
-import movie.rental.server.domain.Movie;
+import movie.rental.common.domain.Movie;
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 
 import java.util.Calendar;
 

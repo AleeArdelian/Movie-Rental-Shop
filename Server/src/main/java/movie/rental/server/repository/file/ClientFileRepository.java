@@ -1,8 +1,8 @@
 package movie.rental.server.repository.file;
 
-import movie.rental.server.domain.Client;
-import movie.rental.server.domain.validators.Validator;
-import movie.rental.server.domain.validators.ValidatorException;
+import movie.rental.common.domain.Client;
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 import movie.rental.server.repository.mem.InMemoryRepository;
 
 import java.io.BufferedWriter;

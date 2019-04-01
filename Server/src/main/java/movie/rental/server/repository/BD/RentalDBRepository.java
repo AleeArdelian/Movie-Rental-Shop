@@ -1,8 +1,8 @@
 package movie.rental.server.repository.BD;
 
-import movie.rental.server.domain.Rental;
-import movie.rental.server.domain.validators.Validator;
-import movie.rental.server.domain.validators.ValidatorException;
+import movie.rental.common.domain.Rental;
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 import movie.rental.server.repository.paging.Page;
 import movie.rental.server.repository.paging.Pageable;
 import movie.rental.server.repository.paging.PagingRepository;

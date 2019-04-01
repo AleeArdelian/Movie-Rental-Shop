@@ -1,4 +1,4 @@
-package movie.rental.server.domain;
+package movie.rental.common.domain;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

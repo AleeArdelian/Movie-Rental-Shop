@@ -24,7 +24,7 @@ public interface HelloService {
     String GET_RENTALS = "getNextRentals";
     Future<String> getNextRentals();
 
-
-
+    String SET_PAGE_SIZE = "setPageSize";
+    void setPageSize(int size);
 
 }

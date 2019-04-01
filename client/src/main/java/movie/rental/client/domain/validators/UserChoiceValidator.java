@@ -1,8 +1,11 @@
-package movie.rental.server.domain.validators;
+package movie.rental.client.domain.validators;
+
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 
 import java.util.Set;
 
-public class UserChoiceValidator implements Validator<String>{
+public class UserChoiceValidator implements Validator<String> {
 
     private Set<String> options;
 

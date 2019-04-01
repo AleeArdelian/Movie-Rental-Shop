@@ -2,18 +2,18 @@ package movie.rental.server;
 
 import movie.rental.common.HelloService;
 import movie.rental.common.Message;
-import movie.rental.server.domain.Client;
-import movie.rental.server.domain.Movie;
-import movie.rental.server.domain.Rental;
+import movie.rental.common.domain.Client;
+import movie.rental.common.domain.Movie;
+import movie.rental.common.domain.Rental;
+import movie.rental.common.domain.validators.Validator;
 import movie.rental.server.domain.validators.ClientValidator;
 import movie.rental.server.domain.validators.MovieValidator;
 import movie.rental.server.domain.validators.RentalValidator;
-import movie.rental.server.domain.validators.Validator;
 import movie.rental.server.repository.BD.ClientDBRepository;
 import movie.rental.server.repository.BD.MovieDBRepository;
 import movie.rental.server.repository.BD.RentalDBRepository;
 import movie.rental.server.service.ClientRentalService;
-import movie.rental.server.service.rentalService;
+import movie.rental.server.service.ServerRentalService;
 import movie.rental.server.tcp.TcpServer;
 
 import java.util.concurrent.ExecutionException;
@@ -43,7 +43,7 @@ public class ServerApp {
 
         ClientRentalService crs = new ClientRentalService(clientRepository, movieRepository, rentalRepository);
 
-        HelloService helloService = new rentalService(executorService, crs);
+        HelloService helloService = new ServerRentalService(executorService, crs);
 
 
         tcpServer.addHandler(

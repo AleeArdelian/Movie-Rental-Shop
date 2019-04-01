@@ -1,7 +1,7 @@
 package movie.rental.client.ui;
 
-import movie.rental.server.domain.validators.UserChoiceValidator;
-import service.ClientRentalService;
+import movie.rental.client.domain.validators.UserChoiceValidator;
+import movie.rental.common.HelloService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,10 +17,10 @@ public abstract class AbstractMenu {
 
     boolean running = true;
     SortedMap<Integer, MenuOption> menuItems;
-    ClientRentalService crs;
+    HelloService crs;
     BufferedReader keyboard;
 
-    AbstractMenu(ClientRentalService crs) {
+    AbstractMenu(HelloService crs) {
         menuItems = new TreeMap<>();
         keyboard = new BufferedReader(new InputStreamReader(System.in));
         validator = new UserChoiceValidator();

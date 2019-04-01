@@ -1,6 +1,6 @@
 package movie.rental.server.repository.paging;
 
-import movie.rental.server.domain.BaseEntity;
+import movie.rental.common.domain.BaseEntity;
 import movie.rental.server.repository.Repository;
 
 import java.io.Serializable;

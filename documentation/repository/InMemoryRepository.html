@@ -166,7 +166,7 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(movie.rental.server.domain.validators.Validator)">InMemoryRepository</a></span>&#8203;(<a href="../movie.rental.server.domain/validators/Validator.html" title="interface in movie.rental.server.domain.validators">Validator</a>&lt;<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&gt;&nbsp;validator)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(movie.rental.server.domain.movie.rental.client.domain.validators.Validator)">InMemoryRepository</a></span>&#8203;(<a href="../movie.rental.server.domain/movie.rental.client.domain.validators/Validator.html" title="interface in movie.rental.server.domain.movie.rental.client.domain.validators">Validator</a>&lt;<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&gt;&nbsp;validator)</code></th>
 <td class="colLast">
 <div class="block">Constructor for the InMemoryRepository.</div>
 </td>
@@ -248,13 +248,13 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(movie.rental.server.domain.validators.Validator)">
+<a id="&lt;init&gt;(movie.rental.server.domain.movie.rental.client.domain.validators.Validator)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>InMemoryRepository</h4>
-<pre>public&nbsp;InMemoryRepository&#8203;(<a href="../movie.rental.server.domain/validators/Validator.html" title="interface in movie.rental.server.domain.validators">Validator</a>&lt;<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&gt;&nbsp;validator)</pre>
+<pre>public&nbsp;InMemoryRepository&#8203;(<a href="../movie.rental.server.domain/movie.rental.client.domain.validators/Validator.html" title="interface in movie.rental.server.domain.movie.rental.client.domain.validators">Validator</a>&lt;<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&gt;&nbsp;validator)</pre>
 <div class="block">Constructor for the InMemoryRepository.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -308,7 +308,7 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 </dl>
 </li>
 </ul>
-<a id="save(movie.rental.server.domain.BaseEntity)">
+<a id="save(movie.rental.common.domain.BaseEntity)">
 <!--   -->
 </a><a id="save(T)">
 <!--   -->
@@ -317,7 +317,7 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 <li class="blockList">
 <h4>save</h4>
 <pre class="methodSignature">public&nbsp;java.util.Optional&lt;<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&gt;&nbsp;save&#8203;(<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&nbsp;entity)
-                           throws <a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></pre>
+                           throws <a href="../movie.rental.server.domain/movie.rental.client.domain.validators/ValidatorException.html" title="class in movie.rental.server.domain.movie.rental.client.domain.validators">ValidatorException</a></pre>
 <div class="block">Adds the entity object to the movie.rental.server.repository</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -327,7 +327,7 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a <code>Map</code> with the entity object added</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></code> - if @param entity is not valid</dd>
+<dd><code><a href="../movie.rental.server.domain/movie.rental.client.domain.validators/ValidatorException.html" title="class in movie.rental.server.domain.movie.rental.client.domain.validators">ValidatorException</a></code> - if @param entity is not valid</dd>
 </dl>
 </li>
 </ul>
@@ -353,7 +353,7 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 </dl>
 </li>
 </ul>
-<a id="update(movie.rental.server.domain.BaseEntity)">
+<a id="update(movie.rental.common.domain.BaseEntity)">
 <!--   -->
 </a><a id="update(T)">
 <!--   -->
@@ -362,7 +362,7 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 <li class="blockList">
 <h4>update</h4>
 <pre class="methodSignature">public&nbsp;java.util.Optional&lt;<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&gt;&nbsp;update&#8203;(<a href="InMemoryRepository.html" title="type parameter in InMemoryRepository">T</a>&nbsp;entity)
-                             throws <a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></pre>
+                             throws <a href="../movie.rental.server.domain/movie.rental.client.domain.validators/ValidatorException.html" title="class in movie.rental.server.domain.movie.rental.client.domain.validators">ValidatorException</a></pre>
 <div class="block">Update the entity object found in the movie.rental.server.repository</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -373,7 +373,7 @@ implements <a href="Repository.html" title="interface in movie.rental.server.rep
 <dd>a <code>Map</code> with the entity object modified</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalArgumentException</code> - if @@id is null</dd>
-<dd><code><a href="../movie.rental.server.domain/validators/ValidatorException.html" title="class in movie.rental.server.domain.validators">ValidatorException</a></code> - if @entity is not valid</dd>
+<dd><code><a href="../movie.rental.server.domain/movie.rental.client.domain.validators/ValidatorException.html" title="class in movie.rental.server.domain.movie.rental.client.domain.validators">ValidatorException</a></code> - if @entity is not valid</dd>
 </dl>
 </li>
 </ul>

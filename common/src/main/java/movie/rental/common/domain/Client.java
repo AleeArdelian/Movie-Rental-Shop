@@ -1,4 +1,4 @@
-package movie.rental.server.domain;
+package movie.rental.common.domain;
 
 /**
  * Client class for holding information about a client.

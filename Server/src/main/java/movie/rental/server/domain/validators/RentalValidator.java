@@ -1,6 +1,8 @@
 package movie.rental.server.domain.validators;
 
-import movie.rental.server.domain.Rental;
+import movie.rental.common.domain.Rental;
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 
 public class RentalValidator implements Validator<Rental>
 {

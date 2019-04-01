@@ -1,7 +1,8 @@
 package movie.rental.server.domain.validators;
 
-import movie.rental.server.domain.Client;
-
+import movie.rental.common.domain.Client;
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 
 /**
  * ClientValidator class for validating data about a client.

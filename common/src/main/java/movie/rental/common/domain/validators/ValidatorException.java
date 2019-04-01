@@ -1,4 +1,4 @@
-package movie.rental.server.domain.validators;
+package movie.rental.common.domain.validators;
 
 /**
  * @author radu.

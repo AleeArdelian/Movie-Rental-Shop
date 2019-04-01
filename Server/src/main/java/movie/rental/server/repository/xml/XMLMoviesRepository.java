@@ -1,8 +1,8 @@
 package movie.rental.server.repository.xml;
 
-import movie.rental.server.domain.Movie;
-import movie.rental.server.domain.validators.Validator;
-import movie.rental.server.domain.validators.ValidatorException;
+import movie.rental.common.domain.Movie;
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

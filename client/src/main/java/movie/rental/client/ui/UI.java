@@ -1,9 +1,9 @@
 package movie.rental.client.ui;
 
-import movie.rental.server.domain.Client;
-import movie.rental.server.domain.Movie;
-import movie.rental.server.domain.validators.ValidatorException;
-import service.ClientRentalService;
+import movie.rental.common.HelloService;
+import movie.rental.common.domain.Client;
+import movie.rental.common.domain.Movie;
+import movie.rental.common.domain.validators.ValidatorException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,13 +16,13 @@ import java.util.Set;
  */
 public class UI {
 
-    private ClientRentalService crs;
+    private HelloService crs;
 
     /**
      * Constructor for the UI class
      * @param crs a {@code ClientRentalService} instance used to access data from movie.rental.server.repository
      */
-    public UI(ClientRentalService crs) {
+    public UI(HelloService crs) {
         this.crs = crs;
     }
 
@@ -247,7 +247,7 @@ public class UI {
      * Prints the Main MainMenu and loops until the user chooses to exit the application.
      * @throws IOException if there are problems with getting the input from System.in.
      */
-    public void runMainMenu() throws IOException, ValidatorException{
+    public void runMainMenu() throws IOException, ValidatorException {
         boolean running = true;
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
         while (running) {

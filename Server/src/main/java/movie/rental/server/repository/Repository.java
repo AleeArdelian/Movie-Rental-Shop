@@ -1,7 +1,7 @@
 package movie.rental.server.repository;
 
-import movie.rental.server.domain.BaseEntity;
-import movie.rental.server.domain.validators.ValidatorException;
+import movie.rental.common.domain.BaseEntity;
+import movie.rental.common.domain.validators.ValidatorException;
 
 import java.util.Optional;
 

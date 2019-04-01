@@ -1,7 +1,8 @@
 package movie.rental.server.repository.file;
-import movie.rental.server.domain.Rental;
-import movie.rental.server.domain.validators.Validator;
-import movie.rental.server.domain.validators.ValidatorException;
+
+import movie.rental.common.domain.Rental;
+import movie.rental.common.domain.validators.Validator;
+import movie.rental.common.domain.validators.ValidatorException;
 import movie.rental.server.repository.mem.InMemoryRepository;
 
 import java.io.BufferedWriter;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class RentalFileRepository extends InMemoryRepository<Integer,Rental> {
+public class RentalFileRepository extends InMemoryRepository<Integer, Rental> {
      private String sourceFile;
 
 

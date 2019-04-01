@@ -1,8 +1,7 @@
 package movie.rental.client.ui;
 
-import movie.rental.server.domain.Client;
-import movie.rental.server.domain.Movie;
-import service.ClientRentalService;
+import movie.rental.common.HelloService;
+import movie.rental.common.domain.Movie;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Set;
 
 class MoviesMenu extends AbstractMenu {
 
-    MoviesMenu(ClientRentalService crs) {
+    MoviesMenu(HelloService crs) {
         super(crs);
     }
 

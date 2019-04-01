@@ -1,14 +1,14 @@
 package movie.rental.client.ui;
 
-import movie.rental.server.domain.Rental;
-import service.ClientRentalService;
+import movie.rental.common.HelloService;
+import movie.rental.common.domain.Rental;
 
 import java.io.IOException;
 import java.util.Set;
 
 class RentalsMenu extends AbstractMenu {
 
-    RentalsMenu(ClientRentalService crs) {
+    RentalsMenu(HelloService crs) {
         super(crs);
     }
 

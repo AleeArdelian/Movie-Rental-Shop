@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"domain"},{"l":"domain.validators"},{"l":"movie.rental.server.repository"},{"l":"server"},{"l":"ui"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"domain"},{"l":"domain.movie.rental.client.domain.validators"},{"l":"movie.rental.server.repository"},{"l":"server"},{"l":"ui"}]

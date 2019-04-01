@@ -1,4 +1,4 @@
-package movie.rental.server.domain;
+package movie.rental.common.domain;
 
 /**
  * @author radu.

@@ -1,19 +1,24 @@
 package movie.rental.server.service;
+
 import movie.rental.common.HelloService;
-import movie.rental.server.domain.Client;
-import movie.rental.server.domain.Movie;
-import movie.rental.server.domain.Rental;
+import movie.rental.common.domain.Client;
+import movie.rental.common.domain.Movie;
+import movie.rental.common.domain.Rental;
+import movie.rental.server.repository.paging.Pageable;
+import movie.rental.server.repository.paging.impl.PageableImpl;
 
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class rentalService implements HelloService {
+public class ServerRentalService implements HelloService {
 
     private ExecutorService executorService;
     private ClientRentalService rentalService;
 
-    public rentalService(ExecutorService executorService, ClientRentalService rentalService) {
+    private Pageable pageableObj = new PageableImpl(0, 1);
+
+    public ServerRentalService(ExecutorService executorService, ClientRentalService rentalService) {
         this.executorService = executorService;
         this.rentalService = rentalService;
     }
@@ -44,5 +49,10 @@ public class rentalService implements HelloService {
     public Future<String> getNextRentals() {
         Set<Rental> all = rentalService.getNextRentals();
         return executorService.submit(all::toString);
+    }
+
+    @Override
+    public void setPageSize(int size) {
+        pageableObj = new PageableImpl(0, size);
     }
 }

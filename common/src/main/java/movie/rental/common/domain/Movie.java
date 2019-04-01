@@ -1,4 +1,4 @@
-package movie.rental.server.domain;
+package movie.rental.common.domain;
 
 /**
  * Movie class for holding information about a movie.
