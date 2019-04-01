@@ -87,7 +87,7 @@ $(function() {
 $.widget("custom.catcomplete", $.ui.autocomplete, {
     _create: function() {
         this._super();
-        this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+        this.widget().menu("option", "items", "> :not(.movie.rental.client.ui-autocomplete-category)");
     },
     _renderMenu: function(ul, items) {
         var rMenu = this,
@@ -95,7 +95,7 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
         $.each(items, function(index, item) {
             var li;
             if (item.l !== noResult.l && item.category !== currentCategory) {
-                ul.append("<li class=\"ui-autocomplete-category\">" + item.category + "</li>");
+                ul.append("<li class=\"movie.rental.client.ui-autocomplete-category\">" + item.category + "</li>");
                 currentCategory = item.category;
             }
             li = rMenu._renderItemData(ul, item);

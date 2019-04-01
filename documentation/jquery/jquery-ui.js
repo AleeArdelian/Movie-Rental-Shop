@@ -26,7 +26,7 @@
  */
 
 
-// $.ui might exist from components with no dependencies, e.g., $.ui.position
+// $.movie.rental.client.ui might exist from components with no dependencies, e.g., $.movie.rental.client.ui.position
 $.ui = $.ui || {};
 
 $.extend( $.ui, {
@@ -75,7 +75,7 @@ $.fn.extend({
 		return function() {
 			return this.each(function() {
 				if ( !this.id ) {
-					this.id = "ui-id-" + ( ++uuid );
+					this.id = "movie.rental.client.ui-id-" + ( ++uuid );
 				}
 			});
 		};
@@ -237,14 +237,14 @@ $.fn.extend({
 			"mousedown";
 
 		return function() {
-			return this.bind( eventType + ".ui-disableSelection", function( event ) {
+			return this.bind( eventType + ".movie.rental.client.ui-disableSelection", function( event ) {
 				event.preventDefault();
 			});
 		};
 	})(),
 
 	enableSelection: function() {
-		return this.unbind( ".ui-disableSelection" );
+		return this.unbind( ".movie.rental.client.ui-disableSelection" );
 	},
 
 	zIndex: function( zIndex ) {
@@ -277,7 +277,7 @@ $.fn.extend({
 	}
 });
 
-// $.ui.plugin is deprecated. Use $.widget() extensions instead.
+// $.movie.rental.client.ui.plugin is deprecated. Use $.widget() extensions instead.
 $.ui.plugin = {
 	add: function( module, option, set ) {
 		var i,
@@ -610,8 +610,8 @@ $.Widget.prototype = {
 
 		// clean up events and states
 		this.bindings.unbind( this.eventNamespace );
-		this.hoverable.removeClass( "ui-state-hover" );
-		this.focusable.removeClass( "ui-state-focus" );
+		this.hoverable.removeClass( "movie.rental.client.ui-state-hover" );
+		this.focusable.removeClass( "movie.rental.client.ui-state-focus" );
 	},
 	_destroy: $.noop,
 
@@ -676,8 +676,8 @@ $.Widget.prototype = {
 
 			// If the widget is becoming disabled, then nothing is interactive
 			if ( value ) {
-				this.hoverable.removeClass( "ui-state-hover" );
-				this.focusable.removeClass( "ui-state-focus" );
+				this.hoverable.removeClass( "movie.rental.client.ui-state-hover" );
+				this.focusable.removeClass( "movie.rental.client.ui-state-focus" );
 			}
 		}
 
@@ -1375,13 +1375,13 @@ var position = $.ui.position;
  */
 
 
-var menu = $.widget( "ui.menu", {
+var menu = $.widget( "movie.rental.client.ui.menu", {
 	version: "1.11.4",
 	defaultElement: "<ul>",
 	delay: 300,
 	options: {
 		icons: {
-			submenu: "ui-icon-carat-1-e"
+			submenu: "movie.rental.client.ui-icon-carat-1-e"
 		},
 		items: "> *",
 		menus: "ul",
@@ -1405,8 +1405,8 @@ var menu = $.widget( "ui.menu", {
 		this.mouseHandled = false;
 		this.element
 			.uniqueId()
-			.addClass( "ui-menu ui-widget ui-widget-content" )
-			.toggleClass( "ui-menu-icons", !!this.element.find( ".ui-icon" ).length )
+			.addClass( "movie.rental.client.ui-menu movie.rental.client.ui-widget movie.rental.client.ui-widget-content" )
+			.toggleClass( "movie.rental.client.ui-menu-icons", !!this.element.find( ".movie.rental.client.ui-icon" ).length )
 			.attr({
 				role: this.options.role,
 				tabIndex: 0
@@ -1435,16 +1435,16 @@ var menu = $.widget( "ui.menu", {
 					}
 
 					// Open submenu on click
-					if ( target.has( ".ui-menu" ).length ) {
+					if ( target.has( ".movie.rental.client.ui-menu" ).length ) {
 						this.expand( event );
-					} else if ( !this.element.is( ":focus" ) && $( this.document[ 0 ].activeElement ).closest( ".ui-menu" ).length ) {
+					} else if ( !this.element.is( ":focus" ) && $( this.document[ 0 ].activeElement ).closest( ".movie.rental.client.ui-menu" ).length ) {
 
 						// Redirect focus to the menu
 						this.element.trigger( "focus", [ true ] );
 
 						// If the active item is on the top level, let it stay active.
 						// Otherwise, blur the active item since it is no longer visible.
-						if ( this.active && this.active.parents( ".ui-menu" ).length === 1 ) {
+						if ( this.active && this.active.parents( ".movie.rental.client.ui-menu" ).length === 1 ) {
 							clearTimeout( this.timer );
 						}
 					}
@@ -1458,9 +1458,9 @@ var menu = $.widget( "ui.menu", {
 					return;
 				}
 				var target = $( event.currentTarget );
-				// Remove ui-state-active class from siblings of the newly focused menu item
+				// Remove movie.rental.client.ui-state-active class from siblings of the newly focused menu item
 				// to avoid a jump caused by adjacent elements both having a class with a border
-				target.siblings( ".ui-state-active" ).removeClass( "ui-state-active" );
+				target.siblings( ".movie.rental.client.ui-state-active" ).removeClass( "movie.rental.client.ui-state-active" );
 				this.focus( event, target );
 			},
 			mouseleave: "collapseAll",
@@ -1503,8 +1503,8 @@ var menu = $.widget( "ui.menu", {
 		// Destroy (sub)menus
 		this.element
 			.removeAttr( "aria-activedescendant" )
-			.find( ".ui-menu" ).addBack()
-				.removeClass( "ui-menu ui-widget ui-widget-content ui-menu-icons ui-front" )
+			.find( ".movie.rental.client.ui-menu" ).addBack()
+				.removeClass( "movie.rental.client.ui-menu movie.rental.client.ui-widget movie.rental.client.ui-widget-content movie.rental.client.ui-menu-icons movie.rental.client.ui-front" )
 				.removeAttr( "role" )
 				.removeAttr( "tabIndex" )
 				.removeAttr( "aria-labelledby" )
@@ -1520,19 +1520,19 @@ var menu = $.widget( "ui.menu", {
 			.removeAttr( "role" )
 			.removeAttr( "aria-disabled" )
 			.removeUniqueId()
-			.removeClass( "ui-state-hover" )
+			.removeClass( "movie.rental.client.ui-state-hover" )
 			.removeAttr( "tabIndex" )
 			.removeAttr( "role" )
 			.removeAttr( "aria-haspopup" )
 			.children().each( function() {
 				var elem = $( this );
-				if ( elem.data( "ui-menu-submenu-carat" ) ) {
+				if ( elem.data( "movie.rental.client.ui-menu-submenu-carat" ) ) {
 					elem.remove();
 				}
 			});
 
 		// Destroy menu dividers
-		this.element.find( ".ui-menu-divider" ).removeClass( "ui-menu-divider ui-widget-content" );
+		this.element.find( ".movie.rental.client.ui-menu-divider" ).removeClass( "movie.rental.client.ui-menu-divider movie.rental.client.ui-widget-content" );
 	},
 
 	_keydown: function( event ) {
@@ -1631,11 +1631,11 @@ var menu = $.widget( "ui.menu", {
 			icon = this.options.icons.submenu,
 			submenus = this.element.find( this.options.menus );
 
-		this.element.toggleClass( "ui-menu-icons", !!this.element.find( ".ui-icon" ).length );
+		this.element.toggleClass( "movie.rental.client.ui-menu-icons", !!this.element.find( ".movie.rental.client.ui-icon" ).length );
 
 		// Initialize nested menus
-		submenus.filter( ":not(.ui-menu)" )
-			.addClass( "ui-menu ui-widget ui-widget-content ui-front" )
+		submenus.filter( ":not(.movie.rental.client.ui-menu)" )
+			.addClass( "movie.rental.client.ui-menu movie.rental.client.ui-widget movie.rental.client.ui-widget-content movie.rental.client.ui-front" )
 			.hide()
 			.attr({
 				role: this.options.role,
@@ -1646,8 +1646,8 @@ var menu = $.widget( "ui.menu", {
 				var menu = $( this ),
 					item = menu.parent(),
 					submenuCarat = $( "<span>" )
-						.addClass( "ui-menu-icon ui-icon " + icon )
-						.data( "ui-menu-submenu-carat", true );
+						.addClass( "movie.rental.client.ui-menu-icon movie.rental.client.ui-icon " + icon )
+						.data( "movie.rental.client.ui-menu-submenu-carat", true );
 
 				item
 					.attr( "aria-haspopup", "true" )
@@ -1662,12 +1662,12 @@ var menu = $.widget( "ui.menu", {
 		items.not( ".ui-menu-item" ).each(function() {
 			var item = $( this );
 			if ( that._isDivider( item ) ) {
-				item.addClass( "ui-widget-content ui-menu-divider" );
+				item.addClass( "movie.rental.client.ui-widget-content movie.rental.client.ui-menu-divider" );
 			}
 		});
 
 		// Don't refresh list items that are already adapted
-		items.not( ".ui-menu-item, .ui-menu-divider" )
+		items.not( ".movie.rental.client.ui-menu-item, .movie.rental.client.ui-menu-divider" )
 			.addClass( "ui-menu-item" )
 			.uniqueId()
 			.attr({
@@ -1676,7 +1676,7 @@ var menu = $.widget( "ui.menu", {
 			});
 
 		// Add aria-disabled attribute to any disabled menu item
-		items.filter( ".ui-state-disabled" ).attr( "aria-disabled", "true" );
+		items.filter( ".movie.rental.client.ui-state-disabled" ).attr( "aria-disabled", "true" );
 
 		// If the active item has been removed, blur the menu
 		if ( this.active && !$.contains( this.element[ 0 ], this.active[ 0 ] ) ) {
@@ -1693,7 +1693,7 @@ var menu = $.widget( "ui.menu", {
 
 	_setOption: function( key, value ) {
 		if ( key === "icons" ) {
-			this.element.find( ".ui-menu-icon" )
+			this.element.find( ".movie.rental.client.ui-menu-icon" )
 				.removeClass( this.options.icons.submenu )
 				.addClass( value.submenu );
 		}
@@ -1712,7 +1712,7 @@ var menu = $.widget( "ui.menu", {
 		this._scrollIntoView( item );
 
 		this.active = item.first();
-		focused = this.active.addClass( "ui-state-focus" ).removeClass( "ui-state-active" );
+		focused = this.active.addClass( "movie.rental.client.ui-state-focus" ).removeClass( "movie.rental.client.ui-state-active" );
 		// Only update aria-activedescendant if there's a role
 		// otherwise we assume focus is managed elsewhere
 		if ( this.options.role ) {
@@ -1723,7 +1723,7 @@ var menu = $.widget( "ui.menu", {
 		this.active
 			.parent()
 			.closest( ".ui-menu-item" )
-			.addClass( "ui-state-active" );
+			.addClass( "movie.rental.client.ui-state-active" );
 
 		if ( event && event.type === "keydown" ) {
 			this._close();
@@ -1733,7 +1733,7 @@ var menu = $.widget( "ui.menu", {
 			}, this.delay );
 		}
 
-		nested = item.children( ".ui-menu" );
+		nested = item.children( ".movie.rental.client.ui-menu" );
 		if ( nested.length && event && ( /^mouse/.test( event.type ) ) ) {
 			this._startOpening(nested);
 		}
@@ -1769,7 +1769,7 @@ var menu = $.widget( "ui.menu", {
 			return;
 		}
 
-		this.active.removeClass( "ui-state-focus" );
+		this.active.removeClass( "movie.rental.client.ui-state-focus" );
 		this.active = null;
 
 		this._trigger( "blur", event, { item: this.active } );
@@ -1796,7 +1796,7 @@ var menu = $.widget( "ui.menu", {
 		}, this.options.position );
 
 		clearTimeout( this.timer );
-		this.element.find( ".ui-menu" ).not( submenu.parents( ".ui-menu" ) )
+		this.element.find( ".movie.rental.client.ui-menu" ).not( submenu.parents( ".movie.rental.client.ui-menu" ) )
 			.hide()
 			.attr( "aria-hidden", "true" );
 
@@ -1812,7 +1812,7 @@ var menu = $.widget( "ui.menu", {
 		this.timer = this._delay(function() {
 			// If we were passed an event, look for the submenu that contains the event
 			var currentMenu = all ? this.element :
-				$( event && event.target ).closest( this.element.find( ".ui-menu" ) );
+				$( event && event.target ).closest( this.element.find( ".movie.rental.client.ui-menu" ) );
 
 			// If we found no valid submenu ancestor, use the main menu to close all sub menus anyway
 			if ( !currentMenu.length ) {
@@ -1834,17 +1834,17 @@ var menu = $.widget( "ui.menu", {
 		}
 
 		startMenu
-			.find( ".ui-menu" )
+			.find( ".movie.rental.client.ui-menu" )
 				.hide()
 				.attr( "aria-hidden", "true" )
 				.attr( "aria-expanded", "false" )
 			.end()
-			.find( ".ui-state-active" ).not( ".ui-state-focus" )
-				.removeClass( "ui-state-active" );
+			.find( ".movie.rental.client.ui-state-active" ).not( ".movie.rental.client.ui-state-focus" )
+				.removeClass( "movie.rental.client.ui-state-active" );
 	},
 
 	_closeOnDocumentClick: function( event ) {
-		return !$( event.target ).closest( ".ui-menu" ).length;
+		return !$( event.target ).closest( ".movie.rental.client.ui-menu" ).length;
 	},
 
 	_isDivider: function( item ) {
@@ -1865,7 +1865,7 @@ var menu = $.widget( "ui.menu", {
 	expand: function( event ) {
 		var newItem = this.active &&
 			this.active
-				.children( ".ui-menu " )
+				.children( ".movie.rental.client.ui-menu " )
 				.find( this.options.items )
 				.first();
 
@@ -1970,9 +1970,9 @@ var menu = $.widget( "ui.menu", {
 	select: function( event ) {
 		// TODO: It should never be possible to not have an active item at this
 		// point, but the tests don't trigger mouseenter before click.
-		this.active = this.active || $( event.target ).closest( ".ui-menu-item" );
+		this.active = this.active || $( event.target ).closest( ".movie.rental.client.ui-menu-item" );
 		var ui = { item: this.active };
-		if ( !this.active.has( ".ui-menu" ).length ) {
+		if ( !this.active.has( ".movie.rental.client.ui-menu" ).length ) {
 			this.collapseAll( event, true );
 		}
 		this._trigger( "select", event, ui );
@@ -1986,7 +1986,7 @@ var menu = $.widget( "ui.menu", {
 			.find( this.options.items )
 
 			// Only match on items, not dividers or other content (#10571)
-			.filter( ".ui-menu-item" )
+			.filter( ".movie.rental.client.ui-menu-item" )
 			.filter(function() {
 				return regex.test( $.trim( $( this ).text() ) );
 			});
@@ -2006,7 +2006,7 @@ var menu = $.widget( "ui.menu", {
  */
 
 
-$.widget( "ui.autocomplete", {
+$.widget( "movie.rental.client.ui.autocomplete", {
 	version: "1.11.4",
 	defaultElement: "<input>",
 	options: {
@@ -2060,7 +2060,7 @@ $.widget( "ui.autocomplete", {
 		this.isNewMenu = true;
 
 		this.element
-			.addClass( "ui-autocomplete-input" )
+			.addClass( "movie.rental.client.ui-autocomplete-input" )
 			.attr( "autocomplete", "off" );
 
 		this._on( this.element, {
@@ -2208,7 +2208,7 @@ $.widget( "ui.autocomplete", {
 				// so we have to track the next mousedown and close the menu if
 				// the user clicks somewhere outside of the autocomplete
 				var menuElement = this.menu.element[ 0 ];
-				if ( !$( event.target ).closest( ".ui-menu-item" ).length ) {
+				if ( !$( event.target ).closest( ".movie.rental.client.ui-menu-item" ).length ) {
 					this._delay(function() {
 						var that = this;
 						this.document.one( "mousedown", function( event ) {
@@ -2238,7 +2238,7 @@ $.widget( "ui.autocomplete", {
 					}
 				}
 
-				item = ui.item.data( "ui-autocomplete-item" );
+				item = ui.item.data( "movie.rental.client.ui-autocomplete-item" );
 				if ( false !== this._trigger( "focus", event, { item: item } ) ) {
 					// use value to match what will end up in the input, if it was a key event
 					if ( event.originalEvent && /^key/.test( event.originalEvent.type ) ) {
@@ -2254,7 +2254,7 @@ $.widget( "ui.autocomplete", {
 				}
 			},
 			menuselect: function( event, ui ) {
-				var item = ui.item.data( "ui-autocomplete-item" ),
+				var item = ui.item.data( "movie.rental.client.ui-autocomplete-item" ),
 					previous = this.previous;
 
 				// only trigger when focus was lost (click on menu)
@@ -2303,7 +2303,7 @@ $.widget( "ui.autocomplete", {
 	_destroy: function() {
 		clearTimeout( this.searching );
 		this.element
-			.removeClass( "ui-autocomplete-input" )
+			.removeClass( "movie.rental.client.ui-autocomplete-input" )
 			.removeAttr( "autocomplete" );
 		this.menu.element.remove();
 		this.liveRegion.remove();
@@ -2332,7 +2332,7 @@ $.widget( "ui.autocomplete", {
 		}
 
 		if ( !element || !element[ 0 ] ) {
-			element = this.element.closest( ".ui-front" );
+			element = this.element.closest( ".movie.rental.client.ui-front" );
 		}
 
 		if ( !element.length ) {
@@ -2408,7 +2408,7 @@ $.widget( "ui.autocomplete", {
 
 	_search: function( value ) {
 		this.pending++;
-		this.element.addClass( "ui-autocomplete-loading" );
+		this.element.addClass( "movie.rental.client.ui-autocomplete-loading" );
 		this.cancelSearch = false;
 
 		this.source( { term: value }, this._response() );
@@ -2424,7 +2424,7 @@ $.widget( "ui.autocomplete", {
 
 			this.pending--;
 			if ( !this.pending ) {
-				this.element.removeClass( "ui-autocomplete-loading" );
+				this.element.removeClass( "movie.rental.client.ui-autocomplete-loading" );
 			}
 		}, this );
 	},
@@ -2518,7 +2518,7 @@ $.widget( "ui.autocomplete", {
 	},
 
 	_renderItemData: function( ul, item ) {
-		return this._renderItem( ul, item ).data( "ui-autocomplete-item", item );
+		return this._renderItem( ul, item ).data( "movie.rental.client.ui-autocomplete-item", item );
 	},
 
 	_renderItem: function( ul, item ) {
@@ -2576,7 +2576,7 @@ $.extend( $.ui.autocomplete, {
 // live region extension, adding a `messages` option
 // NOTE: This is an experimental API. We are still investigating
 // a full solution for string manipulation and internationalization.
-$.widget( "ui.autocomplete", $.ui.autocomplete, {
+$.widget( "movie.rental.client.ui.autocomplete", $.ui.autocomplete, {
 	options: {
 		messages: {
 			noResults: "No search results.",

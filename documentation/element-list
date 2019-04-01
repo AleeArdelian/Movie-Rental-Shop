@@ -3,4 +3,4 @@ movie.rental.server.domain
 movie.rental.server.domain.validators
 movie.rental.server.repository
 service
-ui
+movie.rental.client.ui
