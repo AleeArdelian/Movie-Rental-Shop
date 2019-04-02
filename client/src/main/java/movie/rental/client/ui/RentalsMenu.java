@@ -1,10 +1,11 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.RentalService;
+import movie.rental.common.service.RentalService;
 import movie.rental.common.domain.Rental;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 class RentalsMenu extends AbstractMenu {
 
@@ -26,7 +27,7 @@ class RentalsMenu extends AbstractMenu {
             String choice = "n";
             while (printing) {
                 if (choice.equals("n")) {
-                    Set<Rental> rentals = null;//crs.getNextRentals();
+                    Set<Rental> rentals = crs.getNextRentals().get();
                     if (rentals.size() == 0) {
                         System.out.println("No more rentals");
                         break;
@@ -40,6 +41,8 @@ class RentalsMenu extends AbstractMenu {
             }
         } catch (IOException exc) {
             throw new RuntimeException("There was a problem with the input. Sorry!");
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
     }
     private Rental getRental()
@@ -66,13 +69,17 @@ class RentalsMenu extends AbstractMenu {
     @Override
     void setUpMenu() {
         setTitle("RENTALS");
-        /*
         menuItems.put(1, new MenuOption("Rent a movie", () -> crs.addRental(getRental())));
         menuItems.put(2, new MenuOption("Return a movie", () -> crs.deleteRental(getId())));
-        menuItems.put(3, new MenuOption("List all", () -> printAllRentals(crs.getAllRentals())));
+        menuItems.put(3, new MenuOption("List all", () -> {
+            try {
+                printAllRentals(crs.getAllRentals().get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }));
         menuItems.put(4, new MenuOption("List paged", this::printPagedRentals));
         menuItems.put(0, new MenuOption("Back", () -> running = false));
-        */
     }
 
 }

@@ -3,8 +3,8 @@ package movie.rental.client.tcp;
 import java.io.*;
 import java.net.Socket;
 
-import movie.rental.common.HelloServiceException;
-import movie.rental.common.Message;
+import movie.rental.common.domain.exceptions.RentalServiceException;
+import movie.rental.common.domain.Message;
 
 public class TCPClient {
 
@@ -30,17 +30,17 @@ public class TCPClient {
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())
         ) {
-            System.out.println("[CLIENT] Sending request " + request.getBody());
+            System.out.println("[CLIENT] Sending request " + request.getHeader());
             send(oos, request);
 
             Message response = receive(ois);
-            System.out.println("[CLIENT] Receiving response: " + response.getBody());
+            System.out.println("[CLIENT] Receiving response: " + response.getHeader());
 
             return response;
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            throw new HelloServiceException("[CLIENT] There was a problem while connecting to the server.");
+            throw new RentalServiceException("[CLIENT] There was a problem while connecting to the server.");
         }
     }
 }

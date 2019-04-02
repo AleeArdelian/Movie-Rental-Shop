@@ -1,7 +1,7 @@
 package movie.rental.client.ui;
 
 import movie.rental.client.domain.validators.UserChoiceValidator;
-import movie.rental.common.RentalService;
+import movie.rental.common.service.RentalService;
 
 import java.io.BufferedReader;
 import java.io.IOException;

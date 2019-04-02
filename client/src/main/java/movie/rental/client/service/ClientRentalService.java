@@ -1,9 +1,11 @@
 package movie.rental.client.service;
 
 import movie.rental.client.tcp.TCPClient;
-import movie.rental.common.RentalService;
-import movie.rental.common.Message;
+import movie.rental.common.domain.Rental;
+import movie.rental.common.service.RentalService;
+import movie.rental.common.domain.Message;
 import movie.rental.common.domain.Client;
+import movie.rental.common.domain.Movie;
 
 import java.util.List;
 import java.util.Set;
@@ -35,6 +37,91 @@ public class ClientRentalService implements RentalService {
             Message request = new Message(RentalService.GET_SORTED_CLIENTS);
             Message response = tcpClient.sendAndReceive(request);
             return (List<Client>)response.getBody();
+        });
+    }
+
+    @Override
+    public void addMovie(Movie movie) {
+        executorService.execute(() -> {
+            Message request = new Message(RentalService.ADD_MOVIE, movie);
+            tcpClient.sendAndReceive(request);
+        });
+    }
+
+    @Override
+    public void updateMovie(Movie movie) {
+        executorService.execute(() -> {
+            Message request = new Message(RentalService.UPDATE_MOVIE, movie);
+            tcpClient.sendAndReceive(request);
+        });
+    }
+
+    @Override
+    public void deleteMovie(Integer id) {
+        executorService.execute(() -> {
+            Message request = new Message(RentalService.DELETE_MOVIE, id);
+            tcpClient.sendAndReceive(request);
+        });
+    }
+
+    @Override
+    public Future<Set<Movie>> getNextMovies() {
+        return executorService.submit(() -> {
+            Message request = new Message(RentalService.GET_MOVIES);
+            Message response = tcpClient.sendAndReceive(request);
+            return (Set<Movie>)response.getBody();
+        });
+    }
+
+    @Override
+    public Future<Set<Movie>> getAllMovies() {
+        return executorService.submit(() -> {
+            Message request = new Message(RentalService.GET_ALL_MOVIES);
+            Message response = tcpClient.sendAndReceive(request);
+            return (Set<Movie>)response.getBody();
+        });
+    }
+
+    @Override
+    public Future<List<Movie>> getAllSortedMovies() {
+        return executorService.submit(() -> {
+            Message request = new Message(RentalService.GET_SORTED_MOVIES);
+            Message response = tcpClient.sendAndReceive(request);
+            return (List<Movie>)response.getBody();
+        });
+    }
+
+    @Override
+    public void addRental(Rental rental) {
+        executorService.execute(() -> {
+            Message request = new Message(RentalService.ADD_RENTAL, rental);
+            tcpClient.sendAndReceive(request);
+        });
+    }
+
+    @Override
+    public void deleteRental(Integer id) {
+        executorService.execute(() -> {
+            Message request = new Message(RentalService.DELETE_RENTAL, id);
+            tcpClient.sendAndReceive(request);
+        });
+    }
+
+    @Override
+    public Future<Set<Rental>> getNextRentals() {
+        return executorService.submit(() -> {
+            Message request = new Message(RentalService.GET_RENTALS);
+            Message response = tcpClient.sendAndReceive(request);
+            return (Set<Rental>)response.getBody();
+        });
+    }
+
+    @Override
+    public Future<Set<Rental>> getAllRentals() {
+        return executorService.submit(() -> {
+            Message request = new Message(RentalService.GET_ALL_RENTALS);
+            Message response = tcpClient.sendAndReceive(request);
+            return (Set<Rental>)response.getBody();
         });
     }
 

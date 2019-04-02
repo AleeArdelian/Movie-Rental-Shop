@@ -1,13 +1,10 @@
 package movie.rental.server.tcp;
 
-import movie.rental.common.HelloServiceException;
-import movie.rental.common.Message;
-import movie.rental.common.RentalService;
-import movie.rental.common.domain.Client;
+import movie.rental.common.domain.exceptions.RentalServiceException;
+import movie.rental.common.domain.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -53,12 +50,12 @@ public class TcpServer {
             System.out.println("[SERVER] Successfully started");
             while (true) {
                 Socket client = serverSocket.accept();
-                System.out.println("[SERVER] Client connected; IP: ");
+                System.out.println("[SERVER] Client connected");
                 executorService.submit(new ClientHandler(client));
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new HelloServiceException("[SERVER] There was a problem while starting the server", e);
+            throw new RentalServiceException("[SERVER] There was a problem while starting the server", e);
         }
     }
 
@@ -76,15 +73,15 @@ public class TcpServer {
                  ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream())
             ) {
                 Message request = receive(ois);
-                System.out.println("[SERVER] Receiving request " + request.getHeader());
+                System.out.println("[SERVER] Receiving request: " + request.getHeader());
 
                 Message response = methodHandlers.get(request.getHeader()).apply(request);
 
-                System.out.println("[SERVER] Sending response " + response.getHeader());
+                System.out.println("[SERVER] Sending response: " + response.getHeader());
                 send(oos, response);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
-                throw new HelloServiceException("server - data " +
+                throw new RentalServiceException("server - data " +
                                                 "exchange" +
                                                 " " +
                                                 "error", e);

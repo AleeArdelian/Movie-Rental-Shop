@@ -1,6 +1,6 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.RentalService;
+import movie.rental.common.service.RentalService;
 import movie.rental.common.domain.Client;
 import movie.rental.common.domain.Movie;
 import movie.rental.common.domain.validators.ValidatorException;

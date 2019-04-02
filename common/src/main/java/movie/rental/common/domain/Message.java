@@ -1,4 +1,4 @@
-package movie.rental.common;
+package movie.rental.common.domain;
 
 import java.io.*;
 

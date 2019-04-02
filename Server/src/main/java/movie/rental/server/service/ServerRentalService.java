@@ -1,7 +1,9 @@
 package movie.rental.server.service;
 
-import movie.rental.common.RentalService;
+import movie.rental.common.domain.Rental;
+import movie.rental.common.service.RentalService;
 import movie.rental.common.domain.Client;
+import movie.rental.common.domain.Movie;
 
 import java.util.List;
 import java.util.Set;
@@ -26,6 +28,56 @@ public class ServerRentalService implements RentalService {
     @Override
     public Future<List<Client>> getAllSortedClients() {
         return executorService.submit(() -> crs.getAllSortedClients());
+    }
+
+    @Override
+    public void addMovie(Movie movie) {
+        executorService.execute(() -> crs.addMovie(movie));
+    }
+
+    @Override
+    public void updateMovie(Movie movie) {
+        executorService.execute(() -> crs.updateMovie(movie));
+    }
+
+    @Override
+    public void deleteMovie(Integer id) {
+        executorService.execute(() -> crs.deleteMovie(id));
+    }
+
+    @Override
+    public Future<Set<Movie>> getNextMovies() {
+        return executorService.submit(() -> crs.getNextMovies());
+    }
+
+    @Override
+    public Future<Set<Movie>> getAllMovies() {
+        return executorService.submit(() -> crs.getAllMovies());
+    }
+
+    @Override
+    public Future<List<Movie>> getAllSortedMovies() {
+        return executorService.submit(() -> crs.getAllSortedMovies());
+    }
+
+    @Override
+    public void addRental(Rental rental) {
+        executorService.execute(() -> crs.addRental(rental));
+    }
+
+    @Override
+    public void deleteRental(Integer id) {
+        executorService.execute(() -> crs.deleteRental(id));
+    }
+
+    @Override
+    public Future<Set<Rental>> getNextRentals() {
+        return executorService.submit(() -> crs.getNextRentals());
+    }
+
+    @Override
+    public Future<Set<Rental>> getAllRentals() {
+        return executorService.submit(() -> crs.getAllRentals());
     }
 
     @Override

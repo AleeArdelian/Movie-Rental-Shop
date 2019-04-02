@@ -2,7 +2,7 @@ import movie.rental.client.service.ClientRentalService;
 import movie.rental.client.tcp.TCPClient;
 import movie.rental.client.ui.AbstractMenu;
 import movie.rental.client.ui.MainMenu;
-import movie.rental.common.RentalService;
+import movie.rental.common.service.RentalService;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

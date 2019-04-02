@@ -16,9 +16,9 @@ import java.util.Optional;
 
 public class MovieDBRepository implements PagingRepository<Integer, Movie> {
 
-    private static final String URL = "jdbc:postgresql://localhost:2253/MovieRental";
+    private static final String URL = "jdbc:postgresql://localhost:5432/MOVIE_SHOP";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "parola";
+    private static final String PASSWORD = "bere1234";
 
     private Validator<Movie> validator;
 

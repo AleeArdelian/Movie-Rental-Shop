@@ -1,6 +1,6 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.RentalService;
+import movie.rental.common.service.RentalService;
 
 public class MainMenu extends AbstractMenu {
 

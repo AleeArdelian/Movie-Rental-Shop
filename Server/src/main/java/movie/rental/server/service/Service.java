@@ -57,7 +57,8 @@ public class Service {
      * @throws ValidatorException if the movie is not valid.
      */
     public void addMovie(Movie movie) throws ValidatorException {
-        movieRepository.save(movie).orElseThrow(() -> new RuntimeException("Movie ID already exists."));
+        if (movieRepository.save(movie).isPresent())
+            throw new RuntimeException("Movie ID already exists.");
     }
 
     public void addRental(Rental rental) throws ValidatorException{

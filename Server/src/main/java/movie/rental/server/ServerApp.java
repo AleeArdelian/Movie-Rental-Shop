@@ -1,7 +1,7 @@
 package movie.rental.server;
 
-import movie.rental.common.RentalService;
-import movie.rental.common.Message;
+import movie.rental.common.service.RentalService;
+import movie.rental.common.domain.Message;
 import movie.rental.common.domain.Client;
 import movie.rental.common.domain.Movie;
 import movie.rental.common.domain.Rental;
@@ -12,9 +12,7 @@ import movie.rental.server.domain.validators.RentalValidator;
 import movie.rental.server.repository.BD.ClientDBRepository;
 import movie.rental.server.repository.BD.MovieDBRepository;
 import movie.rental.server.repository.BD.RentalDBRepository;
-import movie.rental.server.repository.Repository;
-import movie.rental.server.repository.file.ClientFileRepository;
-import movie.rental.server.repository.mem.InMemoryRepository;
+
 import movie.rental.server.service.Service;
 import movie.rental.server.service.ServerRentalService;
 import movie.rental.server.tcp.TcpServer;
@@ -113,6 +111,111 @@ public class ServerApp {
             try {
                 Future<List<Client>> clients = rentalService.getAllSortedClients();
                 return new Message(Message.OK, clients.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.ADD_MOVIE, (request) -> {
+            Movie movie = (Movie)request.getBody();
+            try {
+                rentalService.addMovie(movie);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.UPDATE_MOVIE, (request) -> {
+            Movie movie = (Movie)request.getBody();
+            try {
+                rentalService.updateMovie(movie);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.DELETE_MOVIE, (request) -> {
+            Integer id = (Integer)request.getBody();
+            try {
+                rentalService.deleteMovie(id);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_MOVIES, (request) -> {
+            try {
+                Future<Set<Movie>> movies = rentalService.getNextMovies();
+                return new Message(Message.OK, movies.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_ALL_MOVIES, (request) -> {
+            try {
+                Future<Set<Movie>> movies = rentalService.getAllMovies();
+                return new Message(Message.OK, movies.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_SORTED_MOVIES, (request) -> {
+            try {
+                Future<List<Movie>> movies = rentalService.getAllSortedMovies();
+                return new Message(Message.OK, movies.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.ADD_RENTAL, (request) -> {
+            Rental rental = (Rental)request.getBody();
+            try {
+                rentalService.addRental(rental);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.DELETE_RENTAL, (request) -> {
+            Integer id = (Integer)request.getBody();
+            try {
+                rentalService.deleteRental(id);
+                return new Message(Message.OK);
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_RENTALS, (request) -> {
+            try {
+                Future<Set<Rental>> rentals = rentalService.getNextRentals();
+                return new Message(Message.OK, rentals.get());
+            }
+            catch (Exception exc) {
+                return new Message(Message.ERROR);
+            }
+        });
+
+        tcpServer.addHandler(RentalService.GET_ALL_RENTALS, (request) -> {
+            try {
+                Future<Set<Rental>> rentals = rentalService.getAllRentals();
+                return new Message(Message.OK, rentals.get());
             }
             catch (Exception exc) {
                 return new Message(Message.ERROR);

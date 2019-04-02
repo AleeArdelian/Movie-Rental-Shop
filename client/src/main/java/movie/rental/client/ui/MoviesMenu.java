@@ -1,11 +1,12 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.RentalService;
+import movie.rental.common.service.RentalService;
 import movie.rental.common.domain.Movie;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 class MoviesMenu extends AbstractMenu {
 
@@ -64,7 +65,7 @@ class MoviesMenu extends AbstractMenu {
             String choice = "n";
             while (printing) {
                 if (choice.equals("n")) {
-                    Set<Movie> movies = null; //crs.getNextMovies();
+                    Set<Movie> movies = crs.getNextMovies().get();
                     if (movies.size() == 0) {
                         System.out.println("No more movies");
                         break;
@@ -76,7 +77,7 @@ class MoviesMenu extends AbstractMenu {
                 if (choice.equals("x"))
                     printing = false;
             }
-        } catch (IOException exc) {
+        } catch (IOException | InterruptedException | ExecutionException exc) {
             throw new RuntimeException("There was a problem with the input. Sorry!");
         }
     }
@@ -84,19 +85,28 @@ class MoviesMenu extends AbstractMenu {
     @Override
     void setUpMenu() {
         setTitle("MOVIES");
-        /*
         menuItems.put(1, new MenuOption("Add", () -> crs.addMovie(getMovie())));
         menuItems.put(2, new MenuOption("Update", () -> crs.updateMovie(getMovie())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteMovie(getId())));
-        menuItems.put(4, new MenuOption("List all", () -> printAllMovies(crs.getAllMovies())));
+        menuItems.put(4, new MenuOption("List all", () -> {
+            try {
+                printAllMovies(crs.getAllMovies().get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }));
         menuItems.put(5, new MenuOption("List paged", this::printPagedMovies));
-        menuItems.put(6, new MenuOption("List sorted", () -> printSortedMovies(crs.getAllSortedMovies())));
+        menuItems.put(6, new MenuOption("List sorted", () -> {
+            try {
+                printSortedMovies(crs.getAllSortedMovies().get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }));/*
         menuItems.put(7, new MenuOption("List all movies after a given year", () -> System.out.println("The number" +
                         " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
-        menuItems.put(8, new MenuOption("How many times movies were rented", () -> System.out.println("The number" +
-                " of movies after given year is: " + crs.getNoMoviesAfterYear(getYear()))));
+                        */
         menuItems.put(0, new MenuOption("Back", () -> running = false));
-        */
     }
 
 }

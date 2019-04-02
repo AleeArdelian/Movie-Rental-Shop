@@ -1,6 +1,6 @@
 package movie.rental.client.ui;
 
-import movie.rental.common.RentalService;
+import movie.rental.common.service.RentalService;
 import movie.rental.common.domain.Client;
 
 import java.io.IOException;
@@ -80,9 +80,7 @@ class ClientsMenu extends AbstractMenu {
         menuItems.put(4, new MenuOption("List all", () -> {
             try {
                 printAllClients(crs.getAllClients().get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }));
@@ -90,9 +88,7 @@ class ClientsMenu extends AbstractMenu {
         menuItems.put(6, new MenuOption("List sorted", () -> {
             try {
                 printSortedClients(crs.getAllSortedClients().get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }));
