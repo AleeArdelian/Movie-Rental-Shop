@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2019-03-05">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../jquery/jquery-movie.rental.client.ui.css" title="Style">
 <script type="text/javascript" src="../../script.js"></script>
 <script type="text/javascript" src="../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
@@ -16,7 +16,7 @@
 <![endif]-->
 <script type="text/javascript" src="../../jquery/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="../../jquery/jquery-migrate-3.0.1.js"></script>
-<script type="text/javascript" src="../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../jquery/jquery-movie.rental.client.ui.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -116,7 +116,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domain.validators</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">movie.rental.server.domain.movie.rental.client.domain.validators</a></div>
 <h2 title="Class ClientValidator" class="title">Class ClientValidator</h2>
 </div>
 <div class="contentContainer">
@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>domain.validators.ClientValidator</li>
+<li>movie.rental.server.domain.movie.rental.client.domain.validators.ClientValidator</li>
 </ul>
 </li>
 </ul>
@@ -133,12 +133,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="Validator.html" title="interface in domain.validators">Validator</a>&lt;<a href="../Client.html" title="class in domain">Client</a>&gt;</code></dd>
+<dd><code><a href="Validator.html" title="interface in movie.rental.server.domain.movie.rental.client.domain.validators">Validator</a>&lt;<a href="../Client.html" title="class in movie.rental.server.domain">Client</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">ClientValidator</span>
 extends java.lang.Object
-implements <a href="Validator.html" title="interface in domain.validators">Validator</a>&lt;<a href="../Client.html" title="class in domain">Client</a>&gt;</pre>
+implements <a href="Validator.html" title="interface in movie.rental.server.domain.movie.rental.client.domain.validators">Validator</a>&lt;<a href="../Client.html" title="class in movie.rental.server.domain">Client</a>&gt;</pre>
 <div class="block">ClientValidator class for validating data about a client.
  Implements Validator interface.</div>
 </li>
@@ -184,7 +184,7 @@ implements <a href="Validator.html" title="interface in domain.validators">Valid
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#validate(domain.Client)">validate</a></span>&#8203;(<a href="../Client.html" title="class in domain">Client</a>&nbsp;client)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#validate(movie.rental.common.domain.Client)">validate</a></span>&#8203;(<a href="../Client.html" title="class in movie.rental.server.domain">Client</a>&nbsp;client)</code></th>
 <td class="colLast">
 <div class="block">Method for validating information about a client.</div>
 </td>
@@ -232,24 +232,24 @@ implements <a href="Validator.html" title="interface in domain.validators">Valid
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="validate(domain.Client)">
+<a id="validate(movie.rental.common.domain.Client)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>validate</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;validate&#8203;(<a href="../Client.html" title="class in domain">Client</a>&nbsp;client)
-              throws <a href="ValidatorException.html" title="class in domain.validators">ValidatorException</a></pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;validate&#8203;(<a href="../Client.html" title="class in movie.rental.server.domain">Client</a>&nbsp;client)
+              throws <a href="ValidatorException.html" title="class in movie.rental.server.domain.movie.rental.client.domain.validators">ValidatorException</a></pre>
 <div class="block">Method for validating information about a client.
  A Client is valid if: - its id is not negative
                        - the client age is not negative and the client is not underage (12)</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Validator.html#validate(T)">validate</a></code>&nbsp;in interface&nbsp;<code><a href="Validator.html" title="interface in domain.validators">Validator</a>&lt;<a href="../Client.html" title="class in domain">Client</a>&gt;</code></dd>
+<dd><code><a href="Validator.html#validate(T)">validate</a></code>&nbsp;in interface&nbsp;<code><a href="Validator.html" title="interface in movie.rental.server.domain.movie.rental.client.domain.validators">Validator</a>&lt;<a href="../Client.html" title="class in movie.rental.server.domain">Client</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>client</code> - a <code>Client</code> instance to be validated.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="ValidatorException.html" title="class in domain.validators">ValidatorException</a></code> - if data about the client is not valid.</dd>
+<dd><code><a href="ValidatorException.html" title="class in movie.rental.server.domain.movie.rental.client.domain.validators">ValidatorException</a></code> - if data about the client is not valid.</dd>
 </dl>
 </li>
 </ul>

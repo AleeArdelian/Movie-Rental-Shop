@@ -1,6 +1,6 @@
 unnamed package
-domain
-domain.validators
-repository
+movie.rental.server.domain
+movie.rental.server.domain.movie.rental.client.domain.validators
+movie.rental.server.repository
 service
-ui
+movie.rental.client.ui
