@@ -16,7 +16,6 @@ public class ClientApp {
         AbstractMenu ui = new MainMenu(crs);
         ui.run();
         executorService.shutdownNow();
-        System.out.println("DISCONNECTED");
     }
 
 }

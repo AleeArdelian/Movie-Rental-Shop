@@ -77,13 +77,7 @@ class ClientsMenu extends AbstractMenu {
         menuItems.put(1, new MenuOption("Add", () -> crs.addClient(getClient())));
         menuItems.put(2, new MenuOption("Update", () -> crs.updateClient(getClient())));
         menuItems.put(3, new MenuOption("Delete", () -> crs.deleteClient(getId())));
-        menuItems.put(4, new MenuOption("List all", () -> {
-            try {
-                printAllClients(crs.getAllClients().get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }));
+        menuItems.put(4, new MenuOption("List all", () -> crs.getAllClients().thenAccept(this::printAllClients)));
         menuItems.put(5, new MenuOption("List paged ", this::printPagedClients));
         menuItems.put(6, new MenuOption("List sorted", () -> {
             try {

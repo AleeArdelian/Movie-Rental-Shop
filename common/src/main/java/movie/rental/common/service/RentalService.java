@@ -6,6 +6,7 @@ import movie.rental.common.domain.Rental;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -20,7 +21,7 @@ public interface RentalService {
     void setPageSize(Integer size);
 
     String ADD_CLIENT = "addClient";
-    void addClient(Client client);
+    CompletableFuture<Boolean> addClient(Client client);
 
     String UPDATE_CLIENT = "updateClient";
     void updateClient(Client client);
@@ -29,10 +30,10 @@ public interface RentalService {
     void deleteClient(Integer id);
 
     String GET_CLIENTS = "getNextClients";
-    Future<Set<Client>> getNextClients();
+    CompletableFuture<Set<Client>> getNextClients();
 
     String GET_ALL_CLIENTS = "getAllClients";
-    Future<Set<Client>> getAllClients();
+    CompletableFuture<Set<Client>> getAllClients();
 
     String GET_SORTED_CLIENTS = "getAllSortedClients";
     Future<List<Client>> getAllSortedClients();

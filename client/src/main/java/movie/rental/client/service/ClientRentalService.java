@@ -2,6 +2,7 @@ package movie.rental.client.service;
 
 import movie.rental.client.tcp.TCPClient;
 import movie.rental.common.domain.Rental;
+import movie.rental.common.domain.exceptions.RentalServiceException;
 import movie.rental.common.service.RentalService;
 import movie.rental.common.domain.Message;
 import movie.rental.common.domain.Client;
@@ -9,6 +10,7 @@ import movie.rental.common.domain.Movie;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -23,8 +25,8 @@ public class ClientRentalService implements RentalService {
     }
 
     @Override
-    public Future<Set<Client>> getAllClients() {
-        return executorService.submit(() -> {
+    public CompletableFuture<Set<Client>> getAllClients() {
+        return CompletableFuture.supplyAsync(() -> {
             Message request = new Message(RentalService.GET_ALL_CLIENTS);
             Message response = tcpClient.sendAndReceive(request);
             return (Set<Client>)response.getBody();
@@ -132,11 +134,14 @@ public class ClientRentalService implements RentalService {
         });
     }
 
-    public void addClient(Client client) {
-        executorService.execute(() -> {
+    public CompletableFuture<Boolean> addClient(Client client) {
+        return CompletableFuture.supplyAsync(() -> {
             Message request = new Message(RentalService.ADD_CLIENT, client);
-            tcpClient.sendAndReceive(request);
-        });
+            Message response = tcpClient.sendAndReceive(request);
+            if (response.getHeader().equals("ERROR"))
+                throw new RentalServiceException("Error");
+            else return true;
+        }, executorService);
     }
 
     public void updateClient(Client client) {
@@ -154,12 +159,12 @@ public class ClientRentalService implements RentalService {
     }
 
     @Override
-    public Future<Set<Client>> getNextClients() {
-        return executorService.submit(() -> {
+    public CompletableFuture<Set<Client>> getNextClients() {
+        return CompletableFuture.supplyAsync(() -> {
             Message request = new Message(RentalService.GET_CLIENTS);
             Message response = tcpClient.sendAndReceive(request);
             return (Set<Client>)response.getBody();
-        });
+        }, executorService);
     }
 
 }

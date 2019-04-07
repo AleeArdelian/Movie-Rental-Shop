@@ -7,6 +7,7 @@ import movie.rental.common.domain.Movie;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -21,8 +22,8 @@ public class ServerRentalService implements RentalService {
     }
 
     @Override
-    public Future<Set<Client>> getAllClients() {
-        return executorService.submit(() -> crs.getAllClients());
+    public CompletableFuture<Set<Client>> getAllClients() {
+        return CompletableFuture.supplyAsync(() -> crs.getAllClients(), executorService);
     }
 
     @Override
@@ -86,8 +87,11 @@ public class ServerRentalService implements RentalService {
     }
 
     @Override
-    public void addClient(Client client) {
-        executorService.execute(() -> crs.addClient(client));
+    public CompletableFuture<Boolean> addClient(Client client) {
+        return CompletableFuture.supplyAsync(() -> {
+            crs.addClient(client);
+            return true;
+        }, executorService);
     }
 
     @Override
@@ -101,8 +105,8 @@ public class ServerRentalService implements RentalService {
     }
 
     @Override
-    public Future<Set<Client>> getNextClients() {
-        return executorService.submit(() -> crs.getNextClients());
+    public CompletableFuture<Set<Client>> getNextClients() {
+        return CompletableFuture.supplyAsync(() -> crs.getNextClients(), executorService);
     }
 
 

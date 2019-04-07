@@ -45,7 +45,7 @@ public class MovieDBRepository implements PagingRepository<Integer, Movie> {
                 Integer id = resultSet.getInt("Movie_Id");
                 String name = resultSet.getString("Movie_Name");
                 int year = resultSet.getInt("Movie_Year");
-                String director = resultSet.getString("Movie_Name");
+                String director = resultSet.getString("Movie_Director");
                 mov = new Movie(name, year, director);
                 mov.setId(id);
             }
