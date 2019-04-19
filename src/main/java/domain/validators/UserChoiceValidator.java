@@ -2,7 +2,7 @@ package domain.validators;
 
 import java.util.Set;
 
-public class UserChoiceValidator implements Validator<String>{
+public class UserChoiceValidator implements Validator<String> {
 
     private Set<String> options;
 

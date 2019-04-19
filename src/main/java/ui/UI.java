@@ -3,28 +3,25 @@ package ui;
 import domain.Client;
 import domain.Movie;
 import domain.validators.ValidatorException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import service.ClientRentalService;
+import service.ClientService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.Set;
 
 /**
  * User Interface class
  * MainMenu-based console application
  */
+@Component
 public class UI {
-
-    private ClientRentalService crs;
-
-    /**
-     * Constructor for the UI class
-     * @param crs a {@code ClientRentalService} instance used to access data from repository
-     */
-    public UI(ClientRentalService crs) {
-        this.crs = crs;
-    }
+    @Autowired
+    ClientService crs;
 
     /**
      * Method that prints the Main MainMenu in the console.
@@ -164,10 +161,14 @@ public class UI {
                     crs.addClient(getClientFrom(keyboard));
                     break;
                 case 2:
-                    System.out.println("Feature to be implemented soon:) ");
+                    System.out.println("Remove a new client: "); Scanner scanner = new Scanner(System.in);
+                    System.out.println("ID: ");
+                    Integer ID = scanner.nextInt();
+                    crs.deleteClient(ID);
                     break;
                 case 3:
-                    System.out.println("Feature to be implemented soon:) ");
+                    System.out.println("Update client: ");
+                    crs.updateClient(getClientFrom(keyboard));
                     break;
                 case 4:
                     printAllClients();
@@ -178,6 +179,8 @@ public class UI {
             }
         }
     }
+
+
 
     /**
      * Method that runs the Movies MainMenu.
@@ -199,10 +202,15 @@ public class UI {
                     crs.addMovie(getMovieFrom(keyboard));
                     break;
                 case 2:
-                    System.out.println("Feature to be implemented soon :) ");
+                    System.out.println("Remove a movie: ");
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("ID: ");
+                    Integer ID = scanner.nextInt();
+                    crs.deleteMovie(ID);
                     break;
                 case 3:
-                    System.out.println("Feature to be implemented soon  :) ");
+                    System.out.println("Update a movie: ");
+                    crs.updateMovie(getMovieFrom(keyboard));
                     break;
                 case 4:
                     printAllMovies();
@@ -213,6 +221,7 @@ public class UI {
             }
         }
     }
+
 
     /**
      * Method that runs the Rentals MainMenu.

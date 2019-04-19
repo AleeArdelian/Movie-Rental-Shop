@@ -1,16 +1,22 @@
 package domain;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 /**
  * Client class for holding information about a client.
  * The information about a client is it's first name, last name and age.
  * Extends BaseEntity class.
  */
-public class Client extends BaseEntity<Integer> {
 
+@Entity
+public class Client extends BaseEntity<Integer> {
     private String firstName;
     private String lastName;
     private int age;
 
+    public Client() {
+
+    }
     /**
      * Constructor for a client.
      * @param firstName a {@code String} representing the first name of the client.
@@ -27,6 +33,7 @@ public class Client extends BaseEntity<Integer> {
      * Gets the first name of the client.
      * @return a {@code String} which is the first name of the client.
      */
+
     public String getFirstName() {
         return firstName;
     }
@@ -43,6 +50,7 @@ public class Client extends BaseEntity<Integer> {
      * Gets the last name of the client.
      * @return a {@code String} which is the last name of the client.
      */
+
     public String getLastName() {
         return lastName;
     }
@@ -77,6 +85,7 @@ public class Client extends BaseEntity<Integer> {
      */
     public String toString()
     {
+        //return "Client id:" + getId() + " Last name: " + lastName + " First name: " + firstName + " Age: " + age;
         return getId() + " " + lastName + " " + firstName + " " + age;
     }
 

@@ -3,7 +3,6 @@ package domain.validators;
 import domain.Client;
 
 
-
 /**
  * ClientValidator class for validating data about a client.
  * Implements Validator interface.
