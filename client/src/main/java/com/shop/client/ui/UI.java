@@ -1,12 +1,12 @@
-package ui;
+package com.shop.client.ui;
 
-import domain.Client;
-import domain.Movie;
-import domain.validators.ValidatorException;
+import com.shop.core.model.Client;
+import com.shop.core.model.Movie;
+import com.shop.core.model.validators.ValidatorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import service.ClientRentalService;
-import service.ClientService;
+import com.shop.core.service.ClientRentalService;
+import com.shop.core.service.ClientService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
