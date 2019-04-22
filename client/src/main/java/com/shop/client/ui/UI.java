@@ -5,7 +5,6 @@ import com.shop.core.model.Movie;
 import com.shop.core.model.validators.ValidatorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.shop.core.service.ClientRentalService;
 import com.shop.core.service.ClientService;
 
 import java.io.BufferedReader;
@@ -20,6 +19,7 @@ import java.util.Set;
  */
 @Component
 public class UI {
+
     @Autowired
     ClientService crs;
 
@@ -256,7 +256,7 @@ public class UI {
      * Prints the Main MainMenu and loops until the user chooses to exit the application.
      * @throws IOException if there are problems with getting the input from System.in.
      */
-    public void runMainMenu() throws IOException, ValidatorException{
+    public void runMainMenu() {
         boolean running = true;
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
         while (running) {
@@ -282,6 +282,8 @@ public class UI {
                 }
             } catch (ValidatorException val) {
                 System.out.println(val.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

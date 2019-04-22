@@ -1,4 +1,5 @@
 rootProject.name = 'Laborator_8'
 include 'core'
 include 'client'
+include 'web'
 
