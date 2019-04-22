@@ -2,8 +2,6 @@ package ui;
 
 import service.ClientRentalService;
 
-import java.io.IOException;
-
 public class MainMenu extends AbstractMenu {
 
     private AbstractMenu clientsMenu;

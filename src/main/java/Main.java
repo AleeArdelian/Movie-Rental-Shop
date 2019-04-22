@@ -1,5 +1,4 @@
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.data.repository.NoRepositoryBean;
 import ui.UI;
 
 import java.io.IOException;
@@ -10,7 +9,7 @@ public class Main {
 
         AnnotationConfigApplicationContext context=
                 new AnnotationConfigApplicationContext(
-                        "config"
+                        "com/shop/core/config"
                 );
 
         UI ui = context.getBean(UI.class);

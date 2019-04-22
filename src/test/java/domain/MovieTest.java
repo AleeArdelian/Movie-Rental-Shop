@@ -4,9 +4,6 @@ import domain.validators.ValidatorException;
 import org.junit.Before;
 import org.junit.Test;
 
-
-import static org.junit.Assert.*;
-
 /**
  * Tests for Movie class
  */
