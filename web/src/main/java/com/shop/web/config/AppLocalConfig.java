@@ -12,11 +12,6 @@ import com.shop.core.config.JPAConfig;
 })
 public class AppLocalConfig {
 
-    /**
-     * Enables placeholders usage with SpEL expressions.
-     *
-     * @return
-     */
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();

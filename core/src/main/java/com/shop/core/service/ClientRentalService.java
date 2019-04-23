@@ -2,16 +2,15 @@ package com.shop.core.service;
 
 import com.shop.core.model.Client;
 import com.shop.core.model.Movie;
-
 import com.shop.core.model.validators.ValidatorException;
+import com.shop.core.repository.ClientRepository;
+import com.shop.core.repository.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.shop.core.repository.ClientRepository;
-import com.shop.core.repository.MovieRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
