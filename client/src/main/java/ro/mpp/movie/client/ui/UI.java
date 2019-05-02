@@ -3,9 +3,11 @@ package ro.mpp.movie.client.ui;
 import ro.mpp.movie.core.model.Client;
 import ro.mpp.movie.core.model.Movie;
 import ro.mpp.movie.core.model.validators.ValidatorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 import ro.mpp.movie.web.dto.ClientDto;
 import ro.mpp.movie.web.dto.ClientsDto;
 import ro.mpp.movie.web.dto.MovieDto;
