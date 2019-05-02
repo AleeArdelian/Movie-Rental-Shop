@@ -25,7 +25,7 @@ public class MovieConverter extends BaseConverter<Movie, MovieDto> {
                 .yearOfRelease(movie.getYearOfRelease())
                 .director(movie.getDirector())
                 .build();
-        movie.setId(movie.getId());
+        moviedto.setId(movie.getId());
         return moviedto;
     }
 

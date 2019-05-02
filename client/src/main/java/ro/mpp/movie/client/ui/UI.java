@@ -153,7 +153,6 @@ public class UI {
                 .director(director)
                 .build();
         movie.setId(id);
-
         return movie;
     }
 
