@@ -1,5 +1,5 @@
-rootProject.name = 'Laborator_8'
+rootProject.name = 'movie-shop'
+include 'web'
 include 'core'
 include 'client'
-include 'web'
 
