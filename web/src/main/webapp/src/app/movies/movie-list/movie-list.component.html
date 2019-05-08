@@ -1,0 +1,16 @@
+<h1>Movies</h1>
+<ol class="movies">
+  <li *ngFor="let movie of movies"
+  [class.selected]="movie == selectedMovie"
+  (click)="onSelect(movie)">
+    {{movie.movieName}}
+  </li>
+</ol>
+
+<div *ngIf="selectedMovie">
+  <h2>
+    {{selectedMovie.movieName}} with id {{selectedMovie.id}} was selected
+  </h2>
+  <button (click)="goToDetail()">View Details</button>
+  <button (click)="remove()"> Remove movie </button>
+</div>

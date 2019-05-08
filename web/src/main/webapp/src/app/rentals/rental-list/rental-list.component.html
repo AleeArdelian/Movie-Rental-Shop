@@ -1,0 +1,17 @@
+<h1>Rentals</h1>
+<ol class="rentals">
+  <li *ngFor="let rental of rentals"
+      [class.selected]="rental == selectedRental"
+      (click)="onSelect(rental)">
+   Rental with client id {{rental.clientId}} and movie id {{rental.movieId}}
+  </li>
+</ol>
+
+<div *ngIf="selectedRental">
+  <h2>
+    Rental with client {{selectedRental.clientId}} and movie {{selectedRental.movieId}} was selected
+  </h2>
+  <button (click)="goToDetail()">View Details</button>
+  <button (click)="remove()"> Remove rental </button>
+</div>
+

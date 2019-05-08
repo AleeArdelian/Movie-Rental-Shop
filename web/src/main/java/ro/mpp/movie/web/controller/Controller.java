@@ -8,15 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.mpp.movie.core.model.Client;
 import ro.mpp.movie.core.model.Movie;
+import ro.mpp.movie.core.model.Rental;
 import ro.mpp.movie.core.service.ClientService;
 import ro.mpp.movie.web.converter.ClientConverter;
 import ro.mpp.movie.web.converter.MovieConverter;
 
-import ro.mpp.movie.web.dto.ClientDto;
-import ro.mpp.movie.web.dto.ClientsDto;
-import ro.mpp.movie.web.dto.MovieDto;
-import ro.mpp.movie.web.dto.MoviesDto;
+import ro.mpp.movie.web.converter.RentalConverter;
+import ro.mpp.movie.web.dto.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -34,22 +35,26 @@ public class Controller {
     @Autowired
     private MovieConverter movieConverter;
 
+    @Autowired
+    private RentalConverter rentalConverter;
+
+
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
-    ClientsDto getAllClients() {
-        //log.trace("getAllClients --- method entered");
-        Set<Client> clients = clientService.getAllClients();
-        Set<ClientDto> dtos = clientConverter.convertModelsToDtos(clients);
-        ClientsDto result = new ClientsDto(dtos);
-        //log.trace("getAllClients: result={}", result);
-        return result;
+    public List<ClientDto> getAllClients() {
+        log.trace("getAllClients --- method entered");
+
+        List<Client> clients = clientService.getAllClients();
+
+        log.trace("getAllClients: result={}", clients);
+        return new ArrayList<>(clientConverter.convertModelsToDtos(clients));
     }
 
     @RequestMapping(value = "/clients", method = RequestMethod.POST)
     ClientDto addClient(@RequestBody ClientDto dto) {
-        //log.trace("addClient: dto={}", dto);
+        log.trace("addClient: dto={}", dto);
         Client saved = this.clientService.addClient(clientConverter.convertDtoToModel(dto));
         ClientDto result = clientConverter.convertModelToDto(saved);
-        //log.trace("addClientt: result={}", result);
+        log.trace("addClientt: result={}", result);
         return result;
     }
 
@@ -73,13 +78,13 @@ public class Controller {
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
-    MoviesDto getAllMovies() {
+    public List<MovieDto> getAllMovies() {
         log.trace("getAllMovies --- method entered");
-        Set<Movie> movies = clientService.getAllMovies();
-        Set<MovieDto> dtos = movieConverter.convertModelsToDtos(movies);
-        MoviesDto result = new MoviesDto(dtos);
-        log.trace("getAllMovies: result={}", result);
-        return result;
+
+        List<Movie> movies = clientService.getAllMovies();
+
+        log.trace("getAllMovies: result={}", movies);
+        return new ArrayList<>(movieConverter.convertModelsToDtos(movies));
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.POST)
@@ -110,4 +115,31 @@ public class Controller {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/rentals", method = RequestMethod.GET)
+    public List<RentalDto> getAllRentals() {
+        log.trace("getAllRentals--- method entered");
+
+        List<Rental> rentals = clientService.getAllRentals();
+
+        log.trace("getAllRentals: result={}", rentals);
+        return new ArrayList<>(rentalConverter.convertModelsToDtos(rentals));
+    }
+
+    @RequestMapping(value = "/rentals", method = RequestMethod.POST)
+    RentalDto addRental(@RequestBody RentalDto dto) {
+        log.trace("addRental: dto={}", dto);
+        Rental saved = this.clientService.addRental(rentalConverter.convertDtoToModel(dto));
+        RentalDto result = rentalConverter.convertModelToDto(saved);
+        log.trace("addRental: result={}", result);
+        return result;
+    }
+
+
+    @RequestMapping(value = "/rentals/{id}", method = RequestMethod.DELETE)
+    ResponseEntity<?> deleteRental(@PathVariable Integer id) {
+        log.trace("deleteRental: id={}", id);
+        clientService.deleteRental(id);
+        log.trace("deleteRental --- method finished");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

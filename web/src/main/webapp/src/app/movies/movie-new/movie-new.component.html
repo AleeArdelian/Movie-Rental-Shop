@@ -1,0 +1,15 @@
+<div>
+  <label>Movie name: </label>
+  <input #movieName><br>
+
+  <label>Year of release: </label>
+  <input #year><br>
+
+  <label>Director: </label>
+  <input #director><br>
+</div>
+
+<div>
+  <button (click)="save(movieName.value,year.value,director.value)">Save
+  </button>
+</div>

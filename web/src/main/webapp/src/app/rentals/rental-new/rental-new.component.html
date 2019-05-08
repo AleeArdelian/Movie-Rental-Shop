@@ -1,0 +1,13 @@
+<div>
+  <label>Client id: </label>
+  <input #clientId><br>
+
+  <label>Movie id: </label>
+  <input #movieId><br>
+
+</div>
+
+<div>
+  <button (click)="save(clientId.value,movieId.value)">Save
+  </button>
+</div>

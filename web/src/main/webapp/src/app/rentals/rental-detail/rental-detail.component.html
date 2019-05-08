@@ -1,0 +1,10 @@
+<div *ngIf="rental">
+  <h2>Rental details</h2>
+  <div>
+    <label>Rental date: </label> {{rental.rentalDate}}
+  </div>
+  <div>
+    <label>Return date: </label> {{rental.returnDate}}
+  </div>
+  <button (click)="goBack()">Back</button>
+</div>

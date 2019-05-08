@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.mpp.movie.core.model.Client;
 import ro.mpp.movie.core.model.Movie;
+import ro.mpp.movie.core.model.Rental;
 import ro.mpp.movie.core.model.validators.ValidatorException;
 import ro.mpp.movie.core.repository.ClientRepository;
 import ro.mpp.movie.core.repository.MovieRepository;
 import ro.mpp.movie.core.repository.RentalRepository;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -135,12 +138,12 @@ public class ClientRentalService implements ClientService {
      * @return a {@code Set} of all clients.
      */
     @Override
-    public Set<Client> getAllClients() {
+    public List<Client> getAllClients() {
         log.trace("getAllClients --- method entered");
-        Iterable<Client> clients = clientRepository.findAll();
-        Set<Client> result = StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
-        log.trace("getAllClients: result={}", result);
-        return result;
+        List<Client> clients = clientRepository.findAll();
+        //Set<Client> result = StreamSupport.stream(clients.spliterator(), false).collect(Collectors.toSet());
+        log.trace("getAllClients: result={}", clients);
+        return clients;
     }
 
 
@@ -170,23 +173,23 @@ public class ClientRentalService implements ClientService {
      * @return a {@code Set} of all movies.
      */
     @Override
-    public Set<Movie> getAllMovies()
+    public List<Movie> getAllMovies()
     {
         log.trace("getAllMovies --- method entered");
-        Iterable<Movie> movies = movieRepository.findAll();
-        Set<Movie> result =  StreamSupport.stream(movies.spliterator(), false).collect(Collectors.toSet());
-        log.trace("getAllClients: result={}", result);
-        return result;
+        List<Movie> movies = movieRepository.findAll();
+//        Set<Movie> result =  StreamSupport.stream(movies.spliterator(), false).collect(Collectors.toSet());
+        log.trace("getAllClients: result={}", movies);
+        return movies;
     }
 
-//    @Override
-//    public Rental addRental(Rental rental) {
-//        log.trace("addRental: rental={}", rental);
-//        rentalRepository.save(rental);//.orElseThrow(() -> new RuntimeException("Client ID already exists."));
-//        log.trace("addRental --- method finished");
-//        return rental;
-//    }
-//
+    @Override
+    public Rental addRental(Rental rental) {
+        log.trace("addRental: rental={}", rental);
+        rentalRepository.save(rental);//.orElseThrow(() -> new RuntimeException("Client ID already exists."));
+        log.trace("addRental --- method finished");
+        return rental;
+    }
+
 //    @Override
 //    public Rental updateRental(Integer id, Rental rental) {
 //        log.trace("updateRental --- method entered");
@@ -204,38 +207,38 @@ public class ClientRentalService implements ClientService {
 //        return foundRental.get();
 //    }
 //
-//    @Override
-//    public Rental deleteRental(Integer id) {
-//        log.trace("delete: id={}", id);
-//        Optional<Rental> found = rentalRepository.findById(id);
-//        Rental rental = null;
-//        if (found.isPresent()) {
-//            rental = found.get();
-//        }
-//        movieRepository.deleteById(id);//.orElseThrow(() -> new MovieNotFoundException("Movie ID was not found."));
-//        log.trace("deleteRental --- method finished");
-//        return rental;
-//    }
-//
-//    @Override
-//    public Set<Rental> getAllRentals() {
-//        log.trace("getAllRentals --- method entered");
-//        Iterable<Rental> rentals = rentalRepository.findAll();
-//        Set<Rental> result = StreamSupport.stream(rentals.spliterator(), false).collect(Collectors.toSet());
-//        log.trace("getAllRentals: result={}", result);
-//        return result;
-//    }
-
-    /**
-     * Gets all the movies from Movies repository sorted by Name.
-     * @return a {@code List} of all movies.
-     */
-    public List<Movie> getAllSortedMovies()
-    {
-        Iterable<Movie> movies = movieRepository.findAll();
-        return StreamSupport.stream(movies.spliterator(), false)
-                .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
+    @Override
+    public Rental deleteRental(Integer id) {
+        log.trace("delete: id={}", id);
+        Optional<Rental> found = rentalRepository.findById(id);
+        Rental rental = null;
+        if (found.isPresent()) {
+            rental = found.get();
+        }
+        rentalRepository.deleteById(id);//.orElseThrow(() -> new MovieNotFoundException("Movie ID was not found."));
+        log.trace("deleteRental --- method finished");
+        return rental;
     }
+
+    @Override
+    public List<Rental> getAllRentals() {
+        log.trace("getAllRentals --- method entered");
+        List<Rental> rentals = rentalRepository.findAll();
+        //Set<Rental> result = StreamSupport.stream(rentals.spliterator(), false).collect(Collectors.toSet());
+        log.trace("getAllRentals: result={}", rentals);
+        return rentals;
+    }
+
+//    /**
+//     * Gets all the movies from Movies repository sorted by Name.
+//     * @return a {@code List} of all movies.
+//     */
+//    public List<Movie> getAllSortedMovies()
+//    {
+//        Iterable<Movie> movies = movieRepository.findAll();
+//        return StreamSupport.stream(movies.spliterator(), false)
+//                .sorted(Comparator.comparing(Movie::getMovieName)).collect(Collectors.toList());
+//    }
 
 }
 

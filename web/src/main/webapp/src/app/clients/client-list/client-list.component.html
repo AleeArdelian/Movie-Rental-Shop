@@ -1,0 +1,16 @@
+<h1>Clients</h1>
+<ol class="clients">
+  <li *ngFor="let client of clients"
+      [class.selected]="client == selectedClient"
+      (click)="onSelect(client)">
+    {{client.firstName}}
+  </li>
+</ol>
+
+<div *ngIf="selectedClient">
+  <h2>
+    {{selectedClient.firstName}} with id {{selectedClient.id}} was selected
+  </h2>
+  <button (click)="goToDetail()">View Details</button>
+  <button (click)="remove()"> Remove client </button>
+</div>
